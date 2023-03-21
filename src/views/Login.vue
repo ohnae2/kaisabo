@@ -24,6 +24,9 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue';
 import { getUserLogin } from '../utils/api';
+import { useAlertStore } from '../store/store.alert';
+
+const alert = useAlertStore();
 
 interface LoginInfo {
   id: string;
@@ -44,7 +47,11 @@ const submitForm = () => {
   formData.append('remember', param.remember + '');
   
   getUserLogin(formData).then(res => {
-		console.log(res);
+    if(res.data && res.data.success) {
+      console.log(res.data)
+    } else {
+      alert.open({message: res.data.message});
+    }
 	});
 
 };

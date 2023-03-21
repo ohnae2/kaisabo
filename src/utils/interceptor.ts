@@ -1,7 +1,7 @@
 import axios, {AxiosInstance, AxiosError, AxiosResponse, AxiosRequestConfig} from 'axios';
 import { useLoadingStore } from '../store/store.loading';
 
-let baseURL = 'https://api2.e-bab.com';
+let baseURL = 'http://localhost:9995';
 
 if(import.meta.env.DEV) {
   // console.log('개발모드');

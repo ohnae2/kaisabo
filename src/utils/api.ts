@@ -10,7 +10,7 @@ const formHeaders = {
 
 export const getUserLogin = (formData:FormData) => {
     return interceptor({
-        url: '/auth/getCrsLogin',
+        url: '/auth/getUserLogin',
         data: formData,
         ...formHeaders
     });

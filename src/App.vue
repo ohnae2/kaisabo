@@ -1,16 +1,18 @@
 <template>
 	<v-loading v-if="loading.active" />
-	<v-alert />
+	<v-alert v-if="alert.active" :data="alert" />
     <router-view />
 </template>
 
 <script setup lang="ts">
 import vLoading from './components/Loading.vue';
 import vAlert from './components/Alert.vue';
-import { useRouter } from 'vue-router';
 import { useLoadingStore } from './store/store.loading';
+import { useAlertStore } from './store/store.alert';
+import { useRouter } from 'vue-router';
 
 const loading = useLoadingStore();
+const alert = useAlertStore();
 const router = useRouter();
 
 </script>
