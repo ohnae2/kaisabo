@@ -10,7 +10,7 @@ if(import.meta.env.DEV) {
 const loading = useLoadingStore();
 
 const service:AxiosInstance = axios.create({
-    timeout: 5000,
+    timeout: 20000,
     baseURL: baseURL,
 });
 

@@ -14,5 +14,5 @@ import vFooter from '../views/layout/Footer.vue';
 </script>
 
 <style scoped>
-#contents {padding:50px;}
+#contents {padding:60px 10px 20px 110px;}
 </style>

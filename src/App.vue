@@ -1,7 +1,9 @@
 <template>
-	<v-loading v-if="loading.active" />
-	<v-alert v-if="alert.active" :info="alert.info" />
-    <router-view />
+<v-loading v-if="loading.active" />
+<v-alert v-if="alert.active" :info="alert.info" />
+<div id="container">
+	<router-view />
+</div>
 </template>
 
 <script setup lang="ts">
@@ -16,5 +18,6 @@ const alert = useAlertStore();
 const router = useRouter();
 
 </script>
-<style>
+<style scoped>
+#container {width:100%; height:100%;}
 </style>
