@@ -8,4 +8,5 @@ git add -A
 git commit -m 'deploy'
 git remote add origin "https://github.com/kaisaohnae/kaisabo.git"
 git push -u --force origin main
+Remove-Item -Recurse -Force .git
 cd ..

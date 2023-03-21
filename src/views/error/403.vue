@@ -6,12 +6,11 @@ const count = ref(0)
 
 <template>
   <div id="error">
-    <h2>ERROR</h2>
-    <p>알수없는 오류가 발생했습니다.</p>
+    <h2>403 에러</h2>
+    <p>현재 페이지에 권한이 없습니다.</p>
     <p><router-link to="/">홈으로</router-link></p>
   </div>
 </template>
-
 
 <!-- eslint-disable prettier/prettier -->
 <style scoped>

@@ -1,9 +1,9 @@
 /* eslint-disable no-debugger */
-import { api } from '../../utils/api';
+import { formApi } from '../../utils/formApi';
 
 class UserService {
   async getUserLogin(formdata:FormData) {
-    const res = await api('/auth/getUserLogin', formdata, 'formdata');
+    const res = await formApi('/auth/getUserLogin', formdata);
     return res.data;
   }
 }

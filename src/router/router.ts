@@ -19,7 +19,7 @@ const routes: RouteRecordRaw[] = [
         component: () => import(/* webpackChunkName: "403" */ '../views/error/403.vue'),
     },
     {
-        path: '/404',
+        path: '/:pathMatch(.*)*',
         name: '404',
         meta: {
             title: '404',

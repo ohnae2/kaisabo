@@ -22,11 +22,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { reactive } from 'vue';
 import { useAlertStore } from '../store/store.alert';
 import { useAuthStore } from '../store/store.auth';
 import { useRouter } from 'vue-router';
-import { api } from '../utils/api';
 import UserService from '../service/auth/UserService';
 
 const alert = useAlertStore();
@@ -65,7 +64,6 @@ const submitForm = () => {
       console.log(err);
     },
   );
-
 };
 
 </script>

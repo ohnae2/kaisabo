@@ -17,7 +17,7 @@ const service:AxiosInstance = axios.create({
 service.interceptors.request.use(
     (request: AxiosRequestConfig) => {
         loading.start();
-        console.log("request" , request);
+        
         return request;
     },
     (error: AxiosError) => {
@@ -30,7 +30,6 @@ service.interceptors.request.use(
 service.interceptors.response.use(
     (response: AxiosResponse) => {
         loading.end();
-        console.log("response", response);
         if (response.status === 200) {
             return response;
         } else {

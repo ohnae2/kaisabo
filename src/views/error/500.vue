@@ -1,7 +1,7 @@
 <template>
   <div id="error">
-    <h2>404 NotFound</h2>
-    <p>페이지를 찾을 수 없습니다.</p>
+    <h2>Error</h2>
+    <p>알수 없는 에러가 발생했습니다.</p>
     <p><router-link to="/">홈으로</router-link></p>
   </div>
 </template>
