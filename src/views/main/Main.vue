@@ -1,5 +1,5 @@
 <template>
-  main
+  main1
 </template>
 
 <script setup lang="ts">

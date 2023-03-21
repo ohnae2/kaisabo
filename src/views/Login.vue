@@ -22,11 +22,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue';
+import { ref, reactive } from 'vue';
 import { getUserLogin } from '../utils/api';
 import { useAlertStore } from '../store/store.alert';
+import { useAuthStore } from '../store/store.auth';
+import { useRouter } from 'vue-router';
 
 const alert = useAlertStore();
+const auth = useAuthStore();
+const router = useRouter();
 
 interface LoginInfo {
   id: string;
@@ -35,7 +39,7 @@ interface LoginInfo {
 }
 
 const param = reactive<LoginInfo>({
-  id: 'admin1',
+  id: 'admin',
   password: '',
   remember: true,
 });
@@ -48,9 +52,11 @@ const submitForm = () => {
   
   getUserLogin(formData).then(res => {
     if(res.data && res.data.success) {
-      console.log(res.data)
+      auth.loginSuccess(res.data.data);
+      router.push('/');
     } else {
-      alert.open({message: res.data.message});
+      auth.loginFail();
+      alert.open({title: null, message: '(' + auth.count + ') ' + res.data.message});
     }
 	});
 

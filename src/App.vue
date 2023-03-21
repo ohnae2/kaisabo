@@ -1,6 +1,6 @@
 <template>
 	<v-loading v-if="loading.active" />
-	<v-alert v-if="alert.active" :data="alert" />
+	<v-alert v-if="alert.active" :info="alert.info" />
     <router-view />
 </template>
 

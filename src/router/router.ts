@@ -16,11 +16,19 @@ const routes: RouteRecordRaw[] = [
         meta: {
             title: '403',
         },
-        component: () => import(/* webpackChunkName: "403" */ '../views/error/Error.vue'),
+        component: () => import(/* webpackChunkName: "403" */ '../views/error/403.vue'),
+    },
+    {
+        path: '/404',
+        name: '404',
+        meta: {
+            title: '404',
+        },
+        component: () => import(/* webpackChunkName: "404" */ '../views/error/404.vue'),
     },
     {
         path: '/',
-        name: 'Home',
+        name: '',
         component: Home,
         children: [
             {
@@ -28,7 +36,7 @@ const routes: RouteRecordRaw[] = [
                 name: 'main',
                 meta: {
                     title: 'main',
-                    permiss: '1',
+                    auth: true,
                 },
                 component: () => import(/* webpackChunkName: "main" */ '../views/main/Main.vue'),
             },
@@ -36,8 +44,8 @@ const routes: RouteRecordRaw[] = [
                 path: '/sub',
                 name: 'sub',
                 meta: {
-                    title: 'SubMain',
-                    permiss: '1',
+                    title: 'sub',
+                    auth: true,
                 },
                 component: () => import(/* webpackChunkName: "SubMain" */ '../views/main/SubMain.vue'),
             },
@@ -52,11 +60,10 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     document.title = `${to.meta.title} | kaisa admin`;
-    const role = localStorage.getItem('userInfo');
-    //const permiss = usePermissStore();
-    if (!role && to.path !== '/login') {
+    const userInfo = sessionStorage.getItem('userInfo');
+    if (!userInfo && to.path !== '/login') {
         next('/login');
-    } else if (to.meta.permiss && !role) {
+    } else if (to.meta.auth && !userInfo) {
         next('/403');
     } else {
         next();

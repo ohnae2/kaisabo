@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 
+
 export const useAlertStore = defineStore('alert', {
   state : () => ({ 
     active: false,
@@ -7,8 +8,9 @@ export const useAlertStore = defineStore('alert', {
   }),
 	actions: {
 		open(info:object) {
-			this.active = true;
-      this.info = info;
+      let $scope = this;
+			$scope.active = true;
+      $scope.info = info;
 		},
     close() {
 			this.active = false;

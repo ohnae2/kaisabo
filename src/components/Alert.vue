@@ -1,24 +1,44 @@
 <template>
-  <div id="alert">
-    <h3>{{ alert.info.title }}</h3>
-    <div>{{ alert.info.message }}</div>
+  <div id="alertWrap" v-if="info">
+    <div id="alert">
+      <h3>{{ info.title }}</h3>
+      <div>
+        <p>{{ info.message }}</p>
+      </div>
+      <div class="btnWrap">
+        <button type="button" @click="closeAlert">확인</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useAlertStore } from '../store/store.alert';
 
-const alert = defineProps({
-  alert: Object,
+const alert = useAlertStore();
+
+interface Info {
+  title: string;
+  message: string;
+}
+defineProps({
+  info: {
+    type: Object,
+    required: true,
+    validator: (value) => {
+      const info = value as Info;
+      return true;
+    },
+  },
 });
+const closeAlert = function(){
+  alert.close();
+}
 
 </script>
 <style>
-#alert {animation-duration:4s; right:5%; top:0%; animation-name:alert; opacity:0; z-index:9000; box-shadow:0 0 5px rgba(0,0,0,0.3); background:#ffb8b8; color:#000; width:90%; text-align:center; position:fixed; padding:20px 30px; border-radius:10px; overflow:hidden;}
+#alertWrap {width:100%; z-index:9000; height:100%; background:rgba(0,0,0,0.3); position:fixed; left:0; top:0;}
+#alert {position:fixed; z-index:9001; padding:20px 30px; width:70%; left:15%; top:30%; border-radius:5px; box-shadow:0 0 5px rgba(0,0,0,0.3); background:#fff; color:#000; text-align:center; overflow:hidden;}
+#alert p {padding:20px;}
 #alert.green {background-color:#9ef0c0;}
-@keyframes alert {
-  0%   {opacity:0; top:0%;}
-  25%  {opacity:1; top:5%;}
-  75%  {opacity:1; top:5%;}
-  100% {opacity:0; top:0%;}
-}
 </style>
