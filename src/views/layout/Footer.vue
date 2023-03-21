@@ -1,15 +1,8 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const count = ref(0)
-</script>
-
 <template>
-  footer
+  <div id="footer">copyright (c) kaisa</div>
 </template>
-
+<script setup lang="ts">
+</script>
 <style scoped>
-.read-the-docs {
-  color: #888;
-}
+#footer {font-size:11px; position:fixed; right:10px; bottom:5px;}
 </style>

@@ -23,10 +23,11 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import { getUserLogin } from '../utils/api';
 import { useAlertStore } from '../store/store.alert';
 import { useAuthStore } from '../store/store.auth';
 import { useRouter } from 'vue-router';
+import { api } from '../utils/api';
+import UserService from '../service/auth/UserService';
 
 const alert = useAlertStore();
 const auth = useAuthStore();
@@ -50,17 +51,23 @@ const submitForm = () => {
   formData.append('password', param.password);
   formData.append('remember', param.remember + '');
   
-  getUserLogin(formData).then(res => {
-    if(res.data && res.data.success) {
-      auth.loginSuccess(res.data.data);
-      router.push('/');
-    } else {
-      auth.loginFail();
-      alert.open({title: null, message: '(' + auth.count + ') ' + res.data.message});
-    }
-	});
+  UserService.getUserLogin(formData).then(
+    (res) => {
+      if(res && res.success) {
+        auth.loginSuccess(res.data);
+        router.push('/');
+      } else {
+        auth.loginFail();
+        alert.open({title: null, message: '(' + auth.count + ') ' + res.message});
+      }
+    },
+    (err) => {
+      console.log(err);
+    },
+  );
 
 };
+
 </script>
 
 <style scoped>

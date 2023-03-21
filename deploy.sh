@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 npm run build
 cd dist
-Remove-Item -Recurse -Force .git
 echo 'bo.kaisa.co.kr' > CNAME
 git init
 git checkout -b main

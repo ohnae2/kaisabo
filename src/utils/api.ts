@@ -8,10 +8,20 @@ const formHeaders = {
     withCredentials: false,
 }
 
-export const getUserLogin = (formData:FormData) => {
+const jsonHeaders = {
+    method: 'post',
+    headers: { 
+        'Content-Type': 'application/json' 
+    },
+    withCredentials: false,
+}
+
+export const api = (url:any, apiData?:any, headers?:string) => {
+    let apiUrl = url;
+    let apiHeaders = (headers === 'formdata' ? formHeaders : jsonHeaders);
     return interceptor({
-        url: '/auth/getUserLogin',
-        data: formData,
-        ...formHeaders
+        url: apiUrl,
+        data: apiData,
+        ...apiHeaders
     });
 };

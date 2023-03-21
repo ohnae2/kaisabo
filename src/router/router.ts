@@ -47,7 +47,7 @@ const routes: RouteRecordRaw[] = [
                     title: 'sub',
                     auth: true,
                 },
-                component: () => import(/* webpackChunkName: "SubMain" */ '../views/main/SubMain.vue'),
+                component: () => import(/* webpackChunkName: "sub" */ '../views/main/SubMain.vue'),
             },
         ],
     },
@@ -59,12 +59,14 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    document.title = `${to.meta.title} | kaisa admin`;
-    const userInfo = sessionStorage.getItem('userInfo');
-    if (!userInfo && to.path !== '/login') {
+    document.title = `kaisa ${to.meta.title}`;
+    const isUser = (sessionStorage.getItem('userInfo') && sessionStorage.getItem('codeList') && sessionStorage.getItem('menuList') && sessionStorage.getItem('token'));
+    if (!isUser && to.path !== '/login') {
         next('/login');
-    } else if (to.meta.auth && !userInfo) {
+    } else if (to.meta.auth && !isUser) {
         next('/403');
+    } else if (to.path === '/') {
+        next('/main');
     } else {
         next();
     }
