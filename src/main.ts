@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router/router';
+import tuiGrid from 'vue3-tui-grid';
 
 import './assets/css/reset.css';
 import './assets/css/common.css';
@@ -18,6 +19,7 @@ jsonInterceptors();*/
 const store = createPinia();
 const app = createApp(App);
 
+app.use(tuiGrid);
 app.use(router);
 app.use(store);
 app.mount('#app');

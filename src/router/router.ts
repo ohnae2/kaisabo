@@ -41,13 +41,22 @@ const routes: RouteRecordRaw[] = [
                 component: () => import(/* webpackChunkName: "main" */ '../views/main/Main.vue'),
             },
             {
-                path: '/sub',
-                name: 'sub',
+                path: '/bs/code',
+                name: 'code',
                 meta: {
-                    title: 'sub',
+                    title: 'code',
                     auth: true,
                 },
-                component: () => import(/* webpackChunkName: "sub" */ '../views/main/SubMain.vue'),
+                component: () => import(/* webpackChunkName: "sub" */ '../views/bs/Code.vue'),
+            },
+            {
+                path: '/bs/test',
+                name: 'test',
+                meta: {
+                    title: 'test',
+                    auth: true,
+                },
+                component: () => import(/* webpackChunkName: "sub" */ '../views/bs/Test.vue'),
             },
         ],
     },
