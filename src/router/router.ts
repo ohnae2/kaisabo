@@ -8,7 +8,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
             title: 'login',
         },
-        component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
+        component: () => import('../views/Login.vue'),
     },
     {
         path: '/403',
@@ -16,7 +16,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
             title: '403',
         },
-        component: () => import(/* webpackChunkName: "403" */ '../views/error/403.vue'),
+        component: () => import('../views/error/403.vue'),
     },
     {
         path: '/:pathMatch(.*)*',
@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
             title: '404',
         },
-        component: () => import(/* webpackChunkName: "404" */ '../views/error/404.vue'),
+        component: () => import('../views/error/404.vue'),
     },
     {
         path: '/',
@@ -38,26 +38,9 @@ const routes: RouteRecordRaw[] = [
                     title: 'main',
                     auth: true,
                 },
-                component: () => import(/* webpackChunkName: "main" */ '../views/main/Main.vue'),
+                component: () => import('../views/main/Main.vue'),
             },
-            {
-                path: '/bs/code',
-                name: 'code',
-                meta: {
-                    title: 'code',
-                    auth: true,
-                },
-                component: () => import(/* webpackChunkName: "sub" */ '../views/bs/Code.vue'),
-            },
-            {
-                path: '/bs/test',
-                name: 'test',
-                meta: {
-                    title: 'test',
-                    auth: true,
-                },
-                component: () => import(/* webpackChunkName: "sub" */ '../views/bs/Test.vue'),
-            },
+            { path: '/bs/code', name: 'code', meta: { title: 'code', auth: true, }, component: () => import( '../views/bs/Code.vue'), },
         ],
     },
 ];

@@ -1,10 +1,11 @@
-/* eslint-disable no-debugger */
 import { jsonApi } from '../../utils/jsonApi';
+import { formApi } from '../../utils/formApi';
 
-class UserService {
+// comment
+class CodeService {
   async getCodeList() {
     const res = await jsonApi('/bo/getCodeList');
     return res.data;
   }
 }
-export default new UserService();
+export default new CodeService();
