@@ -11,13 +11,14 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
 
-const menuList = JSON.parse(sessionStorage.getItem('menuList') || '{}')
+const router = useRouter();
+const menuList = reactive(JSON.parse(sessionStorage.getItem('menuList') || '{}'))
 
 const clickLeftMenu = function(menu:any) {
-  console.log(menu);
+  router.push(menu.url);
 }
-console.log(location.hash);
 </script>
 
 <style scoped>
