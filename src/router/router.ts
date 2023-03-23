@@ -92,7 +92,17 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     document.title = `kaisa ${to.meta.title}`;
-    const isUser = (sessionStorage.getItem('userInfo') && sessionStorage.getItem('codeList') && sessionStorage.getItem('menuList') && sessionStorage.getItem('token'));
+
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
+    const codeList = JSON.parse(sessionStorage.getItem('codeList') || '[]');
+    const menuList = JSON.parse(sessionStorage.getItem('menuList') || '[]');
+
+    const isUser = (
+           userInfo.cmpId
+        && codeList.length > 0
+        && menuList.length > 0
+        && sessionStorage.getItem('token')
+    );
     if (!isUser && to.path !== '/login') {
         next('/login');
     } else if (to.meta.auth && !isUser) {

@@ -20,15 +20,15 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 let sideMenu = reactive<any[]>([
-  {path: 'or', active: false, pathNm: '주문관리', menu: []},
-  {path: 'bs', active: false, pathNm: '기초관리', menu: []},
-  {path: 'cs', active: false, pathNm: '고객관리', menu: []},
-  {path: 'pr', active: false, pathNm: '상품관리', menu: []},
-  {path: 'mb', active: false, pathNm: '회원관리', menu: []},
-  {path: 'dp', active: false, pathNm: '전시관리', menu: []},
+  {path: 'or', active: true, pathNm: '주문관리', menu: []},
+  {path: 'bs', active: true, pathNm: '기초관리', menu: []},
+  {path: 'cs', active: true, pathNm: '고객관리', menu: []},
+  {path: 'pr', active: true, pathNm: '상품관리', menu: []},
+  {path: 'mb', active: true, pathNm: '회원관리', menu: []},
+  {path: 'dp', active: true, pathNm: '전시관리', menu: []},
 ]);
 
-const sessionMenu = <any[]>(JSON.parse(sessionStorage.getItem('menuList') || '{}'));
+const sessionMenu = <any[]>(JSON.parse(sessionStorage.getItem('menuList') || '[]'));
 
 for(let c of sideMenu) {
   for(let m of sessionMenu) {
@@ -51,7 +51,7 @@ const clickMenu = function(menu:any) {
 </script>
 
 <style scoped>
-#side {transition:0.3s all linear; width:200px; background:#333; border-right:1px solid #000; height:100%; position:absolute; z-index:200; overflow:auto; white-space:nowrap;}
+#side {transition:0.3s all linear; width:200px; background:#333; border-right:1px solid #000; height:100%; position:fixed; left:0; top:0; z-index:200; overflow:auto; white-space:nowrap;}
 #side .menu {width:200px; height:40px; overflow:hidden;}
 #side .menu.on {height:auto;}
 #side .menu h2 {padding:0 10px; color:#ddd; margin:0; height:40px; line-height:40px; cursor: pointer; border-bottom:1px dashed #555; }
