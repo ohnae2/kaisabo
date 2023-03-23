@@ -1,7 +1,7 @@
 <template>
   <div id="side">
     {{ data.path }}
-    <div class="menu" v-for="(side, i) in sideMenu" :key="i" v-bind:class="{'on': side.active }">
+    <div class="menu" v-for="(side, i) in sideMenu" :key="i" v-bind:class="{'on': side.active }" v-show="side.menu.length > 0">
       <h2 @click="clickCategory(side)">{{ side.pathNm }}</h2>
       <ul>
         <li v-for="(menu, idx) in side.menu" :key="idx" @click="clickMenu(menu)">
@@ -20,11 +20,11 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 let sideMenu = reactive<any[]>([
+  {path: 'or', active: false, pathNm: '주문관리', menu: []},
   {path: 'bs', active: false, pathNm: '기초관리', menu: []},
   {path: 'cs', active: false, pathNm: '고객관리', menu: []},
   {path: 'pr', active: false, pathNm: '상품관리', menu: []},
   {path: 'mb', active: false, pathNm: '회원관리', menu: []},
-  {path: 'or', active: false, pathNm: '주문관리', menu: []},
   {path: 'dp', active: false, pathNm: '전시관리', menu: []},
 ]);
 

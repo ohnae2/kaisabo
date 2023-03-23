@@ -29,6 +29,7 @@ onMounted(() => {
 			{header: 'mcnsCd', name: 'mcnsCd', editor: 'text'}, // 가맹점코드=ETC:기타
 			{header: 'note', name: 'note', editor: 'text'}, // 비고
 			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: 'payDt', name: 'payDt', editor: 'text'}, // 결제일시
 			{header: 'modId', name: 'modId'}, // 수정ID
 			{header: 'modDt', name: 'modDt'}, // 수정일시
 			{header: 'regId', name: 'regId'}, // 등록ID

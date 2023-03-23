@@ -22,13 +22,13 @@ onMounted(() => {
 			{header: 'lwrkMenuYn', name: 'lwrkMenuYn', editor: 'text'}, // 하위메뉴여부
 			{header: 'useYn', name: 'useYn', editor: 'text'}, // 사용여부
 			{header: 'dpth', name: 'dpth', editor: 'text'}, // 깊이
+			{header: 'iconCd', name: 'iconCd', editor: 'text'}, // 아이콘코드
 			{header: 'prir', name: 'prir', editor: 'text'}, // 우선순위
 			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
 			{header: 'modId', name: 'modId'}, // 수정ID
 			{header: 'modDt', name: 'modDt'}, // 수정일시
 			{header: 'regId', name: 'regId'}, // 등록ID
 			{header: 'regDt', name: 'regDt'}, // 등록일시
-			{header: 'iconCd', name: 'iconCd', editor: 'text'}, // 아이콘코드
 		],
 		scrollX: true,
 		scrollY: true,

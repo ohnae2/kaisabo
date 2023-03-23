@@ -39,7 +39,7 @@ interface LoginInfo {
 }
 
 const param = reactive<LoginInfo>({
-  id: 'admin',
+  id: '',
   password: '',
   remember: true,
 });

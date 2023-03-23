@@ -21,6 +21,7 @@ onMounted(() => {
 			{header: 'mbrId', name: 'mbrId', editor: 'text'}, // 회원ID
 			{header: 'mbrNm', name: 'mbrNm', editor: 'text'}, // 회원명
 			{header: 'telNo', name: 'telNo', editor: 'text'}, // 전화번호
+			{header: 'rsvDay', name: 'rsvDay', editor: 'text'}, // 예약일
 			{header: 'email', name: 'email', editor: 'text'}, // 이메일
 			{header: 'ordStatCd', name: 'ordStatCd', editor: 'text'}, // 주문상태코드=RSV:예약,PAYEND:결제완료,CNCL:취소,PAYCNCL:결제취소
 			{header: 'price', name: 'price', editor: 'text'}, // 요금

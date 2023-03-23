@@ -30,6 +30,7 @@ onMounted(() => {
 			{header: 'apprNo', name: 'apprNo', editor: 'text'}, // 승인번호
 			{header: 'note', name: 'note', editor: 'text'}, // 비고
 			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: 'cnclDt', name: 'cnclDt', editor: 'text'}, // 취소일시
 			{header: 'modId', name: 'modId'}, // 수정ID
 			{header: 'modDt', name: 'modDt'}, // 수정일시
 			{header: 'regId', name: 'regId'}, // 등록ID
