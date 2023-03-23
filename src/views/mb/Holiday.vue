@@ -1,13 +1,13 @@
 <template>
-	<div id="code">
+	<div id="holiday">
 		<div id="grid"></div>
 	</div>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue';
 import Grid from 'tui-grid';
-import CodeService from '../../service/bs/CodeService';
-// 코드
+import HolidayService from '../../service/mb/HolidayService';
+// 휴일
 const data = reactive({
 grid: {} as any, 
 });
@@ -15,15 +15,11 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-		{header: 'grpCd', name: 'grpCd', editor: 'text'}, // 그룹코드
-		{header: 'cd', name: 'cd', editor: 'text'}, // 코드
-		{header: 'cdNm', name: 'cdNm', editor: 'text'}, // 코드명
-		{header: 'ref1', name: 'ref1', editor: 'text'}, // 참조1
-		{header: 'ref2', name: 'ref2', editor: 'text'}, // 참조2
-		{header: 'ref3', name: 'ref3', editor: 'text'}, // 참조3
-		{header: 'note', name: 'note', editor: 'text'}, // 비고
-		{header: 'dsc', name: 'dsc', editor: 'text'}, // 설명
-		{header: 'prir', name: 'prir', editor: 'text'}, // 우선순위
+		{header: 'hld', name: 'hld', editor: 'text'}, // 휴일
+		{header: 'cmpId', name: 'cmpId', editor: 'text'}, // 업체ID
+		{header: 'hldNm', name: 'hldNm', editor: 'text'}, // 휴일명
+		{header: 'hldCd', name: 'hldCd', editor: 'text'}, // 휴일코드=HLD:휴일,SPD:특정일
+		{header: 'hldPrice', name: 'hldPrice', editor: 'text'}, // 휴일요금
 		{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
 		{header: 'modId', name: 'modId'}, // 수정ID
 		{header: 'modDt', name: 'modDt'}, // 수정일시
@@ -51,7 +47,7 @@ onMounted(() => {
 	});
 
 	const getList = function () {
-		CodeService.getCodeList().then(
+		HolidayService.getHolidayList().then(
 			(res) => {
 				let idx = 0;
 				for(let o of res.data) {
@@ -71,7 +67,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-#code {
+#holiday {
 width: 100%;
 }
 </style>

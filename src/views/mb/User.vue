@@ -1,13 +1,13 @@
 <template>
-	<div id="code">
+	<div id="user">
 		<div id="grid"></div>
 	</div>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue';
 import Grid from 'tui-grid';
-import CodeService from '../../service/bs/CodeService';
-// 코드
+import UserService from '../../service/mb/UserService';
+// 사용자
 const data = reactive({
 grid: {} as any, 
 });
@@ -15,15 +15,19 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-		{header: 'grpCd', name: 'grpCd', editor: 'text'}, // 그룹코드
-		{header: 'cd', name: 'cd', editor: 'text'}, // 코드
-		{header: 'cdNm', name: 'cdNm', editor: 'text'}, // 코드명
-		{header: 'ref1', name: 'ref1', editor: 'text'}, // 참조1
-		{header: 'ref2', name: 'ref2', editor: 'text'}, // 참조2
-		{header: 'ref3', name: 'ref3', editor: 'text'}, // 참조3
+		{header: 'usrId', name: 'usrId', editor: 'text'}, // 사용자ID
+		{header: 'cmpId', name: 'cmpId', editor: 'text'}, // 업체ID
+		{header: 'grpId', name: 'grpId', editor: 'text'}, // 그룹ID
+		{header: 'pwd', name: 'pwd', editor: 'text'}, // 비밀번호
+		{header: 'fileNo', name: 'fileNo', editor: 'text'}, // 파일번호
+		{header: 'nm', name: 'nm', editor: 'text'}, // 이름
+		{header: 'hpNo', name: 'hpNo', editor: 'text'}, // 휴대전화번호
+		{header: 'pwdRfsDt', name: 'pwdRfsDt', editor: 'text'}, // 비밀번호갱신일시
+		{header: 'usrStatCd', name: 'usrStatCd', editor: 'text'}, // 사용자상태코드=NOM:정상,STOP:정지,WTDW:탈퇴,CERT:인증
+		{header: 'email', name: 'email', editor: 'text'}, // 이메일
+		{header: 'lckYn', name: 'lckYn', editor: 'text'}, // 잠금여부
+		{header: 'flCnt', name: 'flCnt', editor: 'text'}, // 실패횟수
 		{header: 'note', name: 'note', editor: 'text'}, // 비고
-		{header: 'dsc', name: 'dsc', editor: 'text'}, // 설명
-		{header: 'prir', name: 'prir', editor: 'text'}, // 우선순위
 		{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
 		{header: 'modId', name: 'modId'}, // 수정ID
 		{header: 'modDt', name: 'modDt'}, // 수정일시
@@ -51,7 +55,7 @@ onMounted(() => {
 	});
 
 	const getList = function () {
-		CodeService.getCodeList().then(
+		UserService.getUserList().then(
 			(res) => {
 				let idx = 0;
 				for(let o of res.data) {
@@ -71,7 +75,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-#code {
+#user {
 width: 100%;
 }
 </style>

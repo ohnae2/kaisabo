@@ -1,0 +1,31 @@
+import { jsonApi } from '../../utils/jsonApi';
+import { formApi } from '../../utils/formApi';
+
+class CodeService {
+	async getFaqList(json?:any) { // FAQ 리스트 [CS_FAQ]
+		const res = await jsonApi('/bo/cs/getFaqList', JSON.parse(json));
+		return res.data;
+	}
+	async getFaq(json?:any) { // FAQ 상세조회 [CS_FAQ]
+		const res = await jsonApi('/bo/cs/getFaq', JSON.parse(json));
+		return res.data;
+	}
+	async setFaqList(json?:any) { // FAQ 리스트등록 [CS_FAQ]
+		const res = await jsonApi('/bo/cs/setFaqList', JSON.parse(json));
+		return res.data;
+	}
+	async insertFaq(json?:any) { // FAQ 등록 [CS_FAQ]
+		const res = await jsonApi('/bo/cs/insertFaq', JSON.parse(json));
+		return res.data;
+	}
+	async updateFaq(json?:any) { // FAQ 수정 [CS_FAQ]
+		const res = await jsonApi('/bo/cs/updateFaq', JSON.parse(json));
+		return res.data;
+	}
+	async deleteFaq(json?:any) { // FAQ 삭제 [CS_FAQ]
+		const res = await jsonApi('/bo/cs/getFaqList', JSON.parse(json));
+		return res.data;
+	}
+}
+export default new CodeService();
+
