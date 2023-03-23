@@ -15,34 +15,34 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-		{header: 'faqNo', name: 'faqNo', editor: 'text'}, // FAQ 번호
-		{header: 'cmpId', name: 'cmpId', editor: 'text'}, // 업체ID
-		{header: 'tit', name: 'tit', editor: 'text'}, // 제목
-		{header: 'cnts', name: 'cnts', editor: 'text'}, // 내용
-		{header: 'fileNo', name: 'fileNo', editor: 'text'}, // 파일번호
-		{header: 'prir', name: 'prir', editor: 'text'}, // 우선순위
-		{header: 'useYn', name: 'useYn', editor: 'text'}, // 사용 여부
-		{header: 'strtDt', name: 'strtDt', editor: 'text'}, // 시작일시
-		{header: 'endDt', name: 'endDt', editor: 'text'}, // 종료일시
-		{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
-		{header: 'modId', name: 'modId'}, // 수정 ID
-		{header: 'modDt', name: 'modDt'}, // 수정 일시
-		{header: 'regId', name: 'regId'}, // 등록 ID
-		{header: 'regDt', name: 'regDt'}, // 등록 일시
+			{header: 'faqNo', name: 'faqNo', editor: 'text'}, // FAQ 번호
+			{header: 'cmpId', name: 'cmpId', editor: 'text'}, // 업체ID
+			{header: 'tit', name: 'tit', editor: 'text'}, // 제목
+			{header: 'cnts', name: 'cnts', editor: 'text'}, // 내용
+			{header: 'fileNo', name: 'fileNo', editor: 'text'}, // 파일번호
+			{header: 'prir', name: 'prir', editor: 'text'}, // 우선순위
+			{header: 'useYn', name: 'useYn', editor: 'text'}, // 사용 여부
+			{header: 'strtDt', name: 'strtDt', editor: 'text'}, // 시작일시
+			{header: 'endDt', name: 'endDt', editor: 'text'}, // 종료일시
+			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: 'modId', name: 'modId'}, // 수정 ID
+			{header: 'modDt', name: 'modDt'}, // 수정 일시
+			{header: 'regId', name: 'regId'}, // 등록 ID
+			{header: 'regDt', name: 'regDt'}, // 등록 일시
 		],
 		scrollX: true,
 		scrollY: true,
 		minBodyHeight: 200,
 		bodyHeight: 500,
 		columnOptions: {
-		resizable: true,
+			resizable: true,
 		},
 		minRowHeight : 40,
 		rowHeight : 40,
 		header : {
-		height: 40,
-	},
-});
+			height: 40,
+		},
+	});
 
 	data.grid?.on('click', function(e:any) {
 		if( e.columnName === 'cd') {
