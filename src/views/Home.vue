@@ -1,6 +1,5 @@
 <template>
   <v-header />
-  <v-side />
   <div id="contents">
     <router-view />
   </div>
@@ -8,7 +7,6 @@
   <v-footer />
 </template>
 <script setup lang="ts">
-import vSide from '../views/layout/Side.vue';
 import vHeader from '../views/layout/Header.vue';
 import vFooter from '../views/layout/Footer.vue';
 import { useSettingStore } from '../store/store.setting';
@@ -18,5 +16,5 @@ const setting = useSettingStore();
 </script>
 
 <style scoped>
-#contents {width:100%; height:100%; padding:60px 10px 20px 110px;}
+#contents {width:calc(100% - 210px); border:1px solid #ccc; height:calc(100% - 80px); position:absolute; right:0; bottom:0; overflow:auto;}
 </style>

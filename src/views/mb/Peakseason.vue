@@ -15,35 +15,35 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-			{header: 'cmpId', name: 'cmpId', editor: 'text'}, // 업체ID
-			{header: 'sdsnStrtDay', name: 'sdsnStrtDay', editor: 'text'}, // 준성수기시작일
-			{header: 'sdsnEndDay', name: 'sdsnEndDay', editor: 'text'}, // 준성수기종료일
-			{header: 'pksnStrtDay', name: 'pksnStrtDay', editor: 'text'}, // 성수기시작일
-			{header: 'pksnEndDay', name: 'pksnEndDay', editor: 'text'}, // 성수기종료일
-			{header: 'tksnStrtDay', name: 'tksnStrtDay', editor: 'text'}, // 극성수기시작일
-			{header: 'tksnEndDay', name: 'tksnEndDay', editor: 'text'}, // 극성수기종료일
-			{header: 'weekPrice', name: 'weekPrice', editor: 'text'}, // 주중요금
-			{header: 'friPrice', name: 'friPrice', editor: 'text'}, // 금요일요금
-			{header: 'wkedPrice', name: 'wkedPrice', editor: 'text'}, // 주말요금
-			{header: 'sdsnWeekPrice', name: 'sdsnWeekPrice', editor: 'text'}, // 준성수기주중요금
-			{header: 'sdsnFriPrice', name: 'sdsnFriPrice', editor: 'text'}, // 준성수기금요일요금
-			{header: 'sdsnWkedPrice', name: 'sdsnWkedPrice', editor: 'text'}, // 준성수기주말요금
-			{header: 'pksnWeekPrice', name: 'pksnWeekPrice', editor: 'text'}, // 성수기주중요금
-			{header: 'pksnFriPrice', name: 'pksnFriPrice', editor: 'text'}, // 성수기금요일요금
-			{header: 'pksnWkedPrice', name: 'pksnWkedPrice', editor: 'text'}, // 성수기주말요금
-			{header: 'tksnWeekPrice', name: 'tksnWeekPrice', editor: 'text'}, // 극성수기주중요금
-			{header: 'tksnFriPrice', name: 'tksnFriPrice', editor: 'text'}, // 극성수기금요일요금
-			{header: 'tksnWkedPrice', name: 'tksnWkedPrice', editor: 'text'}, // 극성수기주말요금
-			{header: 'psnelOverPrice', name: 'psnelOverPrice', editor: 'text'}, // 인원초과요금
-			{header: 'wwtPrice', name: 'wwtPrice', editor: 'text'}, // 온수요금
-			{header: 'bbqPrice', name: 'bbqPrice', editor: 'text'}, // 바베큐요금
-			{header: 'etcPrice', name: 'etcPrice', editor: 'text'}, // 기타요금
-			{header: 'note', name: 'note', editor: 'text'}, // 비고
-			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
-			{header: 'modId', name: 'modId'}, // 수정ID
-			{header: 'modDt', name: 'modDt'}, // 수정일시
-			{header: 'regId', name: 'regId'}, // 등록ID
-			{header: 'regDt', name: 'regDt'}, // 등록일시
+			{header: '업체ID', name: 'cmpId', editor: 'text'}, // 업체ID
+			{header: '준성수기시작일', name: 'sdsnStrtDay', editor: 'text'}, // 준성수기시작일
+			{header: '준성수기종료일', name: 'sdsnEndDay', editor: 'text'}, // 준성수기종료일
+			{header: '성수기시작일', name: 'pksnStrtDay', editor: 'text'}, // 성수기시작일
+			{header: '성수기종료일', name: 'pksnEndDay', editor: 'text'}, // 성수기종료일
+			{header: '극성수기시작일', name: 'tksnStrtDay', editor: 'text'}, // 극성수기시작일
+			{header: '극성수기종료일', name: 'tksnEndDay', editor: 'text'}, // 극성수기종료일
+			{header: '주중요금', name: 'weekPrice', editor: 'text'}, // 주중요금
+			{header: '금요일요금', name: 'friPrice', editor: 'text'}, // 금요일요금
+			{header: '주말요금', name: 'wkedPrice', editor: 'text'}, // 주말요금
+			{header: '준성수기주중요금', name: 'sdsnWeekPrice', editor: 'text'}, // 준성수기주중요금
+			{header: '준성수기금요일요금', name: 'sdsnFriPrice', editor: 'text'}, // 준성수기금요일요금
+			{header: '준성수기주말요금', name: 'sdsnWkedPrice', editor: 'text'}, // 준성수기주말요금
+			{header: '성수기주중요금', name: 'pksnWeekPrice', editor: 'text'}, // 성수기주중요금
+			{header: '성수기금요일요금', name: 'pksnFriPrice', editor: 'text'}, // 성수기금요일요금
+			{header: '성수기주말요금', name: 'pksnWkedPrice', editor: 'text'}, // 성수기주말요금
+			{header: '극성수기주중요금', name: 'tksnWeekPrice', editor: 'text'}, // 극성수기주중요금
+			{header: '극성수기금요일요금', name: 'tksnFriPrice', editor: 'text'}, // 극성수기금요일요금
+			{header: '극성수기주말요금', name: 'tksnWkedPrice', editor: 'text'}, // 극성수기주말요금
+			{header: '인원초과요금', name: 'psnelOverPrice', editor: 'text'}, // 인원초과요금
+			{header: '온수요금', name: 'wwtPrice', editor: 'text'}, // 온수요금
+			{header: '바베큐요금', name: 'bbqPrice', editor: 'text'}, // 바베큐요금
+			{header: '기타요금', name: 'etcPrice', editor: 'text'}, // 기타요금
+			{header: '비고', name: 'note', editor: 'text'}, // 비고
+			{header: '연동참조', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: '수정ID', name: 'modId'}, // 수정ID
+			{header: '수정일시', name: 'modDt'}, // 수정일시
+			{header: '등록ID', name: 'regId'}, // 등록ID
+			{header: '등록일시', name: 'regDt'}, // 등록일시
 		],
 		scrollX: true,
 		scrollY: true,

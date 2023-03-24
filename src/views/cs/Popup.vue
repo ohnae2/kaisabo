@@ -15,20 +15,20 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-			{header: 'popNo', name: 'popNo', editor: 'text'}, // 팝업번호
-			{header: 'cmpId', name: 'cmpId', editor: 'text'}, // 업체ID
-			{header: 'tit', name: 'tit', editor: 'text'}, // 제목
-			{header: 'cnts', name: 'cnts', editor: 'text'}, // 내용
-			{header: 'fileNo', name: 'fileNo', editor: 'text'}, // 파일번호
-			{header: 'prir', name: 'prir', editor: 'text'}, // 우선순위
-			{header: 'useYn', name: 'useYn', editor: 'text'}, // 사용 여부
-			{header: 'strtDt', name: 'strtDt', editor: 'text'}, // 시작일시
-			{header: 'endDt', name: 'endDt', editor: 'text'}, // 종료일시
-			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
-			{header: 'modId', name: 'modId'}, // 수정 ID
-			{header: 'modDt', name: 'modDt'}, // 수정 일시
-			{header: 'regId', name: 'regId'}, // 등록 ID
-			{header: 'regDt', name: 'regDt'}, // 등록 일시
+			{header: '팝업번호', name: 'popNo', editor: 'text'}, // 팝업번호
+			{header: '업체ID', name: 'cmpId', editor: 'text'}, // 업체ID
+			{header: '제목', name: 'tit', editor: 'text'}, // 제목
+			{header: '내용', name: 'cnts', editor: 'text'}, // 내용
+			{header: '파일번호', name: 'fileNo', editor: 'text'}, // 파일번호
+			{header: '우선순위', name: 'prir', editor: 'text'}, // 우선순위
+			{header: '사용 여부', name: 'useYn', editor: 'text'}, // 사용 여부
+			{header: '시작일시', name: 'strtDt', editor: 'text'}, // 시작일시
+			{header: '종료일시', name: 'endDt', editor: 'text'}, // 종료일시
+			{header: '연동참조', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: '수정 ID', name: 'modId'}, // 수정 ID
+			{header: '수정 일시', name: 'modDt'}, // 수정 일시
+			{header: '등록 ID', name: 'regId'}, // 등록 ID
+			{header: '등록 일시', name: 'regDt'}, // 등록 일시
 		],
 		scrollX: true,
 		scrollY: true,

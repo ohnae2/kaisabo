@@ -15,18 +15,18 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-			{header: 'cpnHistNo', name: 'cpnHistNo', editor: 'text'}, // 쿠폰이력번호
-			{header: 'mbrId', name: 'mbrId', editor: 'text'}, // 회원ID
-			{header: 'cmpId', name: 'cmpId', editor: 'text'}, // 업체ID
-			{header: 'cpnNo', name: 'cpnNo', editor: 'text'}, // 쿠폰번호
-			{header: 'cpnUseDt', name: 'cpnUseDt', editor: 'text'}, // 쿠폰사용일시
-			{header: 'useYn', name: 'useYn', editor: 'text'}, // 사용여부
-			{header: 'ordNo', name: 'ordNo', editor: 'text'}, // 주문번호
-			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
-			{header: 'modId', name: 'modId'}, // 수정ID
-			{header: 'modDt', name: 'modDt'}, // 수정일시
-			{header: 'regId', name: 'regId'}, // 등록ID
-			{header: 'regDt', name: 'regDt'}, // 등록일시
+			{header: '쿠폰이력번호', name: 'cpnHistNo', editor: 'text'}, // 쿠폰이력번호
+			{header: '회원ID', name: 'mbrId', editor: 'text'}, // 회원ID
+			{header: '업체ID', name: 'cmpId', editor: 'text'}, // 업체ID
+			{header: '쿠폰번호', name: 'cpnNo', editor: 'text'}, // 쿠폰번호
+			{header: '쿠폰사용일시', name: 'cpnUseDt', editor: 'text'}, // 쿠폰사용일시
+			{header: '사용여부', name: 'useYn', editor: 'text'}, // 사용여부
+			{header: '주문번호', name: 'ordNo', editor: 'text'}, // 주문번호
+			{header: '연동참조', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: '수정ID', name: 'modId'}, // 수정ID
+			{header: '수정일시', name: 'modDt'}, // 수정일시
+			{header: '등록ID', name: 'regId'}, // 등록ID
+			{header: '등록일시', name: 'regDt'}, // 등록일시
 		],
 		scrollX: true,
 		scrollY: true,

@@ -15,18 +15,18 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-			{header: 'brdCatNo', name: 'brdCatNo', editor: 'text'}, // 게시판분류번호
-			{header: 'hgrkCatNo', name: 'hgrkCatNo', editor: 'text'}, // 상위분류번호
-			{header: 'lwrkCatYn', name: 'lwrkCatYn', editor: 'text'}, // 하위분류여부
-			{header: 'catNm', name: 'catNm', editor: 'text'}, // 분류명
-			{header: 'useYn', name: 'useYn', editor: 'text'}, // 사용여부
-			{header: 'dpth', name: 'dpth', editor: 'text'}, // 깊이
-			{header: 'prir', name: 'prir', editor: 'text'}, // 우선순위
-			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
-			{header: 'modId', name: 'modId'}, // 수정ID
-			{header: 'modDt', name: 'modDt'}, // 수정일시
-			{header: 'regId', name: 'regId'}, // 등록ID
-			{header: 'regDt', name: 'regDt'}, // 등록일시
+			{header: '게시판분류번호', name: 'brdCatNo', editor: 'text'}, // 게시판분류번호
+			{header: '상위분류번호', name: 'hgrkCatNo', editor: 'text'}, // 상위분류번호
+			{header: '하위분류여부', name: 'lwrkCatYn', editor: 'text'}, // 하위분류여부
+			{header: '분류명', name: 'catNm', editor: 'text'}, // 분류명
+			{header: '사용여부', name: 'useYn', editor: 'text'}, // 사용여부
+			{header: '깊이', name: 'dpth', editor: 'text'}, // 깊이
+			{header: '우선순위', name: 'prir', editor: 'text'}, // 우선순위
+			{header: '연동참조', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: '수정ID', name: 'modId'}, // 수정ID
+			{header: '수정일시', name: 'modDt'}, // 수정일시
+			{header: '등록ID', name: 'regId'}, // 등록ID
+			{header: '등록일시', name: 'regDt'}, // 등록일시
 		],
 		scrollX: true,
 		scrollY: true,

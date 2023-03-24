@@ -15,17 +15,17 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-			{header: 'brdNo', name: 'brdNo', editor: 'text'}, // 게시판번호
-			{header: 'cmpId', name: 'cmpId', editor: 'text'}, // 업체ID
-			{header: 'brdCatNo', name: 'brdCatNo', editor: 'text'}, // 게시판분류번호
-			{header: 'tit', name: 'tit', editor: 'text'}, // 제목
-			{header: 'cnts', name: 'cnts', editor: 'text'}, // 내용
-			{header: 'fileNo', name: 'fileNo', editor: 'text'}, // 파일번호
-			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
-			{header: 'modId', name: 'modId'}, // 수정ID
-			{header: 'modDt', name: 'modDt'}, // 수정일시
-			{header: 'regId', name: 'regId'}, // 등록ID
-			{header: 'regDt', name: 'regDt'}, // 등록일시
+			{header: '게시판번호', name: 'brdNo', editor: 'text'}, // 게시판번호
+			{header: '업체ID', name: 'cmpId', editor: 'text'}, // 업체ID
+			{header: '게시판분류번호', name: 'brdCatNo', editor: 'text'}, // 게시판분류번호
+			{header: '제목', name: 'tit', editor: 'text'}, // 제목
+			{header: '내용', name: 'cnts', editor: 'text'}, // 내용
+			{header: '파일번호', name: 'fileNo', editor: 'text'}, // 파일번호
+			{header: '연동참조', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: '수정ID', name: 'modId'}, // 수정ID
+			{header: '수정일시', name: 'modDt'}, // 수정일시
+			{header: '등록ID', name: 'regId'}, // 등록ID
+			{header: '등록일시', name: 'regDt'}, // 등록일시
 		],
 		scrollX: true,
 		scrollY: true,

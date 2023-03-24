@@ -38,10 +38,12 @@ interface LoginInfo {
   remember: boolean;
 }
 
+const storageId = localStorage.getItem('id') || '';
+
 const param = reactive<LoginInfo>({
-  id: '',
+  id: storageId,
   password: '',
-  remember: true,
+  remember: (storageId) ? true : false,
 });
 
 const submitForm = () => {
@@ -49,6 +51,10 @@ const submitForm = () => {
   formData.append('id', param.id);
   formData.append('password', param.password);
   formData.append('remember', param.remember + '');
+
+  if(param.remember){
+    localStorage.setItem('id', param.id);
+  }
   
   UserService.getUserLogin(formData).then(
     (res) => {

@@ -15,20 +15,20 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-			{header: 'menuNo', name: 'menuNo', editor: 'text'}, // 메뉴번호
-			{header: 'hgrkMenuNo', name: 'hgrkMenuNo', editor: 'text'}, // 상위메뉴번호
-			{header: 'url', name: 'url', editor: 'text'}, // URL
-			{header: 'menuNm', name: 'menuNm', editor: 'text'}, // 메뉴명
-			{header: 'lwrkMenuYn', name: 'lwrkMenuYn', editor: 'text'}, // 하위메뉴여부
-			{header: 'useYn', name: 'useYn', editor: 'text'}, // 사용여부
-			{header: 'dpth', name: 'dpth', editor: 'text'}, // 깊이
-			{header: 'iconCd', name: 'iconCd', editor: 'text'}, // 아이콘코드
-			{header: 'prir', name: 'prir', editor: 'text'}, // 우선순위
-			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
-			{header: 'modId', name: 'modId'}, // 수정ID
-			{header: 'modDt', name: 'modDt'}, // 수정일시
-			{header: 'regId', name: 'regId'}, // 등록ID
-			{header: 'regDt', name: 'regDt'}, // 등록일시
+			{header: '메뉴번호', name: 'menuNo', editor: 'text'}, // 메뉴번호
+			{header: '상위메뉴번호', name: 'hgrkMenuNo', editor: 'text'}, // 상위메뉴번호
+			{header: 'URL', name: 'url', editor: 'text'}, // URL
+			{header: '메뉴명', name: 'menuNm', editor: 'text'}, // 메뉴명
+			{header: '하위메뉴여부', name: 'lwrkMenuYn', editor: 'text'}, // 하위메뉴여부
+			{header: '사용여부', name: 'useYn', editor: 'text'}, // 사용여부
+			{header: '깊이', name: 'dpth', editor: 'text'}, // 깊이
+			{header: '아이콘코드', name: 'iconCd', editor: 'text'}, // 아이콘코드
+			{header: '우선순위', name: 'prir', editor: 'text'}, // 우선순위
+			{header: '연동참조', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: '수정ID', name: 'modId'}, // 수정ID
+			{header: '수정일시', name: 'modDt'}, // 수정일시
+			{header: '등록ID', name: 'regId'}, // 등록ID
+			{header: '등록일시', name: 'regDt'}, // 등록일시
 		],
 		scrollX: true,
 		scrollY: true,

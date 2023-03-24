@@ -15,16 +15,16 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-			{header: 'btchNo', name: 'btchNo', editor: 'text'}, // 배치번호
-			{header: 'btchNm', name: 'btchNm', editor: 'text'}, // 배치명
-			{header: 'reqVal', name: 'reqVal', editor: 'text'}, // 요청값
-			{header: 'resVal', name: 'resVal', editor: 'text'}, // 응답값
-			{header: 'rsltCd', name: 'rsltCd', editor: 'text'}, // 결과코드=SCS:성공,ERR:오류,ETC:기타
-			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
-			{header: 'modId', name: 'modId'}, // 수정ID
-			{header: 'modDt', name: 'modDt'}, // 수정일시
-			{header: 'regId', name: 'regId'}, // 등록ID
-			{header: 'regDt', name: 'regDt'}, // 등록일시
+			{header: '배치번호', name: 'btchNo', editor: 'text'}, // 배치번호
+			{header: '배치명', name: 'btchNm', editor: 'text'}, // 배치명
+			{header: '요청값', name: 'reqVal', editor: 'text'}, // 요청값
+			{header: '응답값', name: 'resVal', editor: 'text'}, // 응답값
+			{header: '결과코드', name: 'rsltCd', editor: 'text'}, // 결과코드=SCS:성공,ERR:오류,ETC:기타
+			{header: '연동참조', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: '수정ID', name: 'modId'}, // 수정ID
+			{header: '수정일시', name: 'modDt'}, // 수정일시
+			{header: '등록ID', name: 'regId'}, // 등록ID
+			{header: '등록일시', name: 'regDt'}, // 등록일시
 		],
 		scrollX: true,
 		scrollY: true,

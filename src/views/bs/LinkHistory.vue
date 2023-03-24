@@ -15,17 +15,17 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-			{header: 'linkNo', name: 'linkNo', editor: 'text'}, // 연동번호
-			{header: 'linkNm', name: 'linkNm', editor: 'text'}, // 연동명
-			{header: 'reqUrl', name: 'reqUrl', editor: 'text'}, // 요청URL
-			{header: 'reqVal', name: 'reqVal', editor: 'text'}, // 요청값
-			{header: 'resVal', name: 'resVal', editor: 'text'}, // 응답값
-			{header: 'rsltCd', name: 'rsltCd', editor: 'text'}, // 결과코드=SCS:성공,ERR:오류,ETC:기타
-			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
-			{header: 'modId', name: 'modId'}, // 수정ID
-			{header: 'modDt', name: 'modDt'}, // 수정일시
-			{header: 'regId', name: 'regId'}, // 등록ID
-			{header: 'regDt', name: 'regDt'}, // 등록일시
+			{header: '연동번호', name: 'linkNo', editor: 'text'}, // 연동번호
+			{header: '연동명', name: 'linkNm', editor: 'text'}, // 연동명
+			{header: '요청URL', name: 'reqUrl', editor: 'text'}, // 요청URL
+			{header: '요청값', name: 'reqVal', editor: 'text'}, // 요청값
+			{header: '응답값', name: 'resVal', editor: 'text'}, // 응답값
+			{header: '결과코드', name: 'rsltCd', editor: 'text'}, // 결과코드=SCS:성공,ERR:오류,ETC:기타
+			{header: '연동참조', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: '수정ID', name: 'modId'}, // 수정ID
+			{header: '수정일시', name: 'modDt'}, // 수정일시
+			{header: '등록ID', name: 'regId'}, // 등록ID
+			{header: '등록일시', name: 'regDt'}, // 등록일시
 		],
 		scrollX: true,
 		scrollY: true,

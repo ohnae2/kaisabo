@@ -15,32 +15,32 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-			{header: 'ordNo', name: 'ordNo', editor: 'text'}, // 주문번호
-			{header: 'prodNo', name: 'prodNo', editor: 'text'}, // 상품번호
-			{header: 'cmpId', name: 'cmpId', editor: 'text'}, // 업체ID
-			{header: 'mbrId', name: 'mbrId', editor: 'text'}, // 회원ID
-			{header: 'mbrNm', name: 'mbrNm', editor: 'text'}, // 회원명
-			{header: 'telNo', name: 'telNo', editor: 'text'}, // 전화번호
-			{header: 'rsvDay', name: 'rsvDay', editor: 'text'}, // 예약일
-			{header: 'email', name: 'email', editor: 'text'}, // 이메일
-			{header: 'ordStatCd', name: 'ordStatCd', editor: 'text'}, // 주문상태코드=RSV:예약,PAYEND:결제완료,CNCL:취소,PAYCNCL:결제취소
-			{header: 'price', name: 'price', editor: 'text'}, // 요금
-			{header: 'addPrice', name: 'addPrice', editor: 'text'}, // 추가요금
-			{header: 'usePnt', name: 'usePnt', editor: 'text'}, // 사용포인트
-			{header: 'cpnNo', name: 'cpnNo', editor: 'text'}, // 쿠폰번호
-			{header: 'dcPrice', name: 'dcPrice', editor: 'text'}, // 할인요금
-			{header: 'psnelCnt', name: 'psnelCnt', editor: 'text'}, // 인원수
-			{header: 'addPsnelCnt', name: 'addPsnelCnt', editor: 'text'}, // 추가인원수
-			{header: 'wwtAddYn', name: 'wwtAddYn', editor: 'text'}, // 온수추가여부
-			{header: 'bbqAddYn', name: 'bbqAddYn', editor: 'text'}, // 바베큐추가여부
-			{header: 'pickupYn', name: 'pickupYn', editor: 'text'}, // 픽업여부
-			{header: 'rsvPathCd', name: 'rsvPathCd', editor: 'text'}, // 예약경로코드=NAVER:네이버,YANOLJA:야놀자,YEOGI:여기어때,ETC:기타
-			{header: 'note', name: 'note', editor: 'text'}, // 비고
-			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
-			{header: 'modId', name: 'modId'}, // 수정ID
-			{header: 'modDt', name: 'modDt'}, // 수정일시
-			{header: 'regId', name: 'regId'}, // 등록ID
-			{header: 'regDt', name: 'regDt'}, // 등록일시
+			{header: '주문번호', name: 'ordNo', editor: 'text'}, // 주문번호
+			{header: '상품번호', name: 'prodNo', editor: 'text'}, // 상품번호
+			{header: '업체ID', name: 'cmpId', editor: 'text'}, // 업체ID
+			{header: '회원ID', name: 'mbrId', editor: 'text'}, // 회원ID
+			{header: '회원명', name: 'mbrNm', editor: 'text'}, // 회원명
+			{header: '전화번호', name: 'telNo', editor: 'text'}, // 전화번호
+			{header: '예약일', name: 'rsvDay', editor: 'text'}, // 예약일
+			{header: '이메일', name: 'email', editor: 'text'}, // 이메일
+			{header: '주문상태코드', name: 'ordStatCd', editor: 'text'}, // 주문상태코드=RSV:예약,PAYEND:결제완료,CNCL:취소,PAYCNCL:결제취소
+			{header: '요금', name: 'price', editor: 'text'}, // 요금
+			{header: '추가요금', name: 'addPrice', editor: 'text'}, // 추가요금
+			{header: '사용포인트', name: 'usePnt', editor: 'text'}, // 사용포인트
+			{header: '쿠폰번호', name: 'cpnNo', editor: 'text'}, // 쿠폰번호
+			{header: '할인요금', name: 'dcPrice', editor: 'text'}, // 할인요금
+			{header: '인원수', name: 'psnelCnt', editor: 'text'}, // 인원수
+			{header: '추가인원수', name: 'addPsnelCnt', editor: 'text'}, // 추가인원수
+			{header: '온수추가여부', name: 'wwtAddYn', editor: 'text'}, // 온수추가여부
+			{header: '바베큐추가여부', name: 'bbqAddYn', editor: 'text'}, // 바베큐추가여부
+			{header: '픽업여부', name: 'pickupYn', editor: 'text'}, // 픽업여부
+			{header: '예약경로코드', name: 'rsvPathCd', editor: 'text'}, // 예약경로코드=NAVER:네이버,YANOLJA:야놀자,YEOGI:여기어때,ETC:기타
+			{header: '비고', name: 'note', editor: 'text'}, // 비고
+			{header: '연동참조', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: '수정ID', name: 'modId'}, // 수정ID
+			{header: '수정일시', name: 'modDt'}, // 수정일시
+			{header: '등록ID', name: 'regId'}, // 등록ID
+			{header: '등록일시', name: 'regDt'}, // 등록일시
 		],
 		scrollX: true,
 		scrollY: true,

@@ -15,25 +15,25 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-			{header: 'prodNo', name: 'prodNo', editor: 'text'}, // 상품번호
-			{header: 'cmpId', name: 'cmpId', editor: 'text'}, // 업체ID
-			{header: 'prodNm', name: 'prodNm', editor: 'text'}, // 상품명
-			{header: 'psnelCnt', name: 'psnelCnt', editor: 'text'}, // 인원수
-			{header: 'maxPsnelCnt', name: 'maxPsnelCnt', editor: 'text'}, // 최대인원수
-			{header: 'm2', name: 'm2', editor: 'text'}, // 평수
-			{header: 'petPsbYn', name: 'petPsbYn', editor: 'text'}, // 애완동물가능여부
-			{header: 'cnts', name: 'cnts', editor: 'text'}, // 내용
-			{header: 'prir', name: 'prir', editor: 'text'}, // 우선순위
-			{header: 'fileNo', name: 'fileNo', editor: 'text'}, // 파일번호
-			{header: 'useYn', name: 'useYn', editor: 'text'}, // 사용여부
-			{header: 'dispYn', name: 'dispYn', editor: 'text'}, // 전시여부
-			{header: 'note', name: 'note', editor: 'text'}, // 비고
-			{header: 'linkRef2', name: 'linkRef2', editor: 'text'}, // 연동참조2
-			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
-			{header: 'modId', name: 'modId'}, // 수정ID
-			{header: 'modDt', name: 'modDt'}, // 수정일시
-			{header: 'regId', name: 'regId'}, // 등록ID
-			{header: 'regDt', name: 'regDt'}, // 등록일시
+			{header: '상품번호', name: 'prodNo', editor: 'text'}, // 상품번호
+			{header: '업체ID', name: 'cmpId', editor: 'text'}, // 업체ID
+			{header: '상품명', name: 'prodNm', editor: 'text'}, // 상품명
+			{header: '인원수', name: 'psnelCnt', editor: 'text'}, // 인원수
+			{header: '최대인원수', name: 'maxPsnelCnt', editor: 'text'}, // 최대인원수
+			{header: '평수', name: 'm2', editor: 'text'}, // 평수
+			{header: '애완동물가능여부', name: 'petPsbYn', editor: 'text'}, // 애완동물가능여부
+			{header: '내용', name: 'cnts', editor: 'text'}, // 내용
+			{header: '우선순위', name: 'prir', editor: 'text'}, // 우선순위
+			{header: '파일번호', name: 'fileNo', editor: 'text'}, // 파일번호
+			{header: '사용여부', name: 'useYn', editor: 'text'}, // 사용여부
+			{header: '전시여부', name: 'dispYn', editor: 'text'}, // 전시여부
+			{header: '비고', name: 'note', editor: 'text'}, // 비고
+			{header: '연동참조2', name: 'linkRef2', editor: 'text'}, // 연동참조2
+			{header: '연동참조', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: '수정ID', name: 'modId'}, // 수정ID
+			{header: '수정일시', name: 'modDt'}, // 수정일시
+			{header: '등록ID', name: 'regId'}, // 등록ID
+			{header: '등록일시', name: 'regDt'}, // 등록일시
 		],
 		scrollX: true,
 		scrollY: true,

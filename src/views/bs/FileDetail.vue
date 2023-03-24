@@ -15,16 +15,16 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		columns: [
-			{header: 'fileDtlNo', name: 'fileDtlNo', editor: 'text'}, // 파일상세번호
-			{header: 'fileNo', name: 'fileNo', editor: 'text'}, // 파일번호
-			{header: 'path', name: 'path', editor: 'text'}, // 경로
-			{header: 'fileNm', name: 'fileNm', editor: 'text'}, // 파일명
-			{header: 'fileOrgNm', name: 'fileOrgNm', editor: 'text'}, // 파일원명
-			{header: 'linkRef', name: 'linkRef', editor: 'text'}, // 연동참조
-			{header: 'modId', name: 'modId'}, // 수정ID
-			{header: 'modDt', name: 'modDt'}, // 수정일시
-			{header: 'regId', name: 'regId'}, // 등록ID
-			{header: 'regDt', name: 'regDt'}, // 등록일시
+			{header: '파일상세번호', name: 'fileDtlNo', editor: 'text'}, // 파일상세번호
+			{header: '파일번호', name: 'fileNo', editor: 'text'}, // 파일번호
+			{header: '경로', name: 'path', editor: 'text'}, // 경로
+			{header: '파일명', name: 'fileNm', editor: 'text'}, // 파일명
+			{header: '파일원명', name: 'fileOrgNm', editor: 'text'}, // 파일원명
+			{header: '연동참조', name: 'linkRef', editor: 'text'}, // 연동참조
+			{header: '수정ID', name: 'modId'}, // 수정ID
+			{header: '수정일시', name: 'modDt'}, // 수정일시
+			{header: '등록ID', name: 'regId'}, // 등록ID
+			{header: '등록일시', name: 'regDt'}, // 등록일시
 		],
 		scrollX: true,
 		scrollY: true,
