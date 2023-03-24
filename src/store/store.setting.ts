@@ -5,11 +5,17 @@ export const useSettingStore = defineStore('setting', {
     menu: {
       active: true,
     },
+    hash: location.hash.replace('#',''),
+    tab: {
+      idx: -1,
+    },
+    favList : <any>(JSON.parse(localStorage.getItem('favList') || '[]')),
   }),
 	actions: {
-		menuToggle() {
+		toggleMenu() {
       this.menu.active = !this.menu.active;
 		},
-	}
+	},
+  
 });
 

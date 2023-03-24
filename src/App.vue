@@ -19,5 +19,5 @@ const router = useRouter();
 
 </script>
 <style scoped>
-#container {width:100%; height:100%; position:relative;}
+#container {width:100%; height:100%; position:relative; background:#ddd;}
 </style>
