@@ -1,5 +1,24 @@
 <template>
 	<div id="member">
+		<form class="search" @submit.prevent="getList">
+			<fieldset>
+				<legend>검색</legend>
+				<table>
+					<colgroup>
+						<col width="100" />
+						<col width="*" />
+				</colgroup>
+					<tr>
+						<th>검색조건</th>
+						<td><input type="text" /></td>
+					</tr>
+				</table>
+			</fieldset>
+			<div class="btnWrap">
+				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
+				<button type="reset" class="refresh"><span class="icon">&#x22;</span></button>
+			</div>
+		</form>
 		<div id="grid"></div>
 	</div>
 </template>
@@ -11,6 +30,20 @@ import MemberService from '../../service/mb/MemberService';
 const data = reactive({
 grid: {} as any, 
 });
+const getList = function () {
+	MemberService.getMemberList().then(
+		(res) => {
+			let idx = 0;
+			for(let o of res.data) {
+				o.rowIdx = idx++;
+			}
+			data.grid?.resetData(res.data, {});
+		},
+		(err) => {
+			console.log(err);
+		},
+	);
+}
 onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
@@ -62,21 +95,6 @@ onMounted(() => {
 			console.log('click')
 		}
 	});
-
-	const getList = function () {
-		MemberService.getMemberList().then(
-			(res) => {
-				let idx = 0;
-				for(let o of res.data) {
-					o.rowIdx = idx++;
-				}
-				data.grid?.resetData(res.data, {});
-			},
-			(err) => {
-				console.log(err);
-			},
-		);
-	}
 
 	getList();
 });

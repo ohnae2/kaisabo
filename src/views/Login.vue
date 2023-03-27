@@ -3,7 +3,7 @@
     <form v-on:submit.prevent="submitForm()" method="POST" ref="login">
       <fieldset>
         <legend>로그인</legend>
-        <h2>로그인</h2>
+        <h1>Administrator</h1>
         <label class="label">
           <span class="icon">&#xe809;</span>
           <input type="text" v-model="param.id" name="id" placeholder="아이디를 입력해주세요" required />
@@ -75,12 +75,10 @@ const submitForm = () => {
 </script>
 
 <style scoped>
-#login {width:100%; height:100%;}
-#login h1 {text-align:center; padding-top:80px;}
-#login h1 img {width:80px;}
+#login {width:100%; height:100%; padding-top:100px;}
 #login form {width:400px; margin:0 auto; border-radius:10px; overflow:hidden; background:#fff;}
 #login form fieldset {width:100%; padding:30px 0;}
-#login form fieldset h2 {text-align:center; padding:20px 0; font-size:14px; color:#333;}
+#login form fieldset h1 {text-align:center; padding:20px 0; font-size:14px; color:#333;}
 #login form fieldset img {width:50px; display:block; margin:0 auto;}
 #login form fieldset img {width:50px; display:block; margin:0 auto;}
 #login form fieldset label {width:80%; margin:10px auto; display: block; padding:5px;}

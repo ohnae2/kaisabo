@@ -13,9 +13,9 @@
     </ul>
     <div class="tab">
       <ul>
-        <li v-bind:class="{active : setting.tab.idx == -1}"><span class="icon home" @click="clickHome()">&#xe819;</span></li>
+        <li v-bind:class="{ active: setting.hash == '/main' }"><span class="icon home" @click="clickHome()">&#xe819;</span></li>
         <template v-for="(fav, i) in setting.favList" :key="fav">
-          <li v-bind:class="{active : setting.tab.idx == i}"><span class="name" @click="clickFav(fav, i)">{{ fav.menuNm }}</span> <span class="icon close" @click="toggleFav(fav)">&#xe042;</span></li>
+          <li v-bind:class="{ active: setting.hash == fav.url }"><span class="name" @click="clickFav(fav, i)">{{ fav.menuNm }}</span> <span class="icon close" @click="toggleFav(fav)">&#xe042;</span></li>
         </template>
       </ul>
       <span class="icon closeAll">&#xe0de;</span>
@@ -119,12 +119,10 @@ const clickMenu = function(menu:any) {
 }
 const clickHome = function() {
   setting.hash = '/main';
-  setting.tab.idx = -1;
   router.push('/main');
 }
 const clickFav = function(fav:any, idx:number) {
   setting.hash = fav.url;
-  setting.tab.idx = idx;
   router.push(fav.url);
 }
 </script>
@@ -156,7 +154,7 @@ const clickFav = function(fav:any, idx:number) {
 #header .tab ul li .close {position:absolute; right:-4px; top:-3px; color:#aaa; cursor:pointer; width:20px; height:20px; overflow:hidden;}
 #header .tab ul li .close:hover {transform: rotate(90deg); right:-5px; top:-2px; color:#666;}
 #header .tab .closeAll {cursor:pointer; border:1px solid #aaa; position:absolute; right:2px; color:#666; top:4px; width:31px; height:30px; line-height:30px;}
-#header .tab .closeAll:hover {color:#000;}
+#header .tab .closeAll:hover {color:#000; background:rgba(255,255,255,0.2);}
 
 #header.menuOn .btnMenu {left:230px;}
 #header.menuOn .btnMenu ul li:nth-child(1) {transform: rotate(-45deg); width:20px; left:-4px; top:4px;}
