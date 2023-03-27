@@ -2,7 +2,8 @@
 
 ::-webkit-scrollbar {width:17px; height:17px; background:#fff; display:block; border-left:1px solid #eee;}
 ::-webkit-scrollbar-thumb {background:#ddd; border:4px solid transparent; background-clip:content-box; cursor:pointer;}
-::-webkit-scrollbar {display:none;}
+.wrap::-webkit-scrollbar,
+#contents::-webkit-scrollbar {display:none;}
 
 .pointer {cursor:pointer;}
 .red .tui-grid-cell-content {color:#ff0000; font-weight: bold;}
