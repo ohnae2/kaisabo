@@ -60,7 +60,7 @@ onMounted(() => {
 		scrollX: true,
 		scrollY: true,
 		minBodyHeight: 200,
-		bodyHeight: 500,
+		bodyHeight: 468,
 		columnOptions: {
 			resizable: true,
 		},
