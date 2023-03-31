@@ -12,13 +12,15 @@
 						<th>검색조건</th>
 						<td><input type="text" /></td>
 						<th>수정날짜</th>
-						<td><input type="text" /></td>
+						<td>
+							<SelectGroupDate />
+						</td>
 					</tr>
 				</table>
 			</fieldset>
 			<div class="btnWrap">
 				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
-				<button type="reset" class="refresh"><span class="icon">&#x22;</span></button>
+				<button type="reset" @click="refresh"><span class="icon">&#x22;</span></button>
 			</div>
 		</form>
 		<div id="grid"></div>
@@ -28,9 +30,10 @@
 import { onMounted, ref, reactive } from 'vue';
 import Grid from 'tui-grid';
 import DictionaryService from '../../service/bs/DictionaryService';
+import SelectGroupDate from '../../components/SelectGroupDate.vue';
 
 const data = reactive({
-grid: {} as any, 
+	grid: {} as any, 
 });
 
 const getList = function () {
@@ -47,14 +50,17 @@ const getList = function () {
 		},
 	);
 }
+const refresh = function() {
+	location.reload();
+}
 
 onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
+		rowHeaders: ['checkbox'],
 		columns: [
 			{header: 'abb', name: 'abb', editor: 'text', sortable: true, align: 'center' },
-			{header: 'ko', name: 'ko', editor: 'text', hidden: false},
-			{header: 'ko', name: 'ko', editor: 'text', hidden: false, width: 80, 
+			{header: 'ko', name: 'ko', hidden: false, editor: 'text', 
 				/*formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -70,8 +76,15 @@ onMounted(() => {
 			},
 			{header: 'en', name: 'en', editor: 'text'},
 			{header: 'dsc', name: 'dsc', editor: 'text'},
-			{header: 'linkRef', name: 'linkRef', editor: 'text', defaultValue: ''},
-			{header: 'modDat', name: 'modDt', editor: 'text', disabled: false},
+			{header: 'linkRef', name: 'linkRef', editor: 'text', defaultValue: '', width: 150},
+			{header: 'modDat', name: 'modDt', disabled: false, 
+				editor: {
+					type: 'datePicker',
+					options: {
+						format: 'yyyy-MM-dd HH:mm'
+					}
+				}
+			},
 		],
 		scrollX: true,
 		scrollY: true,

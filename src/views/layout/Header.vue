@@ -8,7 +8,6 @@
       </li>
       <li class="btn">
         <u v-on:click="auth.logout()" style="cursor:pointer;">로그아웃</u>
-        {{ setting.hash }}
       </li>
     </ul>
     <div class="tab">
