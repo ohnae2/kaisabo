@@ -1,16 +1,11 @@
 <template>
   <span>
     <span class="pickerWrap">
-      <input type="text" class="input" v-bind:id="props.name[0] + 'Picker'" v-model="props.date[0]" v-bind:name="props.name[0] + ''" readonly />
+      <input type="text" class="input" v-bind:id="props.name[0] + 'Picker'" v-model="props.date[0]" v-bind:name="props.name[0] + ''" />
       <span class="icon pointer" v-bind:id="props.name[0] + 'Opener'">&#xf0ce;</span>
       <div v-bind:id="props.name[0] + 'Container'" class="container"></div>
     </span>
 
-    <span class="pickerWrap">
-      <input type="text" class="input" v-bind:id="props.name[1] + 'Picker'" v-model="props.date[1]" v-bind:name="props.name[1] + ''" readonly />
-      <span class="icon pointer" v-bind:id="props.name[1] + 'Opener'">&#xf0ce;</span>
-      <div v-bind:id="props.name[1] + 'Container'" class="container"></div>
-    </span>
   </span>
 </template>
 <script setup lang="ts">
@@ -27,16 +22,14 @@ const props = defineProps({
   format: { type: String, required: false },
   selectableRanges1: { type: [], required: false },
   selectableRanges2: { type: [], required: false },
-});
-
-console.log(props.date[0]);
+})
 
 // 옵션 1
 let startObject = {
   language: 'ko',
-  date: props.date[0] as Date,
+  date: props.date[0],
   input: {
-    element: document.getElementById(props.name[0] + 'Picker') as HTMLElement,
+    element: document.getElementById(props.name[0] + 'Picker'),
   },
   selectableRanges: [[new Date(1090, 11, 30), new Date()]], // 시작일의 경우 미래를 선택할수 없는 고정값
   openers: ['#' + props.name[0] + 'Opener'],
@@ -49,9 +42,9 @@ if (props.selectableRanges1) {
 // 옵션 2
 let endObject = {
   language: 'ko',
-  date: props.date[1] as Date,
+  date: props.date[1],
   input: {
-    element: document.getElementById(props.name[1] + 'Picker') as HTMLElement,
+    element: document.getElementById(props.name[1] + 'Picker'),
   },
   selectableRanges: [[props.date[0], new Date(2090, 11, 30)]], // 종료일경우 시작일에 따른 변동값
   openers: ['#' + props.name[1] + 'Opener'],
@@ -64,7 +57,7 @@ onMounted(() => {
   const startPicker = new DatePicker(document.getElementById(props.name[0] + 'Container') as any, startObject as any); // HTMLElement
   const endPicker = new DatePicker(document.getElementById(props.name[1] + 'Container') as any, endObject as any);
 
-  startPicker.on('close', () => {
+  startPicker.on('change', () => {
     if (startPicker.getDate() > endPicker.getDate()) {
       endPicker.setDate(dateUtil.format(startPicker.getDate(), props.format));
     }
@@ -77,7 +70,7 @@ onMounted(() => {
     }
   });
 
-  endPicker.on('close', () => {
+  endPicker.on('change', () => {
     if(startPicker.getDate()) {
       emit('set-start-date', { date: dateUtil.format(startPicker.getDate(), props.format) });
     }

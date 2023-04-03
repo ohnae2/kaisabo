@@ -11,31 +11,60 @@
 					<tr>
 						<th>검색조건</th>
 						<td><input type="text" /></td>
+						<th>수정날짜</th>
+						<td>
+							<SelectGroupDate 
+								:name="['startDate', 'endDate']"
+								:format="'YYYY-MM-DD'"
+								:date="[search.startDate, search.endDate]"
+								@set-start-date="(o) => {
+									search.startDate = o.date;
+								}"
+								@set-end-date="(o) => {
+									search.endDate = o.date;
+								}"
+							/>
+						</td>
 					</tr>
 				</table>
 			</fieldset>
 			<div class="btnWrap">
 				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
-				<button type="reset" class="refresh"><span class="icon">&#x22;</span></button>
+				<button type="reset" @click="refresh"><span class="icon">&#x22;</span></button>
+				<div class="totalCount">총 {{ data.totalCount }}건</div>
 			</div>
 		</form>
 		<div id="grid"></div>
 	</div>
 </template>
+
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue';
 import Grid from 'tui-grid';
 import MessageHistoryService from '../../service/bs/MessageHistoryService';
+import SelectGroupDate from '../../components/SelectGroupDate.vue';
+import dateUtil from '../../utils/util.date';
+import { useAuthStore } from '../../store/store.auth';
+
+const auth = useAuthStore();
+const search = reactive({
+	keyword: '',
+	startDate: dateUtil.format(new Date().setMonth(new Date().getMonth() - 1), 'YYYY-MM-DD'), 
+	endDate: dateUtil.format(new Date(),'YYYY-MM-DD'), 
+});
+
 // 문자메시지이력
 const data = reactive({
-grid: {} as any, 
+	grid: {} as any,
+	totalCount: 0,
 });
+
 const getList = function () {
-	MessageHistoryService.getMessageHistoryList().then(
+	MessageHistoryService.getMessageHistoryList(search).then(
 		(res) => {
-			let idx = 0;
+			data.totalCount = 0;
 			for(let o of res.data) {
-				o.rowIdx = idx++;
+				o.rowIdx = data.totalCount++;
 			}
 			data.grid?.resetData(res.data, {});
 		},
@@ -44,19 +73,39 @@ const getList = function () {
 		},
 	);
 }
+
+const refresh = function() {
+	location.reload();
+}
+
 onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
+		rowHeaders: ['checkbox'],
 		columns: [
-			{header: '메시지번호', name: 'msgNo', editor: 'text'}, // 메시지번호
-			{header: '사용자ID', name: 'usrId', editor: 'text'}, // 사용자ID
-			{header: '회원ID', name: 'mbrId', editor: 'text'}, // 회원ID
-			{header: '내용', name: 'cnts', editor: 'text'}, // 내용
-			{header: '연동참조', name: 'linkRef', editor: 'text'}, // 연동참조
-			{header: '수정ID', name: 'modId'}, // 수정ID
-			{header: '수정일시', name: 'modDt'}, // 수정일시
-			{header: '등록ID', name: 'regId'}, // 등록ID
-			{header: '등록일시', name: 'regDt'}, // 등록일시
+			{header: '메시지번호', name: 'msgNo', sortable: true, width: 100, disabled: false, editor: 'text'}, // 메시지번호
+			{header: '사용자ID', name: 'usrId', sortable: true, width: 100, disabled: false, editor: 'text'}, // 사용자ID
+			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, disabled: false, editor: 'text'}, // 회원ID
+			{header: '내용', name: 'cnts', sortable: true, width: 100, disabled: false, editor: 'text'}, // 내용
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, disabled: false, editor: 'text'}, // 연동참조
+			{header: '수정ID', name: 'modId', sortable: true, width: 110}, // 수정ID
+			{header: '수정일시', name: 'modDt', sortable: true, width: 120, disabled: false, // 수정일시
+				editor: {
+				type: 'datePicker',
+					options: {
+						format: 'yyyy-MM-dd HH:mm'
+					}
+				}
+			},
+			{header: '등록ID', name: 'regId', sortable: true, width: 110}, // 등록ID
+			{header: '등록일시', name: 'regDt', sortable: true, width: 120, disabled: false, // 등록일시
+				editor: {
+				type: 'datePicker',
+					options: {
+						format: 'yyyy-MM-dd HH:mm'
+					}
+				}
+			},
 		],
 		scrollX: true,
 		scrollY: true,

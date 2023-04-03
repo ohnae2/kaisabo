@@ -12,7 +12,7 @@
 .show {display:block;}
 .hide {display:none;}
 
-form.search {width:100%;}
+form.search {width:100%; white-space:nowrap;}
 form.search fieldset {width:100%; line-height:40px; padding:1px 10px 3px 10px; border:0.5px solid #ddd; background:#eee; display:block; border-radius: 5px;}
 form.search fieldset  table {width:100%;}
 form.search fieldset  table th {padding:5px 0; color:#333;}
@@ -20,6 +20,7 @@ form.search fieldset  table td {padding:5px 0;}
 form.search fieldset legend {display:none;}
 
 .btnWrap {padding:10px 0; text-align:center; position:relative;}
+.btnWrap .totalCount {position:absolute; right:0; bottom:0; font-size:11px;}
 
 th.required:after {content:'*'; display:inline-block; font-size:12px; color:#ff0000; padding-left:5px;}
 

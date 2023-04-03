@@ -94,12 +94,12 @@ router.beforeEach((to, from, next) => {
     document.title = `kaisa ${to.meta.title}`;
 
     const userInfo = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
-    const codeList = JSON.parse(sessionStorage.getItem('codeList') || '[]');
+    const codeList = JSON.parse(sessionStorage.getItem('codeList') || '{}');
     const menuList = JSON.parse(sessionStorage.getItem('menuList') || '[]');
 
     const isUser = (
            userInfo.cmpId
-        && codeList.length > 0
+        && codeList
         && menuList.length > 0
         && sessionStorage.getItem('token')
     );

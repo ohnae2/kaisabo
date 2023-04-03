@@ -10,10 +10,20 @@
 				</colgroup>
 					<tr>
 						<th>검색조건</th>
-						<td><input type="text" /></td>
+						<td><input type="text" v-model="search.abb" /></td>
 						<th>수정날짜</th>
 						<td>
-							<SelectGroupDate />
+							<SelectGroupDate 
+								:name="['startDate', 'endDate']"
+								:format="'YYYY-MM-DD'"
+								:date="[search.startDate, search.endDate]"
+								@set-start-date="(o) => {
+									search.startDate = o.date;
+								}"
+								@set-end-date="(o) => {
+									search.endDate = o.date;
+								}"
+							/>
 						</td>
 					</tr>
 				</table>
@@ -21,6 +31,7 @@
 			<div class="btnWrap">
 				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
 				<button type="reset" @click="refresh"><span class="icon">&#x22;</span></button>
+				<div class="totalCount">총 {{ data.totalCount }}건</div>
 			</div>
 		</form>
 		<div id="grid"></div>
@@ -32,16 +43,25 @@ import Grid from 'tui-grid';
 import DictionaryService from '../../service/bs/DictionaryService';
 import SelectGroupDate from '../../components/SelectGroupDate.vue';
 
+import dateUtil from '../../utils/util.date';
+
+const search = reactive({
+	abb: '',
+	startDate: dateUtil.format(new Date().setMonth(new Date().getMonth() - 1), 'YYYY-MM-DD'), 
+	endDate: dateUtil.format(new Date(),'YYYY-MM-DD'), 
+});
+
 const data = reactive({
-	grid: {} as any, 
+	grid: {} as any,
+	totalCount: 0,
 });
 
 const getList = function () {
-	DictionaryService.getDictionaryList().then(
+	data.totalCount = 0;
+	DictionaryService.getDictionaryList(search).then(
 		(res) => {
-			let idx = 0;
 			for(let o of res.data) {
-				o.rowIdx = idx++;
+				o.rowIdx = data.totalCount++;
 			}
 			data.grid?.resetData(res.data, {});
 		},

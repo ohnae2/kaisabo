@@ -12,7 +12,7 @@ const jsonHeaders = {
 export const jsonApi = (apiUrl:any, apiData?:any, headers?:string) => {
     return interceptor({
         url: apiUrl,
-        data: JSON.parse(apiData || '{}'),
+        data: JSON.stringify(apiData),
         ...jsonHeaders
     });
 };

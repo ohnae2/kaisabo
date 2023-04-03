@@ -3,7 +3,9 @@ import { defineStore } from 'pinia';
 export const useAuthStore = defineStore('auth', {
   state : () => ({ 
     active: false,
-    info: JSON.parse(sessionStorage.getItem('userInfo') || '{}'),
+    menuList: JSON.parse(sessionStorage.getItem('menuList') || '[]'),
+    codeList: JSON.parse(sessionStorage.getItem('codeList') || '{}'),
+    userInfo: JSON.parse(sessionStorage.getItem('userInfo') || '{}'),
     count: 0,
   }),
 	actions: {
@@ -17,11 +19,20 @@ export const useAuthStore = defineStore('auth', {
           nm: info.nm,
         }
         sessionStorage.setItem('menuList', JSON.stringify(info.menuList) || '{}');
-        sessionStorage.setItem('codeList', JSON.stringify(info.codeList) || '{}');
         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
         sessionStorage.setItem('token', info.token);
       }
-      this.info = info;
+      let groupCodeArr:any = {};
+      for(let o of info.codeList) {
+        let codeArr:any = [];
+        for(let c of o.cdList) {
+          codeArr.push({ text: c.cdNm, value: c.cd, dataType: 'string'});
+        }
+        groupCodeArr[o.grpCd] = codeArr;
+      }
+      sessionStorage.setItem('codeList', JSON.stringify(groupCodeArr) || '{}');
+
+      this.userInfo = info;
       this.count = 0;
 		},
     loginFail() {
@@ -34,7 +45,7 @@ export const useAuthStore = defineStore('auth', {
       sessionStorage.removeItem('userInfo');
       sessionStorage.removeItem('token');
 			this.active = false;
-      this.info = {};
+      this.userInfo = {};
     },
 		logout() {
       this.removeSession();
