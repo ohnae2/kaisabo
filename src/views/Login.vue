@@ -60,7 +60,6 @@ const submitForm = () => {
     (res) => {
       if(res && res.success) {
         auth.loginSuccess(res.data);
-        router.push('/');
       } else {
         auth.loginFail();
         alert.open({title: null, message: '(' + auth.count + ') ' + res.message});

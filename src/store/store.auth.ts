@@ -34,6 +34,10 @@ export const useAuthStore = defineStore('auth', {
 
       this.userInfo = info;
       this.count = 0;
+      
+      setTimeout(function(){
+        location.href = '/';
+      }, 500);
 		},
     loginFail() {
       this.removeSession();

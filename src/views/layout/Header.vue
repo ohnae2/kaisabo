@@ -54,6 +54,7 @@ let sideMenu = reactive<any[]>([
   {path: 'dp', active: true, pathNm: '전시관리', menu: []},
 ]);
 const sessionMenu = <any[]>(JSON.parse(sessionStorage.getItem('menuList') || '[]'));
+
 for(let c of sideMenu) {
   for(let s of sessionMenu) {
     if(s.url.match('/'+ c.path + '/')) {
@@ -107,6 +108,7 @@ const toggleFav = function(menu:any) {
       url: menu.url,
     });
   }
+  // 저장
   localStorage.setItem('favList', JSON.stringify(setting.favList) || '[]');
 }
 const clickCategory = function(side:any) {

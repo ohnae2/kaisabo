@@ -1,34 +1,67 @@
 <template>
 	<div id="menu">
-		<form class="search" @submit.prevent="getList">
+		<form class="search" @submit.prevent="getList" @keyup.enter="getList">
 			<fieldset>
 				<legend>검색</legend>
 				<table>
 					<colgroup>
-						<col width="100" />
+						<col width="80" />
+						<col width="30%" />
+						<col width="80" />
 						<col width="*" />
-				</colgroup>
-					<tr>
-						<th>검색조건</th>
-						<td><input type="text" /></td>
-						<th>수정날짜</th>
-						<td>
-							<SelectGroupDate 
-								:name="['startDate', 'endDate']"
-								:format="'YYYY-MM-DD'"
-								:date="[search.startDate, search.endDate]"
-								@set-start-date="(o) => {
-									search.startDate = o.date;
-								}"
-								@set-end-date="(o) => {
-									search.endDate = o.date;
-								}"
-							/>
-						</td>
-					</tr>
+					</colgroup>
+					<tbody>
+						<tr>
+							<th>검색조건</th>
+							<td colspan="3"><input type="text" v-model="search.keyword" /></td>
+						</tr>
+					</tbody>
+					<tbody class="audit" v-show="data.audit">
+						<tr>
+							<th>수정기간</th>
+							<td colspan="3">
+								<SelectGroupDate 
+									:name="['startModDt', 'endModDt']"
+									:format="'YYYY-MM-DD'"
+									:date="[search.startModDt, search.endModDt]"
+									@set-start-date="(o) => {
+										search.startModDt = o.date;
+									}"
+									@set-end-date="(o) => {
+										search.endModDt = o.date;
+									}"
+								/>
+							</td>
+						</tr>
+						<tr>
+							<th>등록일</th>
+							<td colspan="3">
+								<SelectDate 
+									:name="['regDt']"
+									:format="'YYYY-MM-DD'"
+									:date="[search.regDt]"
+									@set-start-date="(o) => {
+										search.regDt = o.date;
+									}"
+								/>
+							</td>
+						</tr>
+						<tr>
+							<th>수정ID</th>
+							<td><input type="text" v-model="search.modId" /></td>
+							<th>등록ID</th>
+							<td><input type="text" v-model="search.regId" /></td>
+						</tr>
+					</tbody>
 				</table>
 			</fieldset>
 			<div class="btnWrap">
+				<span class="crud">
+					<button type="button" class="button add" @click="add"><span class="icon">&#xe813;</span>추가</button>
+					<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
+					<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>
+					</span>
+				<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
 				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
 				<button type="reset" @click="refresh"><span class="icon">&#x22;</span></button>
 				<div class="totalCount">총 {{ data.totalCount }}건</div>
@@ -42,6 +75,7 @@
 import { onMounted, ref, reactive } from 'vue';
 import Grid from 'tui-grid';
 import MenuService from '../../service/bs/MenuService';
+import SelectDate from '../../components/SelectDate.vue';
 import SelectGroupDate from '../../components/SelectGroupDate.vue';
 import dateUtil from '../../utils/util.date';
 import { useAuthStore } from '../../store/store.auth';
@@ -49,13 +83,17 @@ import { useAuthStore } from '../../store/store.auth';
 const auth = useAuthStore();
 const search = reactive({
 	keyword: '',
-	startDate: dateUtil.format(new Date().setMonth(new Date().getMonth() - 1), 'YYYY-MM-DD'), 
-	endDate: dateUtil.format(new Date(),'YYYY-MM-DD'), 
+	startModDt: '',
+	endModDt: '',
+	regDt: '', // dateUtil.format(new Date(),'YYYY-MM-DD') 
+	regId: '',
+	modId: '',
 });
 
 // 메뉴
 const data = reactive({
 	grid: {} as any,
+	audit: false,
 	totalCount: 0,
 });
 
@@ -66,7 +104,7 @@ const getList = function () {
 			for(let o of res.data) {
 				o.rowIdx = data.totalCount++;
 			}
-			data.grid?.resetData(res.data, {});
+			data.grid.resetData(res.data, {});
 		},
 		(err) => {
 			console.log(err);
@@ -74,6 +112,15 @@ const getList = function () {
 	);
 }
 
+const add = function() {
+	location.reload();
+}
+const save = function() {
+	location.reload();
+}
+const del = function() {
+	location.reload();
+}
 const refresh = function() {
 	location.reload();
 }
@@ -126,7 +173,7 @@ onMounted(() => {
 		},
 	});
 
-	data.grid?.on('click', function(e:any) {
+	data.grid.on('click', function(e:any) {
 		if( e.columnName === 'cd') {
 			console.log('click')
 		}

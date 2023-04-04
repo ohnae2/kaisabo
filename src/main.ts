@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from './App.vue';
 import router from './router/router';
+import VueCookies from 'vue-cookies';
 
 import './assets/css/reset.css';
 import './assets/css/common.css';
@@ -18,6 +19,7 @@ jsonInterceptors();*/
 const store = createPinia();
 const app = createApp(App);
 
+app.use(VueCookies);
 app.use(router);
 app.use(store);
 app.mount('#app');
