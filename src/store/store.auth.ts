@@ -10,7 +10,6 @@ export const useAuthStore = defineStore('auth', {
   }),
 	actions: {
     loginSuccess(info:any) {
-			this.active = true;
       if(info && info.token) {
         const userInfo = {
           id: info.id,
@@ -21,6 +20,7 @@ export const useAuthStore = defineStore('auth', {
         sessionStorage.setItem('menuList', JSON.stringify(info.menuList) || '{}');
         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
         sessionStorage.setItem('token', info.token);
+        this.userInfo = userInfo;
       }
       let groupCodeArr:any = {};
       for(let o of info.codeList) {
@@ -32,12 +32,13 @@ export const useAuthStore = defineStore('auth', {
       }
       sessionStorage.setItem('codeList', JSON.stringify(groupCodeArr) || '{}');
 
-      this.userInfo = info;
       this.count = 0;
       
-      setTimeout(function(){
-        location.href = '/';
-      }, 500);
+			this.active = true;
+			this.menuList = info.menuList;
+			this.codeList = info.codeList; // 이곳에 안담으면 아래 setTimeout을해도 문제가 생김...
+      
+      location.href = '/';
 		},
     loginFail() {
       this.removeSession();
