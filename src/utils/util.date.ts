@@ -1,26 +1,25 @@
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 // const timezone = require('dayjs/plugin/timezone');
 // const utc = require('dayjs/plugin/utc');
-
 
 // dayjs.extend(utc);
 // dayjs.extend(timezone);
 // dayjs.tz.setDefault('Asia/Seoul');
 
-export const FullDateFormat = 'YYYY-MM-DD HH:mm:ss';
-export const DateFormat = 'YYYYMMDDHHmmss';
-export const YYYY_MM_DD_Format = 'YYYY-MM-DD';
+export const FullDateFormat = "YYYY-MM-DD HH:mm:ss";
+export const DateFormat = "YYYYMMDDHHmmss";
+export const YYYY_MM_DD_Format = "YYYY-MM-DD";
 
-const isValid = (date:any) => {
+const isValid = (date: any) => {
   return date && dayjs(date).isValid();
 };
 
-const format = (date:any, format = FullDateFormat) => {
+const format = (date: any, format = FullDateFormat) => {
   return date && dayjs(date).isValid() && dayjs(date).format(format);
 };
 
-const add = (date:any, adddate:any, unit:any, format = FullDateFormat) => {
-  let value:any;
+const add = (date: any, adddate: any, unit: any, format = FullDateFormat) => {
+  let value: any;
   if (isValid(date)) {
     value = dayjs(date).add(adddate, unit);
     value = value.format(format);
@@ -33,7 +32,7 @@ const add = (date:any, adddate:any, unit:any, format = FullDateFormat) => {
  * @param {*} date
  * @returns number
  */
-const getMonthLastDay = (date:any) => {
+const getMonthLastDay = (date: any) => {
   return date && dayjs(date).isValid() && dayjs(date).daysInMonth();
 };
 
