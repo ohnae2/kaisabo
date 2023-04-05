@@ -125,7 +125,41 @@ const refresh = function() {
 	location.reload();
 }
 const save = function() {
-	console.log(data.grid.getModifiedRows());
+	let saveList = [];
+	let count = [0, 0, 0];
+	for(let o of data.grid.getModifiedRows().createdRows as any) {
+		o.crud = 'C';
+		saveList.push(o);
+		if(!o.abb) {
+			alert('필수값을 입력하세요');
+			return;
+		}
+		count[0]++;
+	}
+	for(let o of data.grid.getModifiedRows().updatedRows as any) {
+		o.crud = 'U';
+		saveList.push(o);
+		count[1]++;
+	}
+	for(let o of data.grid.getModifiedRows().deletedRows as any) {
+		o.crud = 'D';
+		saveList.push(o);
+		count[2]++;
+	}
+	if(count[0] == 0 && count[1] == 0 && count[2] == 0) {
+		alert('변경사항이 없습니다.');
+		return;
+	}
+	if(confirm('등록 ' + count[0] + '건, 수정 ' + count[1] + '건, 삭제 ' + count[2] + '건을 정말 저장하시겠습니까?')) {
+		PopupService.setPopupList(saveList).then(
+			(res) => {
+				location.reload();
+			},
+			(err) => {
+				console.log(err);
+			},
+		);
+	}
 }
 onMounted(() => {
 	data.grid = new Grid({
