@@ -58,8 +58,8 @@
 			<div class="btnWrap">
 				<span class="crud">
 					<button type="button" class="button add" @click="add"><span class="icon">&#xe813;</span>추가</button>
-					<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
 					<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>
+					<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
 				</span>
 				<button type="button" class="audit" @click="data.audit = !data.audit">감사컬럼조회</button>
 				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
@@ -78,9 +78,9 @@ import Grid from 'tui-grid';
 import DictionaryService from '../../service/bs/DictionaryService';
 import SelectDate from '../../components/SelectDate.vue';
 import SelectGroupDate from '../../components/SelectGroupDate.vue';
+import { useAuthStore } from '../../store/store.auth';
 
-import dateUtil from '../../utils/util.date';
-
+const auth = useAuthStore();
 const search = reactive({
 	abb: '',
 	startModDt: '', // dateUtil.format(new Date().setMonth(new Date().getMonth() - 1), 'YYYY-MM-DD'), 
@@ -89,21 +89,19 @@ const search = reactive({
 	regId: '', 
 	modId: '', 
 });
-
 const data = reactive({
-	grid: {} as any,
+	grid: {} as Grid,
 	totalCount: 0,
+	list: [] as any,
 	audit: false,
 });
-
 const getList = function () {
 	data.totalCount = 0;
 	DictionaryService.getDictionaryList(search).then(
 		(res) => {
-			for(let o of res.data) {
-				o.rowIdx = data.totalCount++;
-			}
-			data.grid.resetData(res.data, {});
+			data.totalCount = (res.count) ? res.count : 0;
+			data.list = res.data;
+			data.grid.resetData(data.list, {});
 		},
 		(err) => {
 			console.log(err);
@@ -111,49 +109,37 @@ const getList = function () {
 	);
 }
 const add = function() {
-	location.reload();
+	data.grid.appendRow({}, {at: 0, focus: true});
 }
-const save = function() {
-	location.reload();
-}
-const del = function() {
-	location.reload();
+const del = function () {
+	let selectRow = data.grid.getFocusedCell();
+	if(!selectRow.rowKey) {
+		alert('행을 먼저 선택해주세요.');
+		return;
+	}
+	if (confirm('선택한 행을 정말 삭제하시겠습니까?')) {
+		if (selectRow && selectRow.rowKey) {
+			data.grid.removeRow(selectRow.rowKey);
+		}
+	}
 }
 const refresh = function() {
 	location.reload();
 }
-
+const save = function() {
+	console.log(data.grid.getModifiedRows());
+}
 onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
-		rowHeaders: ['checkbox'],
+		//rowHeaders: ['checkbox'],
 		columns: [
 			{header: '약어', name: 'abb', editor: 'text', sortable: true, align: 'center' },
-			{header: '한국어', name: 'ko', hidden: false, editor: 'text', 
-				/*formatter: 'listItemText',
-				editor: {
-					type: 'select',
-					options: {
-					listItems: [
-						{ text: '', value: '', dataType: 'string'},
-						{ text: '접수', value: '20', dataType: 'string'},
-						{ text: '관찰', value: '30', dataType: 'string'},
-						{ text: '완료', value: '40', dataType: 'string'},
-					]
-					},
-				},*/
-			},
+			{header: '한국어', name: 'ko', hidden: false, editor: 'text' },
 			{header: '영어', name: 'en', editor: 'text'},
 			{header: '설명', name: 'dsc', editor: 'text'},
 			{header: '연동참조', name: 'linkRef', editor: 'text', hidden: true, defaultValue: '', width: 150},
-			{header: '수정일시', name: 'modDt', disabled: false, 
-				editor: {
-					type: 'datePicker',
-					options: {
-						format: 'yyyy-MM-dd HH:mm'
-					}
-				}
-			},
+			{header: '수정일시', name: 'modDt', disabled: true },
 		],
 		scrollX: true,
 		scrollY: true,
@@ -168,21 +154,15 @@ onMounted(() => {
 			height: 40,
 		},
 	});
-
 	data.grid.on('click', function(e:any) {
-		if( e.columnName === 'cd') {
-			console.log('click')
+		if( e.columnName === 'abb') {
+			//console.log('click')
 		}
 	});
-	
 	getList();
 });
-
 </script>
-
 <style scoped>
-#dirctionary {
-width: 100%;
-}
+#dirctionary {width: 100%;}
 </style>
 

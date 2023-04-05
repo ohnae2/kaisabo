@@ -16,7 +16,7 @@
     "dayjs": "^1.10.6",
     "pinia": "^2.0.20",
     "tui-date-picker": "^4.3.1",
-    "tui-grid": "^4.21.3",
+    "tui-grid": "^4.21.9",
     "vue": "^3.2.45",
     "vue-cookies": "^1.8.1",
     "vue-router": "^4.1.3",

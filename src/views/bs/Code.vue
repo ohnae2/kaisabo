@@ -70,14 +70,12 @@
 		<div id="grid"></div>
 	</div>
 </template>
-
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue';
 import Grid from 'tui-grid';
 import CodeService from '../../service/bs/CodeService';
 import SelectDate from '../../components/SelectDate.vue';
 import SelectGroupDate from '../../components/SelectGroupDate.vue';
-import dateUtil from '../../utils/util.date';
 import { useAuthStore } from '../../store/store.auth';
 
 const auth = useAuthStore();
@@ -89,21 +87,18 @@ const search = reactive({
 	regId: '',
 	modId: '',
 });
-
 // 코드
 const data = reactive({
-	grid: {} as any,
-	audit: false,
+	grid: {} as Grid,
 	totalCount: 0,
+	list: [],
+	audit: false,
 });
-
 const getList = function () {
 	CodeService.getCodeList(search).then(
 		(res) => {
-			data.totalCount = 0;
-			for(let o of res.data) {
-				o.rowIdx = data.totalCount++;
-			}
+			data.totalCount = (res.count) ? res.count : 0;
+			data.list = res.data;
 			data.grid.resetData(res.data, {});
 		},
 		(err) => {
@@ -111,53 +106,46 @@ const getList = function () {
 		},
 	);
 }
-
 const add = function() {
-	location.reload();
+	data.grid.appendRow({}, {at: 0, focus: true});
 }
-const save = function() {
-	location.reload();
-}
-const del = function() {
-	location.reload();
+const del = function () {
+	let selectRow = data.grid.getFocusedCell();
+	if(!selectRow.rowKey) {
+		alert('행을 먼저 선택해주세요.');
+		return;
+	}
+	if (confirm('선택한 행을 정말 삭제하시겠습니까?')) {
+		if (selectRow && selectRow.rowKey) {
+			data.grid.removeRow(selectRow.rowKey);
+		}
+	}
 }
 const refresh = function() {
 	location.reload();
 }
-
+const save = function() {
+	console.log(data.grid.getModifiedRows());
+}
 onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
-		rowHeaders: ['checkbox'],
+		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: '그룹코드', name: 'grpCd', sortable: true, width: 100, disabled: false, editor: 'text'}, // 그룹코드
-			{header: '코드', name: 'cd', sortable: true, width: 100, disabled: false, editor: 'text'}, // 코드
-			{header: '코드명', name: 'cdNm', sortable: true, width: 100, disabled: false, editor: 'text'}, // 코드명
-			{header: '참조1', name: 'ref1', sortable: true, width: 100, disabled: false, editor: 'text'}, // 참조1
-			{header: '참조2', name: 'ref2', sortable: true, width: 100, disabled: false, editor: 'text'}, // 참조2
-			{header: '참조3', name: 'ref3', sortable: true, width: 100, disabled: false, editor: 'text'}, // 참조3
-			{header: '비고', name: 'note', sortable: true, width: 100, disabled: false, editor: 'text'}, // 비고
-			{header: '설명', name: 'dsc', sortable: true, width: 100, disabled: false, editor: 'text'}, // 설명
-			{header: '우선순위', name: 'prir', sortable: true, width: 100, disabled: false, editor: 'text'}, // 우선순위
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, disabled: false, editor: 'text'}, // 연동참조
-			{header: '수정ID', name: 'modId', sortable: true, width: 110}, // 수정ID
-			{header: '수정일시', name: 'modDt', sortable: true, width: 120, disabled: false, // 수정일시
-				editor: {
-				type: 'datePicker',
-					options: {
-						format: 'yyyy-MM-dd HH:mm'
-					}
-				}
-			},
-			{header: '등록ID', name: 'regId', sortable: true, width: 110}, // 등록ID
-			{header: '등록일시', name: 'regDt', sortable: true, width: 120, disabled: false, // 등록일시
-				editor: {
-				type: 'datePicker',
-					options: {
-						format: 'yyyy-MM-dd HH:mm'
-					}
-				}
-			},
+			{header: '그룹코드', name: 'grpCd', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 그룹코드
+			{header: '코드', name: 'cd', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 코드
+			{header: '코드명', name: 'cdNm', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 코드명
+			{header: '참조1', name: 'ref1', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 참조1
+			{header: '참조2', name: 'ref2', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 참조2
+			{header: '참조3', name: 'ref3', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 참조3
+			{header: '비고', name: 'note', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 비고
+			{header: '설명', name: 'dsc', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 설명
+			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 우선순위
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 연동참조
+			{header: '수정ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정ID
+			{header: '수정일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정일시
+			{header: '등록ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록ID
+			{header: '등록일시', name: 'regDt', align: 'left', sortable: true, width: 120, disabled: true }, // 등록일시
 		],
 		scrollX: true,
 		scrollY: true,
@@ -172,21 +160,14 @@ onMounted(() => {
 			height: 40,
 		},
 	});
-
 	data.grid.on('click', function(e:any) {
 		if( e.columnName === 'cd') {
 			console.log('click')
 		}
 	});
-
 	getList();
 });
-
 </script>
-
 <style scoped>
-#code {
-width: 100%;
-}
+#code {width: 100%;}
 </style>
-

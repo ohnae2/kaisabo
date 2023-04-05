@@ -319,6 +319,8 @@
 .tui-grid-lside-area .tui-grid-table {
   width: 100%;
 }
+.tui-grid-cell-current-row td {background:#f7f7f7 !important;}
+.tui-grid-cell-current-row td .tui-grid-cell-content {background:#f7f7f7;}
 .tui-grid-cell {
   background-color:#fff !important;
   border-width: 1px;

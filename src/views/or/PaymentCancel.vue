@@ -70,14 +70,12 @@
 		<div id="grid"></div>
 	</div>
 </template>
-
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue';
 import Grid from 'tui-grid';
 import PaymentCancelService from '../../service/or/PaymentCancelService';
 import SelectDate from '../../components/SelectDate.vue';
 import SelectGroupDate from '../../components/SelectGroupDate.vue';
-import dateUtil from '../../utils/util.date';
 import { useAuthStore } from '../../store/store.auth';
 
 const auth = useAuthStore();
@@ -89,21 +87,18 @@ const search = reactive({
 	regId: '',
 	modId: '',
 });
-
 // 결제취소내역
 const data = reactive({
-	grid: {} as any,
-	audit: false,
+	grid: {} as Grid,
 	totalCount: 0,
+	list: [],
+	audit: false,
 });
-
 const getList = function () {
 	PaymentCancelService.getPaymentCancelList(search).then(
 		(res) => {
-			data.totalCount = 0;
-			for(let o of res.data) {
-				o.rowIdx = data.totalCount++;
-			}
+			data.totalCount = (res.count) ? res.count : 0;
+			data.list = res.data;
 			data.grid.resetData(res.data, {});
 		},
 		(err) => {
@@ -111,34 +106,41 @@ const getList = function () {
 		},
 	);
 }
-
 const add = function() {
-	location.reload();
+	data.grid.appendRow({}, {at: 0, focus: true});
 }
-const save = function() {
-	location.reload();
-}
-const del = function() {
-	location.reload();
+const del = function () {
+	let selectRow = data.grid.getFocusedCell();
+	if(!selectRow.rowKey) {
+		alert('행을 먼저 선택해주세요.');
+		return;
+	}
+	if (confirm('선택한 행을 정말 삭제하시겠습니까?')) {
+		if (selectRow && selectRow.rowKey) {
+			data.grid.removeRow(selectRow.rowKey);
+		}
+	}
 }
 const refresh = function() {
 	location.reload();
 }
-
+const save = function() {
+	console.log(data.grid.getModifiedRows());
+}
 onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
-		rowHeaders: ['checkbox'],
+		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: '결제취소번호', name: 'payCnclNo', sortable: true, width: 100, disabled: false, editor: 'text'}, // 결제취소번호
-			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, disabled: false, editor: 'text'}, // 상품번호
-			{header: '결제번호', name: 'payNo', sortable: true, width: 100, disabled: false, editor: 'text'}, // 결제번호
-			{header: '주문번호', name: 'ordNo', sortable: true, width: 100, disabled: false, editor: 'text'}, // 주문번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, disabled: false, editor: 'text'}, // 업체ID
-			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, disabled: false, editor: 'text'}, // 회원ID
-			{header: '취소요금', name: 'cnclPrice', sortable: true, width: 100, disabled: false, editor: 'text'}, // 취소요금
-			{header: '환불요금', name: 'rfdPrice', sortable: true, width: 100, disabled: false, editor: 'text'}, // 환불요금
-			{header: '환불수단코드', name: 'rfdWayCd', width: 120, sortable: true, disabled: false,
+			{header: '결제취소번호', name: 'payCnclNo', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 결제취소번호
+			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 상품번호
+			{header: '결제번호', name: 'payNo', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 결제번호
+			{header: '주문번호', name: 'ordNo', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 주문번호
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 업체ID
+			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 회원ID
+			{header: '취소요금', name: 'cnclPrice', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 취소요금
+			{header: '환불요금', name: 'rfdPrice', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 환불요금
+			{header: '환불수단코드', name: 'rfdWayCd', width: 120, align: 'left', sortable: true, disabled: false,
 				formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -147,9 +149,9 @@ onMounted(() => {
 					},
 				},
 			},
-			{header: '계좌번호', name: 'acctNo', sortable: true, width: 100, disabled: false, editor: 'text'}, // 계좌번호
-			{header: '카드번호', name: 'crdNo', sortable: true, width: 100, disabled: false, editor: 'text'}, // 카드번호
-			{header: '결과코드', name: 'rsltCd', width: 120, sortable: true, disabled: false,
+			{header: '계좌번호', name: 'acctNo', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 계좌번호
+			{header: '카드번호', name: 'crdNo', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 카드번호
+			{header: '결과코드', name: 'rsltCd', width: 120, align: 'left', sortable: true, disabled: false,
 				formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -158,10 +160,10 @@ onMounted(() => {
 					},
 				},
 			},
-			{header: '승인번호', name: 'apprNo', sortable: true, width: 100, disabled: false, editor: 'text'}, // 승인번호
-			{header: '비고', name: 'note', sortable: true, width: 100, disabled: false, editor: 'text'}, // 비고
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, disabled: false, editor: 'text'}, // 연동참조
-			{header: '취소일시', name: 'cnclDt', sortable: true, width: 120, disabled: false, // 취소일시
+			{header: '승인번호', name: 'apprNo', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 승인번호
+			{header: '비고', name: 'note', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 비고
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 연동참조
+			{header: '취소일시', name: 'cnclDt', sortable: true, width: 120, align: 'left', disabled: false, // 취소일시
 				editor: {
 				type: 'datePicker',
 					options: {
@@ -169,24 +171,10 @@ onMounted(() => {
 					}
 				}
 			},
-			{header: '수정ID', name: 'modId', sortable: true, width: 110}, // 수정ID
-			{header: '수정일시', name: 'modDt', sortable: true, width: 120, disabled: false, // 수정일시
-				editor: {
-				type: 'datePicker',
-					options: {
-						format: 'yyyy-MM-dd HH:mm'
-					}
-				}
-			},
-			{header: '등록ID', name: 'regId', sortable: true, width: 110}, // 등록ID
-			{header: '등록일시', name: 'regDt', sortable: true, width: 120, disabled: false, // 등록일시
-				editor: {
-				type: 'datePicker',
-					options: {
-						format: 'yyyy-MM-dd HH:mm'
-					}
-				}
-			},
+			{header: '수정ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정ID
+			{header: '수정일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정일시
+			{header: '등록ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록ID
+			{header: '등록일시', name: 'regDt', align: 'left', sortable: true, width: 120, disabled: true }, // 등록일시
 		],
 		scrollX: true,
 		scrollY: true,
@@ -201,21 +189,14 @@ onMounted(() => {
 			height: 40,
 		},
 	});
-
 	data.grid.on('click', function(e:any) {
 		if( e.columnName === 'cd') {
 			console.log('click')
 		}
 	});
-
 	getList();
 });
-
 </script>
-
 <style scoped>
-#paymentcancel {
-width: 100%;
-}
+#paymentcancel {width: 100%;}
 </style>
-
