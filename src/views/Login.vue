@@ -27,7 +27,9 @@ import { useAlertStore } from '../store/store.alert';
 import { useAuthStore } from '../store/store.auth';
 import { useRouter } from 'vue-router';
 import UserService from '../service/auth/UserService';
+import { useCookies } from "vue3-cookies";
 
+const { cookies } = useCookies();
 const alert = useAlertStore();
 const auth = useAuthStore();
 const router = useRouter();
@@ -38,12 +40,12 @@ interface LoginInfo {
   remember: boolean;
 }
 
-const storageId = localStorage.getItem('id') || '';
+const cookieId = cookies.get('id') || '';
 
 const param = reactive<LoginInfo>({
-  id: storageId,
+  id: cookieId,
   password: '',
-  remember: (storageId) ? true : false,
+  remember: (cookieId) ? true : false,
 });
 
 const submitForm = () => {
@@ -53,7 +55,9 @@ const submitForm = () => {
   formData.append('remember', param.remember + '');
 
   if(param.remember){
-    localStorage.setItem('id', param.id);
+    cookies.set('id', param.id);
+  } else {
+    cookies.remove('id');
   }
   
   UserService.getUserLogin(formData).then(

@@ -42,6 +42,10 @@ import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../store/store.auth';
 import { useSettingStore } from '../../store/store.setting';
 
+import { useCookies } from "vue3-cookies";
+
+const { cookies } = useCookies();
+
 const auth = useAuthStore();
 const setting = useSettingStore();
 const router = useRouter();
@@ -109,7 +113,7 @@ const toggleFav = function(menu:any) {
     });
   }
   // 저장
-  localStorage.setItem('favList', JSON.stringify(setting.favList) || '[]');
+  cookies.set('favList', JSON.stringify(setting.favList) || '[]');
 }
 const clickCategory = function(side:any) {
   side.active = !side.active;
