@@ -61,7 +61,7 @@
 					<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>
 					<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
 				</span>
-				<button type="button" class="audit" @click="data.audit = !data.audit">감사컬럼조회</button>
+				<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
 				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
 				<button type="reset" @click="refresh"><span class="icon">&#x22;</span></button>
 				<div class="totalCount">총 {{ data.totalCount }}건</div>

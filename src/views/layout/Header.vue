@@ -23,7 +23,7 @@
   <div id="side" v-bind:class="{menuOn : setting.menu.active}">
     <div class="wrap">
       <div class="menu" v-for="(side, i) in sideMenu" :key="i" v-bind:class="{'on': side.active }" v-show="side.menu.length > 0">
-        <h2 @click="clickCategory(side)">{{ side.pathNm }}</h2>
+        <h2>{{ side.pathNm }}</h2>
         <ul>
           <li v-for="(menu, idx) in side.menu" :key="idx" @click="clickMenu(menu)" v-bind:class="{ active: setting.hash == menu.url }">
             <span class="icon pre" v-html="menu.iconCd"></span>
@@ -115,6 +115,7 @@ const toggleFav = function(menu:any) {
   // 저장
   cookies.set('favList', JSON.stringify(setting.favList) || '[]');
 }
+// h2 @click="clickCategory(side)"
 const clickCategory = function(side:any) {
   side.active = !side.active;
 }
@@ -171,7 +172,7 @@ const clickFav = function(fav:any, idx:number) {
 #side .wrap {width:100%; padding-bottom:10px; height:100%; border-right:1px solid rgba(255,255,255,0.1); background:#444; overflow:auto;}
 #side .menu {width:220px; height:40px; overflow:hidden;}
 #side .menu.on {height:auto;}
-#side .menu h2 {padding:0 20px; background:#222; color:#999; height:40px; line-height:40px; cursor: pointer; }
+#side .menu h2 {padding:0 20px; background:#222; color:#555; height:40px; line-height:40px; }
 #side .menu ul {width:100%;}
 #side .menu ul li {padding:0; color:#bbb; cursor:pointer; height:34px; line-height:34px; position:relative; overflow:hidden; background:rgba(0,0,0,0.3);}
 #side .menu ul li span.pre {position:absolute; font-size:13px; opacity:0.5; left:10px; top:50%; margin-top:-12px;}

@@ -15,6 +15,10 @@
 							<th>검색조건</th>
 							<td colspan="3"><input type="text" v-model="search.keyword" /></td>
 						</tr>
+						<tr v-if="auth.userInfo.cmpId == 'kaisa'">
+							<th>업체ID</th>
+							<td colspan="3"><input type="text" v-model="search.cmpId" /></td>
+						</tr>
 					</tbody>
 					<tbody class="audit" v-show="data.audit">
 						<tr>
@@ -86,6 +90,7 @@ const search = reactive({
 	regDt: '', // dateUtil.format(new Date(),'YYYY-MM-DD') 
 	regId: '',
 	modId: '',
+	cmpId: '',
 });
 // 성수기
 const data = reactive({
@@ -166,6 +171,7 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
+			{header: '성수기번호', name: 'pksnNo', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 성수기번호
 			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 업체ID
 			{header: '준성수기시작일', name: 'sdsnStrtDay', sortable: true, width: 100, align: 'left', disabled: false, // 준성수기시작일
 				editor: {

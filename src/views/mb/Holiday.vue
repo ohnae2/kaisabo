@@ -15,6 +15,10 @@
 							<th>검색조건</th>
 							<td colspan="3"><input type="text" v-model="search.keyword" /></td>
 						</tr>
+						<tr v-if="auth.userInfo.cmpId == 'kaisa'">
+							<th>업체ID</th>
+							<td colspan="3"><input type="text" v-model="search.cmpId" /></td>
+						</tr>
 					</tbody>
 					<tbody class="audit" v-show="data.audit">
 						<tr>
@@ -86,6 +90,7 @@ const search = reactive({
 	regDt: '', // dateUtil.format(new Date(),'YYYY-MM-DD') 
 	regId: '',
 	modId: '',
+	cmpId: '',
 });
 // 휴일
 const data = reactive({
