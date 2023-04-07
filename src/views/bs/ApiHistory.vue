@@ -95,6 +95,7 @@ const search = reactive({
 // API이력
 const data = reactive({
 	grid: {} as Grid,
+	required: ['apiNm', 'reqUrl', 'reqVal', 'resVal', 'rsltCd', 'apiRef', 'modId', 'modDt', 'regId', 'regDt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -129,20 +130,34 @@ const del = function () {
 const refresh = function() {
 	location.reload();
 }
+const valid = function(o:any) {
+	for(let c in o) {
+		for(let r of data.required) {
+			if(c == r && !o[c]) {
+				alert('필수값이 없습니다.');
+				return false;
+			}
+		}
+	}
+	return true;
+}
 const save = function() {
+	data.grid.blur();
 	let saveList = [];
 	let count = [0, 0, 0];
 	for(let o of data.grid.getModifiedRows().createdRows as any) {
 		o.crud = 'C';
-		saveList.push(o);
-		if(!o.abb) {
-			alert('필수값을 입력하세요');
+		if(!valid(o)) {
 			return;
 		}
+		saveList.push(o);
 		count[0]++;
 	}
 	for(let o of data.grid.getModifiedRows().updatedRows as any) {
 		o.crud = 'U';
+		if(!valid(o)) {
+			return;
+		}
 		saveList.push(o);
 		count[1]++;
 	}
@@ -171,12 +186,12 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: 'API번호', name: 'apiNo', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // API번호
-			{header: 'API명', name: 'apiNm', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // API명
-			{header: '요청URL', name: 'reqUrl', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 요청URL
-			{header: '요청값', name: 'reqVal', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 요청값
-			{header: '응답값', name: 'resVal', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 응답값
-			{header: '결과코드', name: 'rsltCd', width: 120, align: 'left', sortable: true, disabled: false,
+			{header: 'API번호', name: 'apiNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // API번호
+			{header: 'API명', name: 'apiNm', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // API명
+			{header: '요청URL', name: 'reqUrl', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 요청URL
+			{header: '요청값', name: 'reqVal', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 요청값
+			{header: '응답값', name: 'resVal', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 응답값
+			{header: '결과코드', name: 'rsltCd', width: 120, align: 'left', sortable: true, disabled: true, validation: { dataType: 'string' , required: false }, 
 				formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -185,7 +200,7 @@ onMounted(() => {
 					},
 				},
 			},
-			{header: 'API참조', name: 'apiRef', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // API참조
+			{header: 'API참조', name: 'apiRef', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // API참조
 			{header: '수정ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정ID
 			{header: '수정일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정일시
 			{header: '등록ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록ID

@@ -95,6 +95,7 @@ const search = reactive({
 // 팝업
 const data = reactive({
 	grid: {} as Grid,
+	required: ['popNo', 'cmpId', 'tit', 'cnts', 'fileNo', 'prir', 'useYn', 'strtDt', 'endDt', 'linkRef', 'modId', 'modDt', 'regId', 'regDt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -129,20 +130,34 @@ const del = function () {
 const refresh = function() {
 	location.reload();
 }
+const valid = function(o:any) {
+	for(let c in o) {
+		for(let r of data.required) {
+			if(c == r && !o[c]) {
+				alert('필수값이 없습니다.');
+				return false;
+			}
+		}
+	}
+	return true;
+}
 const save = function() {
+	data.grid.blur();
 	let saveList = [];
 	let count = [0, 0, 0];
 	for(let o of data.grid.getModifiedRows().createdRows as any) {
 		o.crud = 'C';
-		saveList.push(o);
-		if(!o.abb) {
-			alert('필수값을 입력하세요');
+		if(!valid(o)) {
 			return;
 		}
+		saveList.push(o);
 		count[0]++;
 	}
 	for(let o of data.grid.getModifiedRows().updatedRows as any) {
 		o.crud = 'U';
+		if(!valid(o)) {
+			return;
+		}
 		saveList.push(o);
 		count[1]++;
 	}
@@ -171,14 +186,14 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: '팝업번호', name: 'popNo', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 팝업번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 업체ID
-			{header: '제목', name: 'tit', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 제목
-			{header: '내용', name: 'cnts', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 내용
-			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 파일번호
-			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 우선순위
-			{header: '사용 여부', name: 'useYn', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 사용 여부
-			{header: '시작일시', name: 'strtDt', sortable: true, width: 120, align: 'left', disabled: false, // 시작일시
+			{header: '팝업번호', name: 'popNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 팝업번호
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '제목', name: 'tit', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 제목
+			{header: '내용', name: 'cnts', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 내용
+			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호
+			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 우선순위
+			{header: '사용 여부', name: 'useYn', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 사용 여부
+			{header: '시작일시', name: 'strtDt', sortable: true, width: 120, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, // 시작일시
 				editor: {
 				type: 'datePicker',
 					options: {
@@ -186,7 +201,7 @@ onMounted(() => {
 					}
 				}
 			},
-			{header: '종료일시', name: 'endDt', sortable: true, width: 120, align: 'left', disabled: false, // 종료일시
+			{header: '종료일시', name: 'endDt', sortable: true, width: 120, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, // 종료일시
 				editor: {
 				type: 'datePicker',
 					options: {
@@ -194,7 +209,7 @@ onMounted(() => {
 					}
 				}
 			},
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 연동참조
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
 			{header: '수정 ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정 ID
 			{header: '수정 일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정 일시
 			{header: '등록 ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록 ID

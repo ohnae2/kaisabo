@@ -90,6 +90,7 @@ const search = reactive({
 	modId: '', 
 });
 const data = reactive({
+	required: ['abb', 'ko', 'en'],
 	grid: {} as Grid,
 	totalCount: 0,
 	list: [] as any,
@@ -113,7 +114,7 @@ const add = function() {
 }
 const del = function () {
 	let selectRow = data.grid.getFocusedCell();
-	if(!selectRow.rowKey) {
+	if(selectRow.rowKey == null) {
 		alert('행을 먼저 선택해주세요.');
 		return;
 	}
@@ -126,20 +127,34 @@ const del = function () {
 const refresh = function() {
 	location.reload();
 }
+const valid = function(o:any) {
+	for(let c in o) {
+		for(let r of data.required) {
+			if(c == r && !o[c]) {
+				alert('필수값이 없습니다.');
+				return false;
+			}
+		}
+	}
+	return true;
+}
 const save = function() {
+	data.grid.blur();
 	let saveList = [];
 	let count = [0, 0, 0];
 	for(let o of data.grid.getModifiedRows().createdRows as any) {
 		o.crud = 'C';
-		saveList.push(o);
-		if(!o.abb) {
-			alert('필수값을 입력하세요');
+		if(!valid(o)) {
 			return;
 		}
+		saveList.push(o);
 		count[0]++;
 	}
 	for(let o of data.grid.getModifiedRows().updatedRows as any) {
 		o.crud = 'U';
+		if(!valid(o)) {
+			return;
+		}
 		saveList.push(o);
 		count[1]++;
 	}
@@ -168,10 +183,10 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: '약어', name: 'abb', editor: 'text', sortable: true, align: 'center' },
-			{header: '한국어', name: 'ko', hidden: false, editor: 'text' },
-			{header: '영어', name: 'en', editor: 'text'},
-			{header: '설명', name: 'dsc', editor: 'text'},
+			{header: '약어', name: 'abb', editor: 'text', sortable: true, align: 'left', validation: { dataType: 'string' , required: true } },
+			{header: '한국어', name: 'ko', hidden: false, editor: 'text', validation: { dataType: 'string' , required: true } },
+			{header: '영어', name: 'en', editor: 'text', validation: { dataType: 'string' , required: true } },
+			{header: '설명', name: 'dsc', editor: 'text', validation: { dataType: 'string' , required: false } },
 			{header: '연동참조', name: 'linkRef', editor: 'text', hidden: true, defaultValue: '', width: 150},
 			{header: '수정일시', name: 'modDt', disabled: true },
 		],

@@ -95,6 +95,7 @@ const search = reactive({
 // 회원
 const data = reactive({
 	grid: {} as Grid,
+	required: ['mbrId', 'cmpId', 'lv', 'pwd', 'nic', 'fileNo', 'nm', 'hpNo', 'postNo', 'addr', 'dtlAddr', 'bisitCnt', 'loginDt', 'wtdwDt', 'pwdRfsDt', 'mbrStatCd', 'email', 'payCertKey', 'simAdmsCd', 'lckYn', 'flCnt', 'note', 'linkRef', 'modId', 'modDt', 'regId', 'regDt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -129,20 +130,34 @@ const del = function () {
 const refresh = function() {
 	location.reload();
 }
+const valid = function(o:any) {
+	for(let c in o) {
+		for(let r of data.required) {
+			if(c == r && !o[c]) {
+				alert('필수값이 없습니다.');
+				return false;
+			}
+		}
+	}
+	return true;
+}
 const save = function() {
+	data.grid.blur();
 	let saveList = [];
 	let count = [0, 0, 0];
 	for(let o of data.grid.getModifiedRows().createdRows as any) {
 		o.crud = 'C';
-		saveList.push(o);
-		if(!o.abb) {
-			alert('필수값을 입력하세요');
+		if(!valid(o)) {
 			return;
 		}
+		saveList.push(o);
 		count[0]++;
 	}
 	for(let o of data.grid.getModifiedRows().updatedRows as any) {
 		o.crud = 'U';
+		if(!valid(o)) {
+			return;
+		}
 		saveList.push(o);
 		count[1]++;
 	}
@@ -171,19 +186,19 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 회원ID
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 업체ID
-			{header: '레벨', name: 'lv', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 레벨
-			{header: '비밀번호', name: 'pwd', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 비밀번호
-			{header: '닉네임', name: 'nic', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 닉네임
-			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 파일번호
-			{header: '이름', name: 'nm', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 이름
-			{header: '휴대전화번호', name: 'hpNo', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 휴대전화번호
-			{header: '우편번호', name: 'postNo', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 우편번호
-			{header: '주소', name: 'addr', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 주소
-			{header: '상세주소', name: 'dtlAddr', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 상세주소
-			{header: '방문횟수', name: 'bisitCnt', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 방문횟수
-			{header: '로그인일시', name: 'loginDt', sortable: true, width: 120, align: 'left', disabled: false, // 로그인일시
+			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 회원ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '레벨', name: 'lv', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 레벨
+			{header: '비밀번호', name: 'pwd', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 비밀번호
+			{header: '닉네임', name: 'nic', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 닉네임
+			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호
+			{header: '이름', name: 'nm', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 이름
+			{header: '휴대전화번호', name: 'hpNo', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 휴대전화번호
+			{header: '우편번호', name: 'postNo', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 우편번호
+			{header: '주소', name: 'addr', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 주소
+			{header: '상세주소', name: 'dtlAddr', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 상세주소
+			{header: '방문횟수', name: 'bisitCnt', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 방문횟수
+			{header: '로그인일시', name: 'loginDt', sortable: true, width: 120, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, // 로그인일시
 				editor: {
 				type: 'datePicker',
 					options: {
@@ -191,7 +206,7 @@ onMounted(() => {
 					}
 				}
 			},
-			{header: '탈퇴일시', name: 'wtdwDt', sortable: true, width: 120, align: 'left', disabled: false, // 탈퇴일시
+			{header: '탈퇴일시', name: 'wtdwDt', sortable: true, width: 120, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, // 탈퇴일시
 				editor: {
 				type: 'datePicker',
 					options: {
@@ -199,7 +214,7 @@ onMounted(() => {
 					}
 				}
 			},
-			{header: '비밀번호갱신일시', name: 'pwdRfsDt', sortable: true, width: 120, align: 'left', disabled: false, // 비밀번호갱신일시
+			{header: '비밀번호갱신일시', name: 'pwdRfsDt', sortable: true, width: 120, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, // 비밀번호갱신일시
 				editor: {
 				type: 'datePicker',
 					options: {
@@ -207,7 +222,7 @@ onMounted(() => {
 					}
 				}
 			},
-			{header: '회원상태코드', name: 'mbrStatCd', width: 120, align: 'left', sortable: true, disabled: false,
+			{header: '회원상태코드', name: 'mbrStatCd', width: 120, align: 'left', sortable: true, disabled: true, validation: { dataType: 'string' , required: false }, 
 				formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -216,9 +231,9 @@ onMounted(() => {
 					},
 				},
 			},
-			{header: '이메일', name: 'email', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 이메일
-			{header: '결제인증키', name: 'payCertKey', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 결제인증키
-			{header: '간편가입코드', name: 'simAdmsCd', width: 120, align: 'left', sortable: true, disabled: false,
+			{header: '이메일', name: 'email', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 이메일
+			{header: '결제인증키', name: 'payCertKey', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 결제인증키
+			{header: '간편가입코드', name: 'simAdmsCd', width: 120, align: 'left', sortable: true, disabled: true, validation: { dataType: 'string' , required: true }, 
 				formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -227,10 +242,10 @@ onMounted(() => {
 					},
 				},
 			},
-			{header: '잠금여부', name: 'lckYn', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 잠금여부
-			{header: '실패횟수', name: 'flCnt', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 실패횟수
-			{header: '비고', name: 'note', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 비고
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 연동참조
+			{header: '잠금여부', name: 'lckYn', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 잠금여부
+			{header: '실패횟수', name: 'flCnt', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 실패횟수
+			{header: '비고', name: 'note', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 비고
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
 			{header: '수정ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정ID
 			{header: '수정일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정일시
 			{header: '등록ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록ID

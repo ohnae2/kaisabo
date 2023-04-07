@@ -95,6 +95,7 @@ const search = reactive({
 // 게시판분류
 const data = reactive({
 	grid: {} as Grid,
+	required: ['hgrkCatNo', 'lwrkCatYn', 'catNm', 'useYn', 'dpth', 'prir', 'linkRef', 'modId', 'modDt', 'regId', 'regDt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -129,20 +130,34 @@ const del = function () {
 const refresh = function() {
 	location.reload();
 }
+const valid = function(o:any) {
+	for(let c in o) {
+		for(let r of data.required) {
+			if(c == r && !o[c]) {
+				alert('필수값이 없습니다.');
+				return false;
+			}
+		}
+	}
+	return true;
+}
 const save = function() {
+	data.grid.blur();
 	let saveList = [];
 	let count = [0, 0, 0];
 	for(let o of data.grid.getModifiedRows().createdRows as any) {
 		o.crud = 'C';
-		saveList.push(o);
-		if(!o.abb) {
-			alert('필수값을 입력하세요');
+		if(!valid(o)) {
 			return;
 		}
+		saveList.push(o);
 		count[0]++;
 	}
 	for(let o of data.grid.getModifiedRows().updatedRows as any) {
 		o.crud = 'U';
+		if(!valid(o)) {
+			return;
+		}
 		saveList.push(o);
 		count[1]++;
 	}
@@ -171,14 +186,14 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: '게시판분류번호', name: 'brdCatNo', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 게시판분류번호
-			{header: '상위분류번호', name: 'hgrkCatNo', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 상위분류번호
-			{header: '하위분류여부', name: 'lwrkCatYn', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 하위분류여부
-			{header: '분류명', name: 'catNm', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 분류명
-			{header: '사용여부', name: 'useYn', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 사용여부
-			{header: '깊이', name: 'dpth', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 깊이
-			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 우선순위
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 연동참조
+			{header: '게시판분류번호', name: 'brdCatNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 게시판분류번호
+			{header: '상위분류번호', name: 'hgrkCatNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 상위분류번호
+			{header: '하위분류여부', name: 'lwrkCatYn', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 하위분류여부
+			{header: '분류명', name: 'catNm', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 분류명
+			{header: '사용여부', name: 'useYn', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 사용여부
+			{header: '깊이', name: 'dpth', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 깊이
+			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 우선순위
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
 			{header: '수정ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정ID
 			{header: '수정일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정일시
 			{header: '등록ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록ID

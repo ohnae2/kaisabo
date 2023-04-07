@@ -89,6 +89,7 @@ const search = reactive({
 });
 // 코드
 const data = reactive({
+	required: ['grpCd', 'cd', 'cdNm'],
 	grid: {} as Grid,
 	totalCount: 0,
 	list: [],
@@ -115,7 +116,6 @@ const getList = function () {
 					} 
 				}
 			}
-			console.log(arr);
 			data.grid.resetData(arr, {});
 		},
 		(err) => {
@@ -141,14 +141,25 @@ const del = function () {
 const refresh = function() {
 	location.reload();
 }
+const valid = function(o:any) {
+	for(let c in o) {
+		for(let r of data.required) {
+			if(c == r && !o[c]) {
+				alert('필수값이 없습니다.');
+				return false;
+			}
+		}
+	}
+	return true;
+}
 const save = function() {
+	data.grid.blur();
 	let saveList = [];
 	let count = [0, 0, 0];
 	for(let o of data.grid.getModifiedRows().createdRows as any) {
 		o.crud = 'C';
 		saveList.push(o);
-		if(!o.abb) {
-			alert('필수값을 입력하세요');
+		if(!valid(o)) {
 			return;
 		}
 		count[0]++;
@@ -156,6 +167,9 @@ const save = function() {
 	for(let o of data.grid.getModifiedRows().updatedRows as any) {
 		o.crud = 'U';
 		saveList.push(o);
+		if(!valid(o)) {
+			return;
+		}
 		count[1]++;
 	}
 	for(let o of data.grid.getModifiedRows().deletedRows as any) {
@@ -187,16 +201,16 @@ onMounted(() => {
 			useCascadingCheckbox: true
 		},
 		columns: [
-			{header: '그룹코드', name: 'grpCd', sortable: true, width: 200, align: 'left', disabled: false, editor: 'text'}, // 그룹코드
-			{header: '코드명', name: 'cdNm', sortable: true, width: 150, align: 'left', disabled: false, editor: 'text'}, // 코드명
-			{header: '코드', name: 'cd', sortable: true, width: 150, align: 'left', disabled: false, editor: 'text'}, // 코드
-			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 우선순위
-			{header: '참조1', name: 'ref1', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 참조1
-			{header: '참조2', name: 'ref2', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 참조2
-			{header: '참조3', name: 'ref3', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 참조3
-			{header: '비고', name: 'note', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 비고
-			{header: '설명', name: 'dsc', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 설명
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 연동참조
+			{header: '그룹코드', name: 'grpCd', sortable: true, width: 200, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 그룹코드
+			{header: '코드명', name: 'cdNm', sortable: true, width: 150, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 코드명
+			{header: '코드', name: 'cd', sortable: true, width: 150, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 코드
+			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 우선순위
+			{header: '참조1', name: 'ref1', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 참조1
+			{header: '참조2', name: 'ref2', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 참조2
+			{header: '참조3', name: 'ref3', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 참조3
+			{header: '비고', name: 'note', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 비고
+			{header: '설명', name: 'dsc', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 설명
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 연동참조
 			{header: '수정ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정ID
 			{header: '수정일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정일시
 			{header: '등록ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록ID
