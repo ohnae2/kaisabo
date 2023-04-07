@@ -12,12 +12,8 @@
 					</colgroup>
 					<tbody>
 						<tr>
-							<th>검색조건</th>
-							<td colspan="3"><input type="text" v-model="search.keyword" /></td>
-						</tr>
-						<tr v-if="auth.userInfo.cmpId == 'kaisa'">
-							<th>업체ID</th>
-							<td colspan="3"><input type="text" v-model="search.cmpId" /></td>
+							<th>그룹코드</th>
+							<td colspan="3"><input type="text" v-model="search.grpCd" /></td>
 						</tr>
 					</tbody>
 					<tbody class="audit" v-show="data.audit">
@@ -63,7 +59,7 @@
 				<span class="crud">
 					<button type="button" class="button add" @click="add"><span class="icon">&#xe813;</span>추가</button>
 					<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
-					<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>
+					<!--<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>-->
 					</span>
 				<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
 				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
@@ -84,13 +80,12 @@ import { useAuthStore } from '../../store/store.auth';
 
 const auth = useAuthStore();
 const search = reactive({
-	keyword: '',
+	grpCd: '',
 	startModDt: '',
 	endModDt: '',
 	regDt: '', // dateUtil.format(new Date(),'YYYY-MM-DD') 
 	regId: '',
 	modId: '',
-	cmpId: '',
 });
 // 코드
 const data = reactive({
@@ -103,8 +98,25 @@ const getList = function () {
 	CodeService.getCodeList(search).then(
 		(res) => {
 			data.totalCount = (res.count) ? res.count : 0;
-			data.list = res.data;
-			data.grid.resetData(res.data, {});
+			let arr = [];
+			for(let o of res.data) {
+				if(o.cd === 'XXX') {
+					arr.push(o);
+				}
+			}
+			for(let o of arr) {
+				o.attributes = {
+					expanded: true // default: false
+				};
+				o._children = [];
+				for(let c of res.data) {
+					if(c.cd != 'XXX' && o.grpCd === c.grpCd) {
+						o._children.push(c);
+					} 
+				}
+			}
+			console.log(arr);
+			data.grid.resetData(arr, {});
 		},
 		(err) => {
 			console.log(err);
@@ -170,16 +182,20 @@ onMounted(() => {
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
+		treeColumnOptions: {
+			name: 'grpCd',
+			useCascadingCheckbox: true
+		},
 		columns: [
-			{header: '그룹코드', name: 'grpCd', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 그룹코드
-			{header: '코드', name: 'cd', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 코드
-			{header: '코드명', name: 'cdNm', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 코드명
+			{header: '그룹코드', name: 'grpCd', sortable: true, width: 200, align: 'left', disabled: false, editor: 'text'}, // 그룹코드
+			{header: '코드명', name: 'cdNm', sortable: true, width: 150, align: 'left', disabled: false, editor: 'text'}, // 코드명
+			{header: '코드', name: 'cd', sortable: true, width: 150, align: 'left', disabled: false, editor: 'text'}, // 코드
+			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 우선순위
 			{header: '참조1', name: 'ref1', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 참조1
 			{header: '참조2', name: 'ref2', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 참조2
 			{header: '참조3', name: 'ref3', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 참조3
 			{header: '비고', name: 'note', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 비고
 			{header: '설명', name: 'dsc', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 설명
-			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: false, editor: 'text'}, // 우선순위
 			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, editor: 'text'}, // 연동참조
 			{header: '수정ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정ID
 			{header: '수정일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정일시
