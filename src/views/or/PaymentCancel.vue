@@ -95,7 +95,7 @@ const search = reactive({
 // 결제취소내역
 const data = reactive({
 	grid: {} as Grid,
-	required: ['prodNo', 'payNo', 'ordNo', 'cmpId', 'mbrId', 'cnclPrice', 'rfdPrice', 'rfdWayCd', 'acctNo', 'crdNo', 'rsltCd', 'apprNo', 'note', 'linkRef', 'cnclDt', 'modId', 'modDt', 'regId', 'regDt'],
+	required: ['prodNo', 'payNo', 'ordNo', 'cmpId', 'cnclPrice', 'rfdPrice', 'rfdWayCd', 'cnclDt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -134,7 +134,7 @@ const valid = function(o:any) {
 	for(let c in o) {
 		for(let r of data.required) {
 			if(c == r && !o[c]) {
-				alert('필수값이 없습니다.');
+				alert(c + ' 필수값이 없습니다.');
 				return false;
 			}
 		}
@@ -186,15 +186,15 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: '결제취소번호', name: 'payCnclNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 결제취소번호
-			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 상품번호
-			{header: '결제번호', name: 'payNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 결제번호
-			{header: '주문번호', name: 'ordNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 주문번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
-			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원ID
-			{header: '취소요금', name: 'cnclPrice', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 취소요금
-			{header: '환불요금', name: 'rfdPrice', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 환불요금
-			{header: '환불수단코드', name: 'rfdWayCd', width: 120, align: 'left', sortable: true, disabled: true, validation: { dataType: 'string' , required: false }, 
+			{header: '결제취소번호', name: 'payCnclNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 결제취소번호
+			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 상품번호
+			{header: '결제번호', name: 'payNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 결제번호
+			{header: '주문번호', name: 'ordNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 주문번호
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원ID
+			{header: '취소요금', name: 'cnclPrice', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 취소요금
+			{header: '환불요금', name: 'rfdPrice', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 환불요금
+			{header: '환불수단코드', name: 'rfdWayCd', width: 120, align: 'left', sortable: true, disabled: false, validation: { dataType: 'string' , required: false }, 
 				formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -203,9 +203,9 @@ onMounted(() => {
 					},
 				},
 			},
-			{header: '계좌번호', name: 'acctNo', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 계좌번호
-			{header: '카드번호', name: 'crdNo', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 카드번호
-			{header: '결과코드', name: 'rsltCd', width: 120, align: 'left', sortable: true, disabled: true, validation: { dataType: 'string' , required: true }, 
+			{header: '계좌번호', name: 'acctNo', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 계좌번호
+			{header: '카드번호', name: 'crdNo', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 카드번호
+			{header: '결과코드', name: 'rsltCd', width: 120, align: 'left', sortable: true, disabled: false, validation: { dataType: 'string' , required: true }, 
 				formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -214,10 +214,10 @@ onMounted(() => {
 					},
 				},
 			},
-			{header: '승인번호', name: 'apprNo', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 승인번호
-			{header: '비고', name: 'note', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 비고
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
-			{header: '취소일시', name: 'cnclDt', sortable: true, width: 120, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, // 취소일시
+			{header: '승인번호', name: 'apprNo', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 승인번호
+			{header: '비고', name: 'note', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 비고
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
+			{header: '취소일시', name: 'cnclDt', sortable: true, width: 120, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, // 취소일시
 				editor: {
 				type: 'datePicker',
 					options: {

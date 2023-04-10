@@ -95,7 +95,7 @@ const search = reactive({
 // 휴일
 const data = reactive({
 	grid: {} as Grid,
-	required: ['hld', 'cmpId', 'hldNm', 'hldCd', 'hldPrice', 'linkRef', 'modId', 'modDt', 'regId', 'regDt'],
+	required: ['hld', 'cmpId', 'hldNm', 'hldCd', 'hldPrice'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -134,7 +134,7 @@ const valid = function(o:any) {
 	for(let c in o) {
 		for(let r of data.required) {
 			if(c == r && !o[c]) {
-				alert('필수값이 없습니다.');
+				alert(c + ' 필수값이 없습니다.');
 				return false;
 			}
 		}
@@ -186,7 +186,7 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: '휴일', name: 'hld', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, // 휴일
+			{header: '휴일', name: 'hld', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, // 휴일
 				editor: {
 				type: 'datePicker',
 					options: {
@@ -194,9 +194,9 @@ onMounted(() => {
 					}
 				}
 			},
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
-			{header: '휴일명', name: 'hldNm', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 휴일명
-			{header: '휴일코드', name: 'hldCd', width: 120, align: 'left', sortable: true, disabled: true, validation: { dataType: 'string' , required: false }, 
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '휴일명', name: 'hldNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 휴일명
+			{header: '휴일코드', name: 'hldCd', width: 120, align: 'left', sortable: true, disabled: false, validation: { dataType: 'string' , required: false }, 
 				formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -205,8 +205,8 @@ onMounted(() => {
 					},
 				},
 			},
-			{header: '휴일요금', name: 'hldPrice', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 휴일요금
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
+			{header: '휴일요금', name: 'hldPrice', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 휴일요금
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
 			{header: '수정ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정ID
 			{header: '수정일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정일시
 			{header: '등록ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록ID

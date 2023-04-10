@@ -95,7 +95,7 @@ const search = reactive({
 // 회원포인트내역
 const data = reactive({
 	grid: {} as Grid,
-	required: ['mbrId', 'cmpId', 'pntNo', 'pntUseCd', 'ordNo', 'linkRef', 'modId', 'modDt', 'regId', 'regDt'],
+	required: ['mbrId', 'cmpId', 'pntUseCd'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -134,7 +134,7 @@ const valid = function(o:any) {
 	for(let c in o) {
 		for(let r of data.required) {
 			if(c == r && !o[c]) {
-				alert('필수값이 없습니다.');
+				alert(c + ' 필수값이 없습니다.');
 				return false;
 			}
 		}
@@ -186,11 +186,11 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: '포인트이력번호', name: 'pntHistNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 포인트이력번호
-			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 회원ID
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
-			{header: '포인트번호', name: 'pntNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 포인트번호
-			{header: '포인트사용코드', name: 'pntUseCd', width: 120, align: 'left', sortable: true, disabled: true, validation: { dataType: 'string' , required: false }, 
+			{header: '포인트이력번호', name: 'pntHistNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 포인트이력번호
+			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 회원ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '포인트번호', name: 'pntNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 포인트번호
+			{header: '포인트사용코드', name: 'pntUseCd', width: 120, align: 'left', sortable: true, disabled: false, validation: { dataType: 'string' , required: false }, 
 				formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -199,8 +199,8 @@ onMounted(() => {
 					},
 				},
 			},
-			{header: '주문번호', name: 'ordNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 주문번호
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
+			{header: '주문번호', name: 'ordNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 주문번호
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
 			{header: '수정ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정ID
 			{header: '수정일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정일시
 			{header: '등록ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록ID

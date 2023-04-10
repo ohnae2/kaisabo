@@ -95,7 +95,7 @@ const search = reactive({
 // QNA
 const data = reactive({
 	grid: {} as Grid,
-	required: ['cmpId', 'mbrId', 'mbrNm', 'mbrTelNo', 'mbrEmail', 'pwd', 'tit', 'cnts', 'chrYn', 'fileNo', 'linkRef', 'modId', 'modDt', 'regId', 'regDt'],
+	required: ['cmpId', 'cnts', 'chrYn'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -134,7 +134,7 @@ const valid = function(o:any) {
 	for(let c in o) {
 		for(let r of data.required) {
 			if(c == r && !o[c]) {
-				alert('필수값이 없습니다.');
+				alert(c + ' 필수값이 없습니다.');
 				return false;
 			}
 		}
@@ -186,18 +186,18 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: 'QNA 번호', name: 'qnaNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // QNA 번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
-			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원ID
-			{header: '회원 명', name: 'mbrNm', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원 명
-			{header: '회원 전화번호', name: 'mbrTelNo', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원 전화번호
-			{header: '회원 이메일', name: 'mbrEmail', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원 이메일
-			{header: '비밀번호', name: 'pwd', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 비밀번호
-			{header: '제목', name: 'tit', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 제목
-			{header: '내용', name: 'cnts', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 내용
-			{header: '문자여부', name: 'chrYn', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 문자여부
-			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
+			{header: 'QNA 번호', name: 'qnaNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // QNA 번호
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원ID
+			{header: '회원 명', name: 'mbrNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원 명
+			{header: '회원 전화번호', name: 'mbrTelNo', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원 전화번호
+			{header: '회원 이메일', name: 'mbrEmail', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원 이메일
+			{header: '비밀번호', name: 'pwd', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 비밀번호
+			{header: '제목', name: 'tit', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 제목
+			{header: '내용', name: 'cnts', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 내용
+			{header: '문자여부', name: 'chrYn', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 문자여부
+			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
 			{header: '수정 ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정 ID
 			{header: '수정 일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정 일시
 			{header: '등록 ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록 ID

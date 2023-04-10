@@ -41,6 +41,7 @@ const routes: RouteRecordRaw[] = [
                 component: () => import('../views/main/Main.vue'),
             },
             // 프로그램으로 만들지 않는...
+            { path: '/bs/calendar', name: 'calendar', meta: { title: 'calendar', auth: true, }, component: () => import( '../views/bs/Calendar.vue'), },
             { path: '/bs/dictionary', name: 'dictionary', meta: { title: 'dictionary', auth: true, }, component: () => import( '../views/bs/Dictionary.vue'), },
             // 프로그램으로 자동생성
             { path: '/bs/code', name: 'code', meta: { title: 'code', auth: true, }, component: () => import( '../views/bs/Code.vue'), },

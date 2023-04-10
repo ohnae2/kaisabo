@@ -95,7 +95,7 @@ const search = reactive({
 // 주문
 const data = reactive({
 	grid: {} as Grid,
-	required: ['prodNo', 'cmpId', 'mbrId', 'mbrNm', 'telNo', 'rsvDay', 'email', 'ordStatCd', 'price', 'addPrice', 'usePnt', 'cpnNo', 'dcPrice', 'psnelCnt', 'addPsnelCnt', 'wwtAddYn', 'bbqAddYn', 'pickupYn', 'rsvPathCd', 'note', 'linkRef', 'modId', 'modDt', 'regId', 'regDt'],
+	required: ['prodNo', 'cmpId', 'mbrNm', 'telNo', 'rsvDay', 'email', 'ordStatCd', 'price'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -134,7 +134,7 @@ const valid = function(o:any) {
 	for(let c in o) {
 		for(let r of data.required) {
 			if(c == r && !o[c]) {
-				alert('필수값이 없습니다.');
+				alert(c + ' 필수값이 없습니다.');
 				return false;
 			}
 		}
@@ -186,13 +186,13 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: '주문번호', name: 'ordNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 주문번호
-			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 상품번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
-			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원ID
-			{header: '회원명', name: 'mbrNm', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 회원명
-			{header: '전화번호', name: 'telNo', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 전화번호
-			{header: '예약일', name: 'rsvDay', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, // 예약일
+			{header: '주문번호', name: 'ordNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 주문번호
+			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 상품번호
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원ID
+			{header: '회원명', name: 'mbrNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 회원명
+			{header: '전화번호', name: 'telNo', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 전화번호
+			{header: '예약일', name: 'rsvDay', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, // 예약일
 				editor: {
 				type: 'datePicker',
 					options: {
@@ -200,8 +200,8 @@ onMounted(() => {
 					}
 				}
 			},
-			{header: '이메일', name: 'email', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 이메일
-			{header: '주문상태코드', name: 'ordStatCd', width: 120, align: 'left', sortable: true, disabled: true, validation: { dataType: 'string' , required: false }, 
+			{header: '이메일', name: 'email', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 이메일
+			{header: '주문상태코드', name: 'ordStatCd', width: 120, align: 'left', sortable: true, disabled: false, validation: { dataType: 'string' , required: false }, 
 				formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -210,17 +210,17 @@ onMounted(() => {
 					},
 				},
 			},
-			{header: '요금', name: 'price', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 요금
-			{header: '추가요금', name: 'addPrice', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 추가요금
-			{header: '사용포인트', name: 'usePnt', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 사용포인트
-			{header: '쿠폰번호', name: 'cpnNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 쿠폰번호
-			{header: '할인요금', name: 'dcPrice', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 할인요금
-			{header: '인원수', name: 'psnelCnt', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 인원수
-			{header: '추가인원수', name: 'addPsnelCnt', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 추가인원수
-			{header: '온수추가여부', name: 'wwtAddYn', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 온수추가여부
-			{header: '바베큐추가여부', name: 'bbqAddYn', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 바베큐추가여부
-			{header: '픽업여부', name: 'pickupYn', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 픽업여부
-			{header: '예약경로코드', name: 'rsvPathCd', width: 120, align: 'left', sortable: true, disabled: true, validation: { dataType: 'string' , required: true }, 
+			{header: '요금', name: 'price', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 요금
+			{header: '추가요금', name: 'addPrice', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 추가요금
+			{header: '사용포인트', name: 'usePnt', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 사용포인트
+			{header: '쿠폰번호', name: 'cpnNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 쿠폰번호
+			{header: '할인요금', name: 'dcPrice', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 할인요금
+			{header: '인원수', name: 'psnelCnt', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 인원수
+			{header: '추가인원수', name: 'addPsnelCnt', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 추가인원수
+			{header: '온수추가여부', name: 'wwtAddYn', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 온수추가여부
+			{header: '바베큐추가여부', name: 'bbqAddYn', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 바베큐추가여부
+			{header: '픽업여부', name: 'pickupYn', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 픽업여부
+			{header: '예약경로코드', name: 'rsvPathCd', width: 120, align: 'left', sortable: true, disabled: false, validation: { dataType: 'string' , required: true }, 
 				formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -229,8 +229,8 @@ onMounted(() => {
 					},
 				},
 			},
-			{header: '비고', name: 'note', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 비고
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
+			{header: '비고', name: 'note', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 비고
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
 			{header: '수정ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정ID
 			{header: '수정일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정일시
 			{header: '등록ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록ID
