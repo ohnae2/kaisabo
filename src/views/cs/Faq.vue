@@ -95,7 +95,7 @@ const search = reactive({
 // FAQ
 const data = reactive({
 	grid: {} as Grid,
-	required: ['cmpId', 'strtDt', 'endDt'],
+	required: ['strtDt', 'endDt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -187,7 +187,7 @@ onMounted(() => {
 		//rowHeaders: ['checkbox'],
 		columns: [
 			{header: 'FAQ 번호', name: 'faqNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // FAQ 번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '제목', name: 'tit', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 제목
 			{header: '내용', name: 'cnts', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 내용
 			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호

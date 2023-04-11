@@ -95,7 +95,7 @@ const search = reactive({
 // 결제내역
 const data = reactive({
 	grid: {} as Grid,
-	required: ['ordNo', 'prodNo', 'cmpId', 'payPrice', 'payWayCd', 'payDt'],
+	required: ['ordNo', 'prodNo', 'payPrice', 'payWayCd', 'payDt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -189,7 +189,7 @@ onMounted(() => {
 			{header: '결제번호', name: 'payNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 결제번호
 			{header: '주문번호', name: 'ordNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 주문번호
 			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 상품번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원ID
 			{header: '결제요금', name: 'payPrice', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 결제요금
 			{header: '결제수단코드', name: 'payWayCd', width: 120, align: 'left', sortable: true, disabled: false, validation: { dataType: 'string' , required: false }, 

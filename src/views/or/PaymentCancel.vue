@@ -95,7 +95,7 @@ const search = reactive({
 // 결제취소내역
 const data = reactive({
 	grid: {} as Grid,
-	required: ['prodNo', 'payNo', 'ordNo', 'cmpId', 'cnclPrice', 'rfdPrice', 'rfdWayCd', 'cnclDt'],
+	required: ['prodNo', 'payNo', 'ordNo', 'cnclPrice', 'rfdPrice', 'rfdWayCd', 'cnclDt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -190,7 +190,7 @@ onMounted(() => {
 			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 상품번호
 			{header: '결제번호', name: 'payNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 결제번호
 			{header: '주문번호', name: 'ordNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 주문번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원ID
 			{header: '취소요금', name: 'cnclPrice', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 취소요금
 			{header: '환불요금', name: 'rfdPrice', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 환불요금

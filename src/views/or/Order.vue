@@ -95,7 +95,7 @@ const search = reactive({
 // 주문
 const data = reactive({
 	grid: {} as Grid,
-	required: ['prodNo', 'cmpId', 'mbrNm', 'telNo', 'rsvDay', 'email', 'ordStatCd', 'price'],
+	required: ['prodNo', 'mbrNm', 'telNo', 'rsvDay', 'email', 'ordStatCd', 'price'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -188,7 +188,7 @@ onMounted(() => {
 		columns: [
 			{header: '주문번호', name: 'ordNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 주문번호
 			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 상품번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원ID
 			{header: '회원명', name: 'mbrNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 회원명
 			{header: '전화번호', name: 'telNo', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 전화번호

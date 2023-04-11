@@ -95,7 +95,7 @@ const search = reactive({
 // 사용자
 const data = reactive({
 	grid: {} as Grid,
-	required: ['usrId', 'cmpId', 'pwd', 'nm', 'hpNo', 'pwdRfsDt', 'usrStatCd', 'email', 'lckYn', 'flCnt'],
+	required: ['usrId', 'pwd', 'nm', 'hpNo', 'pwdRfsDt', 'usrStatCd', 'email', 'lckYn', 'flCnt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -187,7 +187,7 @@ onMounted(() => {
 		//rowHeaders: ['checkbox'],
 		columns: [
 			{header: '사용자ID', name: 'usrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 사용자ID
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '그룹ID', name: 'grpId', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 그룹ID
 			{header: '비밀번호', name: 'pwd', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 비밀번호
 			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호

@@ -95,7 +95,7 @@ const search = reactive({
 // 전시상품
 const data = reactive({
 	grid: {} as Grid,
-	required: ['dispNo', 'cmpId', 'prodNo', 'prir', 'dispYn'],
+	required: ['dispNo', 'prodNo', 'prir', 'dispYn'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -187,7 +187,7 @@ onMounted(() => {
 		//rowHeaders: ['checkbox'],
 		columns: [
 			{header: '전시번호', name: 'dispNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 전시번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 상품번호
 			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 우선순위
 			{header: '전시여부', name: 'dispYn', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 전시여부

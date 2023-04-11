@@ -95,7 +95,7 @@ const search = reactive({
 // 업체
 const data = reactive({
 	grid: {} as Grid,
-	required: ['cmpId', 'cmpDivCd', 'cmpNm', 'bizno', 'addr', 'dtlAddr', 'lttd', 'lotd', 'telNo'],
+	required: ['cmpDivCd', 'cmpNm', 'bizno', 'addr', 'dtlAddr', 'lttd', 'lotd', 'telNo'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -186,7 +186,7 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '업체구분코드', name: 'cmpDivCd', width: 120, align: 'left', sortable: true, disabled: false, validation: { dataType: 'string' , required: false }, 
 				formatter: 'listItemText',
 				editor: {

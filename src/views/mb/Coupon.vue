@@ -95,7 +95,7 @@ const search = reactive({
 // 쿠폰
 const data = reactive({
 	grid: {} as Grid,
-	required: ['cmpId', 'cpnNm', 'cpnPrice', 'strtDt', 'endDt'],
+	required: ['cpnNm', 'cpnPrice', 'strtDt', 'endDt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -187,7 +187,7 @@ onMounted(() => {
 		//rowHeaders: ['checkbox'],
 		columns: [
 			{header: '쿠폰번호', name: 'cpnNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 쿠폰번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '쿠폰명', name: 'cpnNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 쿠폰명
 			{header: '쿠폰요금', name: 'cpnPrice', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 쿠폰요금
 			{header: '시작일시', name: 'strtDt', sortable: true, width: 120, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, // 시작일시

@@ -95,7 +95,7 @@ const search = reactive({
 // 이벤트상품
 const data = reactive({
 	grid: {} as Grid,
-	required: ['evtNo', 'prodNo', 'cmpId', 'strtDt', 'endDt'],
+	required: ['evtNo', 'prodNo', 'strtDt', 'endDt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -188,7 +188,7 @@ onMounted(() => {
 		columns: [
 			{header: '이벤트번호', name: 'evtNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 이벤트번호
 			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 상품번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '시작일시', name: 'strtDt', sortable: true, width: 120, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, // 시작일시
 				editor: {
 				type: 'datePicker',

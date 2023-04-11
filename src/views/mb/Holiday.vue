@@ -95,7 +95,7 @@ const search = reactive({
 // 휴일
 const data = reactive({
 	grid: {} as Grid,
-	required: ['hld', 'cmpId', 'hldNm', 'hldCd', 'hldPrice'],
+	required: ['hld', 'hldNm', 'hldCd', 'hldPrice'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -194,7 +194,7 @@ onMounted(() => {
 					}
 				}
 			},
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '휴일명', name: 'hldNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 휴일명
 			{header: '휴일코드', name: 'hldCd', width: 120, align: 'left', sortable: true, disabled: false, validation: { dataType: 'string' , required: false }, 
 				formatter: 'listItemText',

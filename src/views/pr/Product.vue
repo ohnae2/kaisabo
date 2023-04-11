@@ -95,7 +95,7 @@ const search = reactive({
 // 상품
 const data = reactive({
 	grid: {} as Grid,
-	required: ['cmpId', 'prodNm', 'petPsbYn', 'prir'],
+	required: ['prodNm', 'petPsbYn', 'prir'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -187,7 +187,7 @@ onMounted(() => {
 		//rowHeaders: ['checkbox'],
 		columns: [
 			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 상품번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '상품명', name: 'prodNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 상품명
 			{header: '인원수', name: 'psnelCnt', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 인원수
 			{header: '최대인원수', name: 'maxPsnelCnt', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 최대인원수

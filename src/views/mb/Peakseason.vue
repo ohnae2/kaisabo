@@ -95,7 +95,7 @@ const search = reactive({
 // 성수기
 const data = reactive({
 	grid: {} as Grid,
-	required: ['cmpId', 'sdsnStrtDay', 'sdsnEndDay', 'pksnStrtDay', 'pksnEndDay', 'tksnStrtDay', 'tksnEndDay', 'weekPrice', 'friPrice', 'wkedPrice', 'sdsnWeekPrice', 'sdsnFriPrice', 'sdsnWkedPrice', 'pksnWeekPrice', 'pksnFriPrice', 'pksnWkedPrice', 'tksnWeekPrice', 'tksnFriPrice', 'tksnWkedPrice', 'psnelOverPrice', 'wwtPrice', 'bbqPrice', 'etcPrice'],
+	required: ['sdsnStrtDay', 'sdsnEndDay', 'pksnStrtDay', 'pksnEndDay', 'tksnStrtDay', 'tksnEndDay', 'weekPrice', 'friPrice', 'wkedPrice', 'sdsnWeekPrice', 'sdsnFriPrice', 'sdsnWkedPrice', 'pksnWeekPrice', 'pksnFriPrice', 'pksnWkedPrice', 'tksnWeekPrice', 'tksnFriPrice', 'tksnWkedPrice', 'psnelOverPrice', 'wwtPrice', 'bbqPrice', 'etcPrice'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -187,7 +187,7 @@ onMounted(() => {
 		//rowHeaders: ['checkbox'],
 		columns: [
 			{header: '성수기번호', name: 'pksnNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 성수기번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '준성수기시작일', name: 'sdsnStrtDay', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, // 준성수기시작일
 				editor: {
 				type: 'datePicker',

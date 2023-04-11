@@ -95,7 +95,7 @@ const search = reactive({
 // QNA 댓글
 const data = reactive({
 	grid: {} as Grid,
-	required: ['qnaNo', 'cmpId'],
+	required: ['qnaNo'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -188,7 +188,7 @@ onMounted(() => {
 		columns: [
 			{header: 'QNA 댓글 번호', name: 'qnaCmmtNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // QNA 댓글 번호
 			{header: 'QNA 번호', name: 'qnaNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // QNA 번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호
 			{header: '회원 명', name: 'mbrNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 회원 명
 			{header: '내용', name: 'cnts', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 내용

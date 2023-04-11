@@ -95,7 +95,7 @@ const search = reactive({
 // 회원쿠폰내역
 const data = reactive({
 	grid: {} as Grid,
-	required: ['mbrId', 'cmpId'],
+	required: ['mbrId'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -188,7 +188,7 @@ onMounted(() => {
 		columns: [
 			{header: '쿠폰이력번호', name: 'cpnHistNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 쿠폰이력번호
 			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 회원ID
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '쿠폰번호', name: 'cpnNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 쿠폰번호
 			{header: '쿠폰사용일시', name: 'cpnUseDt', sortable: true, width: 120, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, // 쿠폰사용일시
 				editor: {

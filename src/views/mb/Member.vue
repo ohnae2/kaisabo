@@ -95,7 +95,7 @@ const search = reactive({
 // 회원
 const data = reactive({
 	grid: {} as Grid,
-	required: ['mbrId', 'cmpId', 'lv', 'pwd', 'nic', 'nm', 'hpNo', 'postNo', 'addr', 'dtlAddr', 'bisitCnt', 'loginDt', 'pwdRfsDt', 'mbrStatCd', 'email', 'lckYn', 'flCnt'],
+	required: ['mbrId', 'lv', 'pwd', 'nic', 'nm', 'hpNo', 'postNo', 'addr', 'dtlAddr', 'bisitCnt', 'loginDt', 'pwdRfsDt', 'mbrStatCd', 'email', 'lckYn', 'flCnt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -187,7 +187,7 @@ onMounted(() => {
 		//rowHeaders: ['checkbox'],
 		columns: [
 			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 회원ID
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '레벨', name: 'lv', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 레벨
 			{header: '비밀번호', name: 'pwd', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 비밀번호
 			{header: '닉네임', name: 'nic', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 닉네임

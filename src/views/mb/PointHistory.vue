@@ -95,7 +95,7 @@ const search = reactive({
 // 회원포인트내역
 const data = reactive({
 	grid: {} as Grid,
-	required: ['mbrId', 'cmpId', 'pntUseCd'],
+	required: ['mbrId', 'pntUseCd'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -188,7 +188,7 @@ onMounted(() => {
 		columns: [
 			{header: '포인트이력번호', name: 'pntHistNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 포인트이력번호
 			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 회원ID
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '포인트번호', name: 'pntNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 포인트번호
 			{header: '포인트사용코드', name: 'pntUseCd', width: 120, align: 'left', sortable: true, disabled: false, validation: { dataType: 'string' , required: false }, 
 				formatter: 'listItemText',
