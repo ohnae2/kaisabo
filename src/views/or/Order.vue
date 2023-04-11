@@ -217,9 +217,33 @@ onMounted(() => {
 			{header: '할인요금', name: 'dcPrice', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 할인요금
 			{header: '인원수', name: 'psnelCnt', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 인원수
 			{header: '추가인원수', name: 'addPsnelCnt', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 추가인원수
-			{header: '온수추가여부', name: 'wwtAddYn', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 온수추가여부
-			{header: '바베큐추가여부', name: 'bbqAddYn', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 바베큐추가여부
-			{header: '픽업여부', name: 'pickupYn', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 픽업여부
+			{header: '온수추가여부', name: 'wwtAddYn', width: 120, align: 'left', sortable: true, defaultValue: 'Y', disabled: false, validation: { dataType: 'string' , required: true }, 
+				formatter: 'listItemText',
+				editor: {
+					type: 'select',
+					options: {
+						listItems: auth.codeList['YN_CD'] // 온수추가여부
+					},
+				},
+			},
+			{header: '바베큐추가여부', name: 'bbqAddYn', width: 120, align: 'left', sortable: true, defaultValue: 'Y', disabled: false, validation: { dataType: 'string' , required: true }, 
+				formatter: 'listItemText',
+				editor: {
+					type: 'select',
+					options: {
+						listItems: auth.codeList['YN_CD'] // 바베큐추가여부
+					},
+				},
+			},
+			{header: '픽업여부', name: 'pickupYn', width: 120, align: 'left', sortable: true, defaultValue: 'Y', disabled: false, validation: { dataType: 'string' , required: true }, 
+				formatter: 'listItemText',
+				editor: {
+					type: 'select',
+					options: {
+						listItems: auth.codeList['YN_CD'] // 픽업여부
+					},
+				},
+			},
 			{header: '예약경로코드', name: 'rsvPathCd', width: 120, align: 'left', sortable: true, disabled: false, validation: { dataType: 'string' , required: true }, 
 				formatter: 'listItemText',
 				editor: {

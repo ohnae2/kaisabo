@@ -188,9 +188,25 @@ onMounted(() => {
 		columns: [
 			{header: '게시판분류번호', name: 'brdCatNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 게시판분류번호
 			{header: '상위분류번호', name: 'hgrkCatNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 상위분류번호
-			{header: '하위분류여부', name: 'lwrkCatYn', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 하위분류여부
+			{header: '하위분류여부', name: 'lwrkCatYn', width: 120, align: 'left', sortable: true, defaultValue: 'Y', disabled: false, validation: { dataType: 'string' , required: false }, 
+				formatter: 'listItemText',
+				editor: {
+					type: 'select',
+					options: {
+						listItems: auth.codeList['YN_CD'] // 하위분류여부
+					},
+				},
+			},
 			{header: '분류명', name: 'catNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 분류명
-			{header: '사용여부', name: 'useYn', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 사용여부
+			{header: '사용여부', name: 'useYn', width: 120, align: 'left', sortable: true, defaultValue: 'Y', disabled: false, validation: { dataType: 'string' , required: false }, 
+				formatter: 'listItemText',
+				editor: {
+					type: 'select',
+					options: {
+						listItems: auth.codeList['YN_CD'] // 사용여부
+					},
+				},
+			},
 			{header: '깊이', name: 'dpth', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 깊이
 			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 우선순위
 			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
