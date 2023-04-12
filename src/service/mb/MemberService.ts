@@ -3,27 +3,27 @@ import { formApi } from '../../utils/formApi';
 
 class CodeService {
 	async getMemberList(json?:any) { // 회원 리스트 [MB_MBR]
-		const res = await jsonApi('/bo/mb/getMemberList', json);
+		const res = await jsonApi('/bo/mb/getMemberList', json ? json : {});
 		return res.data;
 	}
 	async getMember(json?:any) { // 회원 상세조회 [MB_MBR]
-		const res = await jsonApi('/bo/mb/getMember', json);
+		const res = await jsonApi('/bo/mb/getMember', json ? json : {});
 		return res.data;
 	}
 	async setMemberList(json?:any) { // 회원 리스트등록 [MB_MBR]
-		const res = await jsonApi('/bo/mb/setMemberList', json);
+		const res = await jsonApi('/bo/mb/setMemberList', json ? json : {});
 		return res.data;
 	}
 	async insertMember(json?:any) { // 회원 등록 [MB_MBR]
-		const res = await jsonApi('/bo/mb/insertMember', json);
+		const res = await jsonApi('/bo/mb/insertMember', json ? json : {});
 		return res.data;
 	}
 	async updateMember(json?:any) { // 회원 수정 [MB_MBR]
-		const res = await jsonApi('/bo/mb/updateMember', json);
+		const res = await jsonApi('/bo/mb/updateMember', json ? json : {});
 		return res.data;
 	}
 	async deleteMember(json?:any) { // 회원 삭제 [MB_MBR]
-		const res = await jsonApi('/bo/mb/getMemberList', json);
+		const res = await jsonApi('/bo/mb/getMemberList', json ? json : {});
 		return res.data;
 	}
 }

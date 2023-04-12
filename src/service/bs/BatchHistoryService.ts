@@ -3,27 +3,27 @@ import { formApi } from '../../utils/formApi';
 
 class CodeService {
 	async getBatchHistoryList(json?:any) { // 배치이력 리스트 [BS_BTCH_HIST]
-		const res = await jsonApi('/bo/bs/getBatchHistoryList', json);
+		const res = await jsonApi('/bo/bs/getBatchHistoryList', json ? json : {});
 		return res.data;
 	}
 	async getBatchHistory(json?:any) { // 배치이력 상세조회 [BS_BTCH_HIST]
-		const res = await jsonApi('/bo/bs/getBatchHistory', json);
+		const res = await jsonApi('/bo/bs/getBatchHistory', json ? json : {});
 		return res.data;
 	}
 	async setBatchHistoryList(json?:any) { // 배치이력 리스트등록 [BS_BTCH_HIST]
-		const res = await jsonApi('/bo/bs/setBatchHistoryList', json);
+		const res = await jsonApi('/bo/bs/setBatchHistoryList', json ? json : {});
 		return res.data;
 	}
 	async insertBatchHistory(json?:any) { // 배치이력 등록 [BS_BTCH_HIST]
-		const res = await jsonApi('/bo/bs/insertBatchHistory', json);
+		const res = await jsonApi('/bo/bs/insertBatchHistory', json ? json : {});
 		return res.data;
 	}
 	async updateBatchHistory(json?:any) { // 배치이력 수정 [BS_BTCH_HIST]
-		const res = await jsonApi('/bo/bs/updateBatchHistory', json);
+		const res = await jsonApi('/bo/bs/updateBatchHistory', json ? json : {});
 		return res.data;
 	}
 	async deleteBatchHistory(json?:any) { // 배치이력 삭제 [BS_BTCH_HIST]
-		const res = await jsonApi('/bo/bs/getBatchHistoryList', json);
+		const res = await jsonApi('/bo/bs/getBatchHistoryList', json ? json : {});
 		return res.data;
 	}
 }
