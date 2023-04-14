@@ -64,7 +64,7 @@
 					<button type="button" class="button add" @click="add"><span class="icon">&#xe813;</span>추가</button>
 					<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
 					<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>
-					</span>
+				</span>
 				<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
 				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
 				<button type="reset" @click="refresh"><span class="icon">&#x22;</span></button>
@@ -113,18 +113,16 @@ const getList = function () {
 	);
 }
 const add = function() {
-	data.grid.appendRow({}, {at: 0, focus: true});
+	data.grid.appendRow({}, {at: 0});
 }
 const del = function () {
 	let selectRow = data.grid.getFocusedCell();
-	if(!selectRow.rowKey) {
+	if(selectRow.rowKey == null || selectRow.rowKey == undefined) {
 		alert('행을 먼저 선택해주세요.');
 		return;
 	}
 	if (confirm('선택한 행을 정말 삭제하시겠습니까?')) {
-		if (selectRow && selectRow.rowKey) {
-			data.grid.removeRow(selectRow.rowKey);
-		}
+		data.grid.removeRow(selectRow.rowKey);
 	}
 }
 const refresh = function() {

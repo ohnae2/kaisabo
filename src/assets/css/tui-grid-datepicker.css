@@ -34,11 +34,11 @@
     margin: -1px;
     padding: 0
 }
-
 .tui-calendar button, .tui-datepicker-dropdown button, .tui-datepicker-selector button {
     -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none
+    appearance: none;
+    margin:0; padding:0; border-radius:0; text-shadow:none;
 }
 
 .tui-ico-date, .tui-ico-time, .tui-datepicker-dropdown .tui-ico-check, .tui-ico-caret {
@@ -315,7 +315,7 @@
 .tui-datepicker-body .tui-timepicker, .tui-datepicker-footer .tui-timepicker {
     width: 240px;
     position: static;
-    padding: 20px 46px 20px 47px;
+    padding: 20px 26px 20px 27px;
     border: 0
 }
 

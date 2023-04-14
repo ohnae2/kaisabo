@@ -3,7 +3,7 @@
     <label v-show="isAll"><input type="checkbox" v-model="data.clickChecked" @click="clickChecked" /> 전체</label>
   </span>
   <span class="pickerWrap" v-show="!data.clickChecked">
-    <input type="text" class="input" v-bind:id="props.name[0] + 'Picker'" v-model="props.date[0]" v-bind:name="props.name[0] + ''" readonly />
+    <input type="text" v-bind:style="{width: props.format == 'YYYY-MM-DD' ? '100px' : '150px'}" class="input" v-bind:id="props.name[0] + 'Picker'" v-model="props.date[0]" v-bind:name="props.name[0] + ''" readonly />
     <span class="icon pointer" v-bind:id="props.name[0] + 'Opener'">&#xf0ce;</span>
     <div v-bind:id="props.name[0] + 'Container'" class="container"></div>
   </span>
@@ -26,6 +26,7 @@ const props = defineProps({
   selectableRanges1: { type: [], required: false },
   selectableRanges2: { type: [], required: false },
   isAll: { type: Boolean, required: false, default: true },
+  timer: { type: Boolean, required: false, default: false },
 });
 
 const data = reactive({
@@ -58,8 +59,11 @@ let startObject = {
   openers: ['#' + props.name[0] + 'Picker', '#' + props.name[0] + 'Opener'],
 };
 
-if (props.selectableRanges1) {
-  startObject.selectableRanges = props.selectableRanges1;
+if (props.timer) {
+  Object.assign(startObject).timePicker = {
+    layoutType: 'tab',
+    inputType: 'spinbox'
+  };
 }
 
 const setDatepick = function () {

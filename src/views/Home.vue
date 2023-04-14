@@ -3,7 +3,6 @@
   <div id="contents" v-bind:class="{menuOn : setting.menu.active}">
     <router-view />
   </div>
-  <br />
   <v-footer />
 </template>
 <script setup lang="ts">

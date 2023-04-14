@@ -134,7 +134,7 @@ const clickFav = function(fav:any, idx:number) {
 </script>
 
 <style scoped>
-#header {width:100%; z-index:100; height:100px; overflow:hidden; position:absolute; z-index:2; right:0; top:0;}
+#header {width:100%; height:100px; overflow:hidden; position:absolute; z-index:2; right:0; top:0;}
 #header .userInfo {text-align:right; padding:13px 13px 0 0; color:#333;}
 #header .userInfo li {display:inline-block; padding:0 5px;}
 #header.menuOn {width:calc(100% - 230px);}

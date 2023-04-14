@@ -64,7 +64,7 @@
 					<button type="button" class="button add" @click="add"><span class="icon">&#xe813;</span>추가</button>
 					<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
 					<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>
-					</span>
+				</span>
 				<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
 				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
 				<button type="reset" @click="refresh"><span class="icon">&#x22;</span></button>
@@ -73,6 +73,13 @@
 		</form>
 		<div id="grid"></div>
 	</div>
+
+	<NoticeDetail v-if="data.detailShow" :data="data.detail"
+		@set-close="(o) => {
+			data.detailShow = false;
+		}"
+	/>
+
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue';
@@ -81,6 +88,7 @@ import NoticeService from '../../service/cs/NoticeService';
 import SelectDate from '../../components/SelectDate.vue';
 import SelectGroupDate from '../../components/SelectGroupDate.vue';
 import { useAuthStore } from '../../store/store.auth';
+import NoticeDetail from './NoticeDetail.vue';
 
 const auth = useAuthStore();
 const search = reactive({
@@ -99,6 +107,16 @@ const data = reactive({
 	totalCount: 0,
 	list: [],
 	audit: false,
+	detailShow: false,
+	detail: {
+		notiNo: 0,
+		prir: 0,
+		cmpId: '',
+		cmpNm: '',
+		cnts: '',
+		strtDt: '',
+		endDt: '',
+	},
 });
 const getList = function () {
 	NoticeService.getNoticeList(search).then(
@@ -113,18 +131,16 @@ const getList = function () {
 	);
 }
 const add = function() {
-	data.grid.appendRow({}, {at: 0, focus: true});
+	data.grid.appendRow({}, {at: 0});
 }
 const del = function () {
 	let selectRow = data.grid.getFocusedCell();
-	if(!selectRow.rowKey) {
+	if(selectRow.rowKey == null || selectRow.rowKey == undefined) {
 		alert('행을 먼저 선택해주세요.');
 		return;
 	}
 	if (confirm('선택한 행을 정말 삭제하시겠습니까?')) {
-		if (selectRow && selectRow.rowKey) {
-			data.grid.removeRow(selectRow.rowKey);
-		}
+		data.grid.removeRow(selectRow.rowKey);
 	}
 }
 const refresh = function() {
@@ -188,8 +204,8 @@ onMounted(() => {
 		columns: [
 			{header: '공지 번호', name: 'notiNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 공지 번호
 			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
-			{header: '제목', name: 'tit', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 제목
-			{header: '내용', name: 'cnts', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 내용
+			{header: '제목', name: 'tit', className:'underline pointer', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 제목
+			{header: '내용', name: 'cnts', hidden:true, sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 내용
 			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호
 			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 우선순위
 			{header: '사용 여부', name: 'useYn', width: 120, align: 'left', sortable: true, defaultValue: 'Y', disabled: false, validation: { dataType: 'string' , required: true }, 
@@ -237,8 +253,9 @@ onMounted(() => {
 		},
 	});
 	data.grid.on('click', function(e:any) {
-		if( e.columnName === 'cd') {
-			console.log('click')
+		if( e.columnName === 'tit' && data.list[e.rowKey]) {
+			data.detail = data.list[e.rowKey];
+			data.detailShow = true;
 		}
 	});
 	getList();

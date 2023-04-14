@@ -6,12 +6,12 @@
       <button type="button" class="button small gray" v-bind:class="{on: data.term == 3}" @click="term(3)">6개월</button>
     </span>
     <span class="pickerWrap" v-show="!data.allChecked">
-      <input type="text" class="input" v-bind:id="props.name[0] + 'Picker'" v-model="props.date[0]" v-bind:name="props.name[0] + ''" readonly />
+      <input type="text" class="input" v-bind:style="{width: props.format == 'YYYY-MM-DD' ? '100px' : '150px'}" v-bind:id="props.name[0] + 'Picker'" v-model="props.date[0]" v-bind:name="props.name[0] + ''" readonly />
       <span class="icon pointer" v-bind:id="props.name[0] + 'Opener'">&#xf0ce;</span>
       <div v-bind:id="props.name[0] + 'Container'" class="container"></div>
     </span>
     <span class="pickerWrap" v-show="!data.allChecked">
-      <input type="text" class="input" v-bind:id="props.name[1] + 'Picker'" v-model="props.date[1]" v-bind:name="props.name[1] + ''" readonly />
+      <input type="text" class="input" v-bind:style="{width: props.format == 'YYYY-MM-DD' ? '100px' : '150px'}" v-bind:id="props.name[1] + 'Picker'" v-model="props.date[1]" v-bind:name="props.name[1] + ''" readonly />
       <span class="icon pointer" v-bind:id="props.name[1] + 'Opener'">&#xf0ce;</span>
       <div v-bind:id="props.name[1] + 'Container'" class="container"></div>
     </span>
@@ -33,6 +33,7 @@ const props = defineProps({
   isAll: { type: Boolean, required: false, default: true },
   isTerm: { type: Boolean, required: false, default: true },
   term: { type: Number, required: false, default: 0 },
+  timer: { type: Boolean, required: false, default: false },
 });
 
 const data = reactive({
@@ -108,8 +109,20 @@ let endObject = {
   selectableRanges: [[props.date[0], new Date(2090, 11, 30)]], // 종료일경우 시작일에 따른 변동값
   openers: ['#' + props.name[1] + 'Picker', '#' + props.name[1] + 'Opener'],
 };
+
 if (props.selectableRanges2) {
   endObject.selectableRanges = props.selectableRanges2;
+}
+
+if (props.timer) {
+  Object.assign(startObject).timePicker = {
+    layoutType: 'tab',
+    inputType: 'spinbox'
+  };
+  Object.assign(endObject).timePicker = {
+    layoutType: 'tab',
+    inputType: 'spinbox'
+  };
 }
 
 const setDatepick = function (){
