@@ -109,16 +109,7 @@ const data = reactive({
 	list: [],
 	audit: false,
 	detailShow: false,
-	detail: {
-		notiNo: 0,
-		prir: 0,
-		cmpId: '',
-		cmpNm: '',
-		tit: '',
-		cnts: '',
-		strtDt: '',
-		endDt: '',
-	},
+	detail: {},
 });
 const getList = function () {
 	NoticeService.getNoticeList(search).then(
@@ -208,8 +199,8 @@ onMounted(() => {
 			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '제목', name: 'tit', className:'underline pointer', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 제목
 			{header: '내용', name: 'cnts', hidden:true, sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 내용
-			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호
-			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 우선순위
+			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: true, hidden:true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호
+			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: true, hidden:true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 우선순위
 			{header: '사용 여부', name: 'useYn', width: 120, align: 'left', sortable: true, defaultValue: 'Y', disabled: false, validation: { dataType: 'string' , required: true }, 
 				formatter: 'listItemText',
 				editor: {
