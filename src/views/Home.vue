@@ -16,6 +16,5 @@ const setting = useSettingStore();
 </script>
 
 <style scoped>
-#contents {width:calc(100% - 20px); padding:10px; background:#fff; border:1px solid #ccc; height:calc(100% - 119px); z-index:1; position:absolute; right:10px; bottom:20px; overflow:auto;}
-#contents.menuOn {width:calc(100% - 240px);}
+#contents {padding:10px; background:#fff; border:1px solid #ccc; height:calc(100% - 109px); z-index:1; overflow:auto;}
 </style>

@@ -222,6 +222,9 @@
 }
 
 .tui-calendar th, .tui-calendar td {
+    width:auto !important;
+    padding:0 !important;
+    border:0 !important;
     height: 30px;
     line-height:30px;
     text-align: center;

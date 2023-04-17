@@ -17,7 +17,7 @@
           <li v-bind:class="{ active: setting.hash == fav.url }"><span class="name" @click="clickFav(fav, i)">{{ fav.menuNm }}</span> <span class="icon close" @click="toggleFav(fav)">&#xe042;</span></li>
         </template>
       </ul>
-      <span class="icon closeAll">&#xe0de;</span>
+      <span class="icon closeAll" @click="closeAll">&#xe0de;</span>
     </div>
   </div>
   <div id="side" v-bind:class="{menuOn : setting.menu.active}">
@@ -115,6 +115,10 @@ const toggleFav = function(menu:any) {
   // 저장
   cookies.set('favList', JSON.stringify(setting.favList) || '[]');
 }
+
+const closeAll = function(menu:any) {
+  cookies.set('favList', JSON.stringify([]) || '[]');
+}
 // h2 @click="clickCategory(side)"
 const clickCategory = function(side:any) {
   side.active = !side.active;
@@ -134,10 +138,9 @@ const clickFav = function(fav:any, idx:number) {
 </script>
 
 <style scoped>
-#header {width:100%; height:100px; overflow:hidden; position:absolute; z-index:2; right:0; top:0;}
-#header .userInfo {text-align:right; padding:13px 13px 0 0; color:#333;}
+#header {width:100%; height:100px; overflow:hidden; padding:10px 10px 0 10px; position:relative; z-index:2;}
+#header .userInfo {text-align:right; padding:0 0 0 0; color:#333;}
 #header .userInfo li {display:inline-block; padding:0 5px;}
-#header.menuOn {width:calc(100% - 230px);}
 
 #header .btnMenu {width:30px; height:50px; position:fixed; z-index:91; left:13px; top:13px; cursor:pointer;}
 #header .btnMenu ul {width:30px; position:relative;}
@@ -149,8 +152,8 @@ const clickFav = function(fav:any, idx:number) {
 #header .btnMenu:hover ul li:nth-child(1) {transform: rotate(45deg); width:20px; left:14px; top:4px;}
 #header .btnMenu:hover ul li:nth-child(3) {transform: rotate(-45deg); width:20px; left:14px; top:16px;}
 
-#header .tab {height:40px; padding:0 0; width:calc(100% - 30px); overflow:auto; position:absolute; left:20px; bottom:0; text-align:left; white-space: nowrap;}
-#header .tab ul {width:calc(100% - 50px); overflow:hidden; height:40px;}
+#header .tab {height:40px; padding:0; margin-top:27px; width:100%; overflow:auto; text-align:left; white-space: nowrap;}
+#header .tab ul {width:calc(100% - 32px); overflow:hidden; height:40px;}
 #header .tab ul li {height:40px; border:1px solid #ccc; color:#777; border-radius:0 8px 0 0; background:#eee; line-height:40px; padding:0 15px 0 10px; display:inline-block; position:relative;}
 #header .tab ul li.active {background:#fff; color:#222; border-bottom:1px solid #fff;}
 #header .tab ul li .name {cursor:pointer; display:inline-block; padding:0 10px;}
@@ -159,7 +162,7 @@ const clickFav = function(fav:any, idx:number) {
 #header .tab ul li .icon.home  {font-size:23px; color:#333; vertical-align:middle; cursor:pointer;}
 #header .tab ul li .close {position:absolute; right:-4px; top:-3px; color:#aaa; cursor:pointer; width:20px; height:20px; overflow:hidden;}
 #header .tab ul li .close:hover {transform: rotate(90deg); right:-5px; top:-2px; color:#666;}
-#header .tab .closeAll {cursor:pointer; border:1px solid #aaa; position:absolute; right:2px; color:#666; top:4px; width:31px; height:30px; line-height:30px;}
+#header .tab .closeAll {cursor:pointer; border:1px solid #aaa; position:absolute; right:2px; color:#666; bottom:4px; width:31px; height:30px; line-height:30px;}
 #header .tab .closeAll:hover {color:#000; background:rgba(255,255,255,0.2);}
 
 #header.menuOn .btnMenu {left:230px;}

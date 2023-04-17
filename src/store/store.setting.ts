@@ -5,7 +5,7 @@ const { cookies } = useCookies();
 export const useSettingStore = defineStore("setting", {
   state: () => ({
     menu: {
-      active: true,
+      active: false,
     },
     hash: location.hash.replace("#", ""),
     tab: {

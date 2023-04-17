@@ -114,6 +114,7 @@ const data = reactive({
 		prir: 0,
 		cmpId: '',
 		cmpNm: '',
+		tit: '',
 		cnts: '',
 		strtDt: '',
 		endDt: '',
