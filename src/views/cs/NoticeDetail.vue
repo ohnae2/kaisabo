@@ -6,7 +6,10 @@
 			<table>
 				<tr><th>업체ID</th><td><input type="text" v-model="data.cmpId" /></td></tr>
 				<tr><th>우선순위</th><td><input type="text" v-model="data.prir" /></td></tr>
-				<tr><th>내용</th><td><input type="text" v-model="data.cnts" /></td></tr>
+				<tr><th>내용</th><td>
+					<!--<input type="text" v-model="data.cnts" />-->
+					<div id="noticeEditor"></div>
+				</td></tr>
 				<tr><th>시작일</th><td>
 					<SelectDate 
 						:name="['strtDt']"
@@ -44,6 +47,7 @@
 import { onMounted, ref, reactive } from 'vue';
 import NoticeService from '../../service/cs/NoticeService';
 import SelectDate from '../../components/SelectDate.vue';
+import Editor from '@toast-ui/editor';
 
 const emit = defineEmits(['set-close'])
 
@@ -54,6 +58,17 @@ const props = defineProps({
 if(!props.data.endDt) {
 	props.data.endDt = new Date();
 }
+
+const data = reactive({
+	editor: {} as Editor,
+	editorOption: {
+		el: {} as HTMLElement,
+		previewStyle: 'vertical',
+		height: '500px',
+		initialValue: props.data.cnts
+	}
+});
+
 const save = function(){
 
 }
@@ -61,6 +76,16 @@ const save = function(){
 const close = function(){
     emit('set-close');
 }
+onMounted(() => {
+	data.editor = new Editor({
+		el: document.querySelector('#noticeEditor') as HTMLElement,
+		previewStyle: 'vertical',
+		height: '500px',
+		initialValue: props.data.cnts
+	});
+});
+
+    
 
 </script>
 

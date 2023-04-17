@@ -1,11 +1,12 @@
+@charset "utf-8";
+
 /*!
  * TOAST UI Time Picker
  * @version 2.0.3
  * @author NHN FE Development Lab <dl_javascript@nhn.com>
  * @license MIT
  */
- @charset 'utf-8';
- .tui-timepicker * {
+.tui-timepicker * {
      -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
      box-sizing: border-box;

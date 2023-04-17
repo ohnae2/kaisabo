@@ -72,6 +72,7 @@
 			</div>
 		</form>
 		<div id="grid"></div>
+
 	</div>
 
 	<NoticeDetail v-if="data.detailShow" :data="data.detail"
