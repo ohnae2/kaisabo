@@ -9,7 +9,7 @@ const jsonHeaders = {
     withCredentials: false,
 }
 
-export const jsonApi = (apiUrl:any, apiData?:any, headers?:string) => {
+export const jsonApi = (apiUrl:string, apiData?:any) => {
     return interceptor({
         url: apiUrl,
         data: JSON.stringify(apiData),

@@ -6,35 +6,40 @@
 			<form @submit.prevent="save">
 				<table class="popT">
 					<tr><th class="th">업체ID</th><td class="td"><input type="text" v-model="props.data.cmpId" /></td></tr>
-					<tr><th class="th">제목</th><td class="td"><input type="text" v-model="props.data.tit" /></td></tr>
-					<tr><th class="th">파일번호</th><td class="td"><input type="text" v-model="props.data.fileNo" /></td></tr>
-					<tr><th class="th">사용여부</th><td class="td"><input type="text" v-model="props.data.useYn" /></td></tr>
-					<tr><th class="th">파일</th><td class="td">
-						<FileUploader :model="'logo.svg'" :path="'http://pumpkinev.iptime.org:5526/static/25bd3aa3/images/svgs/'" />
-					</td></tr>
-					<tr><th class="th">파일</th><td class="td">
-						<FileListUploader :model="'logo.svg'" :path="'http://pumpkinev.iptime.org:5526/static/25bd3aa3/images/svgs/'" />
+					<tr><th class="th required">제목</th><td class="td"><input type="text" v-model="props.data.tit" /></td></tr>
+					<!--<tr><th class="th">파일번호</th><td class="td"><input type="text" v-model="props.data.fileNo" /></td></tr>-->
+					<tr><th class="th">사용여부</th><td class="td">
+						<CommonCode :cd="'YN_CD'" :model="props.data.useYn" @set-data="(val) => { props.data.useYn = val; }" />
 					</td></tr>
 					<tr><th class="th">시작/종료일</th><td class="td">
 						<SelectDate 
 							:name="['strtDt']"
 							:format="'YYYY-MM-DD HH:mm'"
-							:date="[data.strtDt]"
+							:date="[props.data.strtDt]"
 							:isAll="false"
 							:timer="true"
 							@set-start-date="(o) => {
-								data.strtDt = o.date;
+								props.data.strtDt = o.date;
 							}"
 						/>
 						~
 						<SelectDate 
 							:name="['endDt']"
 							:format="'YYYY-MM-DD HH:mm'"
-							:date="[data.endDt]"
+							:date="[props.data.endDt]"
 							:isAll="false"
 							:timer="true"
 							@set-start-date="(o) => {
-								data.endDt = o.date;
+								props.data.endDt = o.date;
+							}"
+						/>
+					</td></tr>
+					<tr><th class="th">파일</th><td class="td">
+						<FileListUploader
+							:name="'notice'"
+							:fileList="file.list"
+							@set-file="(o) => {
+								file.list = o;
 							}"
 						/>
 					</td></tr>
@@ -56,9 +61,10 @@
 import { onMounted, ref, reactive } from 'vue';
 import NoticeService from '../../service/cs/NoticeService';
 import SelectDate from '../../components/SelectDate.vue';
-import FileUploader from '../../components/FileUploader.vue';
+import CommonCode from '../../components/CommonCode.vue';
 import FileListUploader from '../../components/FileListUploader.vue';
 import Editor from '@toast-ui/editor';
+import dateUtil from '../../utils/util.date';
 
 const emit = defineEmits(['set-close'])
 
@@ -66,8 +72,16 @@ const props = defineProps({
 	data: { type: Object, required: true },
 });
 
+const file = reactive({
+	list: [] as any
+});
+
+if(!props.data.strtDt) {
+	props.data.strtDt = dateUtil.format(new Date(),'YYYY-MM-DD HH:mm');
+}
+
 if(!props.data.endDt) {
-	props.data.endDt = new Date();
+	props.data.endDt = dateUtil.format(new Date(),'YYYY-MM-DD HH:mm');
 }
 
 const edit = reactive({
@@ -76,12 +90,62 @@ const edit = reactive({
 });
 
 const save = function(){
-	console.log(edit.editor.getMarkdown())
+
+	let formData = new FormData();
+	formData.append('notiNo', props.data.notiNo);
+	formData.append('cmpId', props.data.cmpId);
+	formData.append('tit', props.data.tit);
+	// formData.append('fileNo', props.data.fileNo);
+	formData.append('useYn', props.data.useYn);
+	formData.append('strtDt', props.data.strtDt);
+	formData.append('endDt', props.data.endDt);
+	formData.append('cnts', edit.editor.getMarkdown());
+
+	if(props.data.mode === 'add') {
+		NoticeService.insertNotice(formData).then(
+			(res) => {
+				if(res.success) {
+					location.reload();
+				} else {
+					console.log(res);
+				}
+			},
+			(err) => {
+				console.log(err);
+			},
+		);
+	} else {
+		NoticeService.updateNotice(formData).then(
+			(res) => {
+				if(res.success) {
+					location.reload();
+				} else {
+					console.log(res);
+				}
+			},
+			(err) => {
+				console.log(err);
+			},
+		);
+	}
 }
 const close = function(){
     emit('set-close');
 }
 onMounted(() => {
+	/* 
+	console.log(props.data.notiNo);
+	if(props.data.notiNo) {
+		NoticeService.getNotice({ notiNo: props.data.notiNo}).then(
+			(res) => {
+				props.data.cnts = res.data.cnts;
+			},
+			(err) => {
+				console.log(err);
+			},
+		);
+	}
+	*/
 	// ![image](http://pumpkinev.iptime.org:5526/static/25bd3aa3/images/svgs/logo.svg)
 	edit.editor = new Editor({
 		el: document.querySelector('#noticeEditor') as HTMLElement,

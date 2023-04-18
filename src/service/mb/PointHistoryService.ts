@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/mb/setPointHistoryList', json ? json : {});
 		return res.data;
 	}
-	async insertPointHistory(json?:any) { // 회원포인트내역 등록 [MBR_PNT_HIST]
-		const res = await jsonApi('/bo/mb/insertPointHistory', json ? json : {});
+	async insertPointHistory(formdata:FormData) { // 회원포인트내역 등록 [MBR_PNT_HIST]
+		const res = await formApi('/bo/mb/insertPointHistory', formdata);
 		return res.data;
 	}
-	async updatePointHistory(json?:any) { // 회원포인트내역 수정 [MBR_PNT_HIST]
-		const res = await jsonApi('/bo/mb/updatePointHistory', json ? json : {});
+	async updatePointHistory(formdata:FormData) { // 회원포인트내역 수정 [MBR_PNT_HIST]
+		const res = await formApi('/bo/mb/updatePointHistory', formdata);
 		return res.data;
 	}
-	async deletePointHistory(json?:any) { // 회원포인트내역 삭제 [MBR_PNT_HIST]
-		const res = await jsonApi('/bo/mb/getPointHistoryList', json ? json : {});
+	async deletePointHistory(formdata:FormData) { // 회원포인트내역 삭제 [MBR_PNT_HIST]
+		const res = await formApi('/bo/mb/getPointHistoryList', formdata);
 		return res.data;
 	}
 }

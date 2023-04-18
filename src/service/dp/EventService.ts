@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/dp/setEventList', json ? json : {});
 		return res.data;
 	}
-	async insertEvent(json?:any) { // 이벤트 등록 [DP_EVT]
-		const res = await jsonApi('/bo/dp/insertEvent', json ? json : {});
+	async insertEvent(formdata:FormData) { // 이벤트 등록 [DP_EVT]
+		const res = await formApi('/bo/dp/insertEvent', formdata);
 		return res.data;
 	}
-	async updateEvent(json?:any) { // 이벤트 수정 [DP_EVT]
-		const res = await jsonApi('/bo/dp/updateEvent', json ? json : {});
+	async updateEvent(formdata:FormData) { // 이벤트 수정 [DP_EVT]
+		const res = await formApi('/bo/dp/updateEvent', formdata);
 		return res.data;
 	}
-	async deleteEvent(json?:any) { // 이벤트 삭제 [DP_EVT]
-		const res = await jsonApi('/bo/dp/getEventList', json ? json : {});
+	async deleteEvent(formdata:FormData) { // 이벤트 삭제 [DP_EVT]
+		const res = await formApi('/bo/dp/getEventList', formdata);
 		return res.data;
 	}
 }

@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/mb/setHolidayList', json ? json : {});
 		return res.data;
 	}
-	async insertHoliday(json?:any) { // 휴일 등록 [MB_HLD]
-		const res = await jsonApi('/bo/mb/insertHoliday', json ? json : {});
+	async insertHoliday(formdata:FormData) { // 휴일 등록 [MB_HLD]
+		const res = await formApi('/bo/mb/insertHoliday', formdata);
 		return res.data;
 	}
-	async updateHoliday(json?:any) { // 휴일 수정 [MB_HLD]
-		const res = await jsonApi('/bo/mb/updateHoliday', json ? json : {});
+	async updateHoliday(formdata:FormData) { // 휴일 수정 [MB_HLD]
+		const res = await formApi('/bo/mb/updateHoliday', formdata);
 		return res.data;
 	}
-	async deleteHoliday(json?:any) { // 휴일 삭제 [MB_HLD]
-		const res = await jsonApi('/bo/mb/getHolidayList', json ? json : {});
+	async deleteHoliday(formdata:FormData) { // 휴일 삭제 [MB_HLD]
+		const res = await formApi('/bo/mb/getHolidayList', formdata);
 		return res.data;
 	}
 }

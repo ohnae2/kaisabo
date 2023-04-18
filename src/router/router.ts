@@ -10,22 +10,9 @@ const routes: RouteRecordRaw[] = [
         },
         component: () => import('../views/Login.vue'),
     },
-    {
-        path: '/403',
-        name: '403',
-        meta: {
-            title: '403',
-        },
-        component: () => import('../views/error/403.vue'),
-    },
-    {
-        path: '/:pathMatch(.*)*',
-        name: '404',
-        meta: {
-            title: '404',
-        },
-        component: () => import('../views/error/404.vue'),
-    },
+    { path: '/403', name: '403', meta: { title: '403' }, component: () => import('../views/error/403.vue') },
+    { path: '/500', name: '500', meta: { title: '403' }, component: () => import('../views/error/500.vue') },
+    { path: '/:pathMatch(.*)*', name: '404', meta: { title: '404' }, component: () => import('../views/error/404.vue') },
     {
         path: '/',
         name: '',
@@ -104,9 +91,20 @@ router.beforeEach((to, from, next) => {
         && menuList.length > 0
         && sessionStorage.getItem('token')
     );
+    
+    let isRole = (to.path == '/' || to.path == '/main') ? true : false;
+    if(!isRole) {
+        for(let o of menuList) {
+            if(to.path === o.url) {
+                isRole = true;
+                break;
+            }
+        }
+    }
+
     if (!isUser && to.path !== '/login') {
         next('/login');
-    } else if (to.meta.auth && !isUser) {
+    } else if (to.meta.auth && (!isUser || !isRole)) {
         next('/403');
     } else if (to.path === '/') {
         next('/main');

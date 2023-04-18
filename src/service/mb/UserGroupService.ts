@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/mb/setUserGroupList', json ? json : {});
 		return res.data;
 	}
-	async insertUserGroup(json?:any) { // 그룹 등록 [MB_USR_GRP]
-		const res = await jsonApi('/bo/mb/insertUserGroup', json ? json : {});
+	async insertUserGroup(formdata:FormData) { // 그룹 등록 [MB_USR_GRP]
+		const res = await formApi('/bo/mb/insertUserGroup', formdata);
 		return res.data;
 	}
-	async updateUserGroup(json?:any) { // 그룹 수정 [MB_USR_GRP]
-		const res = await jsonApi('/bo/mb/updateUserGroup', json ? json : {});
+	async updateUserGroup(formdata:FormData) { // 그룹 수정 [MB_USR_GRP]
+		const res = await formApi('/bo/mb/updateUserGroup', formdata);
 		return res.data;
 	}
-	async deleteUserGroup(json?:any) { // 그룹 삭제 [MB_USR_GRP]
-		const res = await jsonApi('/bo/mb/getUserGroupList', json ? json : {});
+	async deleteUserGroup(formdata:FormData) { // 그룹 삭제 [MB_USR_GRP]
+		const res = await formApi('/bo/mb/getUserGroupList', formdata);
 		return res.data;
 	}
 }

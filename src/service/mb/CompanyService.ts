@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/mb/setCompanyList', json ? json : {});
 		return res.data;
 	}
-	async insertCompany(json?:any) { // 업체 등록 [MB_CMP]
-		const res = await jsonApi('/bo/mb/insertCompany', json ? json : {});
+	async insertCompany(formdata:FormData) { // 업체 등록 [MB_CMP]
+		const res = await formApi('/bo/mb/insertCompany', formdata);
 		return res.data;
 	}
-	async updateCompany(json?:any) { // 업체 수정 [MB_CMP]
-		const res = await jsonApi('/bo/mb/updateCompany', json ? json : {});
+	async updateCompany(formdata:FormData) { // 업체 수정 [MB_CMP]
+		const res = await formApi('/bo/mb/updateCompany', formdata);
 		return res.data;
 	}
-	async deleteCompany(json?:any) { // 업체 삭제 [MB_CMP]
-		const res = await jsonApi('/bo/mb/getCompanyList', json ? json : {});
+	async deleteCompany(formdata:FormData) { // 업체 삭제 [MB_CMP]
+		const res = await formApi('/bo/mb/getCompanyList', formdata);
 		return res.data;
 	}
 }

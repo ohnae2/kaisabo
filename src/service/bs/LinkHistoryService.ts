@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/bs/setLinkHistoryList', json ? json : {});
 		return res.data;
 	}
-	async insertLinkHistory(json?:any) { // 연동이력 등록 [BS_LINK_HIST]
-		const res = await jsonApi('/bo/bs/insertLinkHistory', json ? json : {});
+	async insertLinkHistory(formdata:FormData) { // 연동이력 등록 [BS_LINK_HIST]
+		const res = await formApi('/bo/bs/insertLinkHistory', formdata);
 		return res.data;
 	}
-	async updateLinkHistory(json?:any) { // 연동이력 수정 [BS_LINK_HIST]
-		const res = await jsonApi('/bo/bs/updateLinkHistory', json ? json : {});
+	async updateLinkHistory(formdata:FormData) { // 연동이력 수정 [BS_LINK_HIST]
+		const res = await formApi('/bo/bs/updateLinkHistory', formdata);
 		return res.data;
 	}
-	async deleteLinkHistory(json?:any) { // 연동이력 삭제 [BS_LINK_HIST]
-		const res = await jsonApi('/bo/bs/getLinkHistoryList', json ? json : {});
+	async deleteLinkHistory(formdata:FormData) { // 연동이력 삭제 [BS_LINK_HIST]
+		const res = await formApi('/bo/bs/getLinkHistoryList', formdata);
 		return res.data;
 	}
 }

@@ -61,9 +61,9 @@
 			</fieldset>
 			<div class="btnWrap">
 				<span class="crud">
-					<button type="button" class="button add" @click="add"><span class="icon">&#xe813;</span>추가</button>
-					<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
-					<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>
+					<button type="button" class="button add" @click="add"><span class="icon">&#xe813;</span>등록</button>
+					<!--<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
+					<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>-->
 				</span>
 				<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
 				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
@@ -124,7 +124,19 @@ const getList = function () {
 	);
 }
 const add = function() {
-	data.grid.appendRow({}, {at: 0});
+	data.detail = {
+		mode: 'add',
+		notiNo: 0,
+		cmpId: '',
+		tit: '',
+		fileNo: '',
+		useYn: '',
+		strtDt: '',
+		endDt: '',
+		cnts: '',
+	}
+	data.detailShow = true;
+	// data.grid.appendRow({}, {at: 0});
 }
 const del = function () {
 	let selectRow = data.grid.getFocusedCell();
@@ -196,12 +208,12 @@ onMounted(() => {
 		//rowHeaders: ['checkbox'],
 		columns: [
 			{header: '공지 번호', name: 'notiNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 공지 번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
-			{header: '제목', name: 'tit', className:'underline pointer', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 제목
-			{header: '내용', name: 'cnts', hidden:true, sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 내용
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: true, editor: 'text'}, // 업체ID
+			{header: '제목', name: 'tit', className:'underline pointer', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 제목
+			{header: '내용', name: 'cnts', hidden:true, sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 내용
 			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: true, hidden:true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호
 			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: true, hidden:true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 우선순위
-			{header: '사용 여부', name: 'useYn', width: 120, align: 'left', sortable: true, defaultValue: 'Y', disabled: false, validation: { dataType: 'string' , required: true }, 
+			{header: '사용 여부', name: 'useYn', width: 120, align: 'left', sortable: true, defaultValue: 'Y', disabled: true, validation: { dataType: 'string' , required: true }, 
 				formatter: 'listItemText',
 				editor: {
 					type: 'select',
@@ -210,7 +222,7 @@ onMounted(() => {
 					},
 				},
 			},
-			{header: '시작일시', name: 'strtDt', sortable: true, width: 120, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, // 시작일시
+			{header: '시작일시', name: 'strtDt', sortable: true, width: 120, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, // 시작일시
 				editor: {
 				type: 'datePicker',
 					options: {
@@ -218,7 +230,7 @@ onMounted(() => {
 					}
 				}
 			},
-			{header: '종료일시', name: 'endDt', sortable: true, width: 120, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, // 종료일시
+			{header: '종료일시', name: 'endDt', sortable: true, width: 120, align: 'left', disabled: true, validation: { dataType: 'string' , required: false }, // 종료일시
 				editor: {
 				type: 'datePicker',
 					options: {
@@ -226,7 +238,7 @@ onMounted(() => {
 					}
 				}
 			},
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
+			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
 			{header: '수정 ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정 ID
 			{header: '수정 일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정 일시
 			{header: '등록 ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록 ID
@@ -245,7 +257,7 @@ onMounted(() => {
 			height: 40,
 		},
 	});
-	data.grid.on('click', function(e:any) {
+	data.grid.on('dblclick', function(e:any) {
 		if( e.columnName === 'tit' && data.list[e.rowKey]) {
 			data.detail = data.list[e.rowKey];
 			data.detailShow = true;

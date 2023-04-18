@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/mb/setCouponHistoryList', json ? json : {});
 		return res.data;
 	}
-	async insertCouponHistory(json?:any) { // 회원쿠폰내역 등록 [MBR_CPN_HIST]
-		const res = await jsonApi('/bo/mb/insertCouponHistory', json ? json : {});
+	async insertCouponHistory(formdata:FormData) { // 회원쿠폰내역 등록 [MBR_CPN_HIST]
+		const res = await formApi('/bo/mb/insertCouponHistory', formdata);
 		return res.data;
 	}
-	async updateCouponHistory(json?:any) { // 회원쿠폰내역 수정 [MBR_CPN_HIST]
-		const res = await jsonApi('/bo/mb/updateCouponHistory', json ? json : {});
+	async updateCouponHistory(formdata:FormData) { // 회원쿠폰내역 수정 [MBR_CPN_HIST]
+		const res = await formApi('/bo/mb/updateCouponHistory', formdata);
 		return res.data;
 	}
-	async deleteCouponHistory(json?:any) { // 회원쿠폰내역 삭제 [MBR_CPN_HIST]
-		const res = await jsonApi('/bo/mb/getCouponHistoryList', json ? json : {});
+	async deleteCouponHistory(formdata:FormData) { // 회원쿠폰내역 삭제 [MBR_CPN_HIST]
+		const res = await formApi('/bo/mb/getCouponHistoryList', formdata);
 		return res.data;
 	}
 }

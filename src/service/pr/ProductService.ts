@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/pr/setProductList', json ? json : {});
 		return res.data;
 	}
-	async insertProduct(json?:any) { // 상품 등록 [PR_PROD]
-		const res = await jsonApi('/bo/pr/insertProduct', json ? json : {});
+	async insertProduct(formdata:FormData) { // 상품 등록 [PR_PROD]
+		const res = await formApi('/bo/pr/insertProduct', formdata);
 		return res.data;
 	}
-	async updateProduct(json?:any) { // 상품 수정 [PR_PROD]
-		const res = await jsonApi('/bo/pr/updateProduct', json ? json : {});
+	async updateProduct(formdata:FormData) { // 상품 수정 [PR_PROD]
+		const res = await formApi('/bo/pr/updateProduct', formdata);
 		return res.data;
 	}
-	async deleteProduct(json?:any) { // 상품 삭제 [PR_PROD]
-		const res = await jsonApi('/bo/pr/getProductList', json ? json : {});
+	async deleteProduct(formdata:FormData) { // 상품 삭제 [PR_PROD]
+		const res = await formApi('/bo/pr/getProductList', formdata);
 		return res.data;
 	}
 }

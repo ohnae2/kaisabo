@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/cs/setPopupList', json ? json : {});
 		return res.data;
 	}
-	async insertPopup(json?:any) { // 팝업 등록 [CS_POP]
-		const res = await jsonApi('/bo/cs/insertPopup', json ? json : {});
+	async insertPopup(formdata:FormData) { // 팝업 등록 [CS_POP]
+		const res = await formApi('/bo/cs/insertPopup', formdata);
 		return res.data;
 	}
-	async updatePopup(json?:any) { // 팝업 수정 [CS_POP]
-		const res = await jsonApi('/bo/cs/updatePopup', json ? json : {});
+	async updatePopup(formdata:FormData) { // 팝업 수정 [CS_POP]
+		const res = await formApi('/bo/cs/updatePopup', formdata);
 		return res.data;
 	}
-	async deletePopup(json?:any) { // 팝업 삭제 [CS_POP]
-		const res = await jsonApi('/bo/cs/getPopupList', json ? json : {});
+	async deletePopup(formdata:FormData) { // 팝업 삭제 [CS_POP]
+		const res = await formApi('/bo/cs/getPopupList', formdata);
 		return res.data;
 	}
 }

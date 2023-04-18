@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/dp/setBoardList', json ? json : {});
 		return res.data;
 	}
-	async insertBoard(json?:any) { // 게시판 등록 [DP_BRD]
-		const res = await jsonApi('/bo/dp/insertBoard', json ? json : {});
+	async insertBoard(formdata:FormData) { // 게시판 등록 [DP_BRD]
+		const res = await formApi('/bo/dp/insertBoard', formdata);
 		return res.data;
 	}
-	async updateBoard(json?:any) { // 게시판 수정 [DP_BRD]
-		const res = await jsonApi('/bo/dp/updateBoard', json ? json : {});
+	async updateBoard(formdata:FormData) { // 게시판 수정 [DP_BRD]
+		const res = await formApi('/bo/dp/updateBoard', formdata);
 		return res.data;
 	}
-	async deleteBoard(json?:any) { // 게시판 삭제 [DP_BRD]
-		const res = await jsonApi('/bo/dp/getBoardList', json ? json : {});
+	async deleteBoard(formdata:FormData) { // 게시판 삭제 [DP_BRD]
+		const res = await formApi('/bo/dp/getBoardList', formdata);
 		return res.data;
 	}
 }

@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/bs/setApiHistoryList', json ? json : {});
 		return res.data;
 	}
-	async insertApiHistory(json?:any) { // API이력 등록 [BS_API_HIST]
-		const res = await jsonApi('/bo/bs/insertApiHistory', json ? json : {});
+	async insertApiHistory(formdata:FormData) { // API이력 등록 [BS_API_HIST]
+		const res = await formApi('/bo/bs/insertApiHistory', formdata);
 		return res.data;
 	}
-	async updateApiHistory(json?:any) { // API이력 수정 [BS_API_HIST]
-		const res = await jsonApi('/bo/bs/updateApiHistory', json ? json : {});
+	async updateApiHistory(formdata:FormData) { // API이력 수정 [BS_API_HIST]
+		const res = await formApi('/bo/bs/updateApiHistory', formdata);
 		return res.data;
 	}
-	async deleteApiHistory(json?:any) { // API이력 삭제 [BS_API_HIST]
-		const res = await jsonApi('/bo/bs/getApiHistoryList', json ? json : {});
+	async deleteApiHistory(formdata:FormData) { // API이력 삭제 [BS_API_HIST]
+		const res = await formApi('/bo/bs/getApiHistoryList', formdata);
 		return res.data;
 	}
 }

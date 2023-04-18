@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/bs/setBatchHistoryList', json ? json : {});
 		return res.data;
 	}
-	async insertBatchHistory(json?:any) { // 배치이력 등록 [BS_BTCH_HIST]
-		const res = await jsonApi('/bo/bs/insertBatchHistory', json ? json : {});
+	async insertBatchHistory(formdata:FormData) { // 배치이력 등록 [BS_BTCH_HIST]
+		const res = await formApi('/bo/bs/insertBatchHistory', formdata);
 		return res.data;
 	}
-	async updateBatchHistory(json?:any) { // 배치이력 수정 [BS_BTCH_HIST]
-		const res = await jsonApi('/bo/bs/updateBatchHistory', json ? json : {});
+	async updateBatchHistory(formdata:FormData) { // 배치이력 수정 [BS_BTCH_HIST]
+		const res = await formApi('/bo/bs/updateBatchHistory', formdata);
 		return res.data;
 	}
-	async deleteBatchHistory(json?:any) { // 배치이력 삭제 [BS_BTCH_HIST]
-		const res = await jsonApi('/bo/bs/getBatchHistoryList', json ? json : {});
+	async deleteBatchHistory(formdata:FormData) { // 배치이력 삭제 [BS_BTCH_HIST]
+		const res = await formApi('/bo/bs/getBatchHistoryList', formdata);
 		return res.data;
 	}
 }

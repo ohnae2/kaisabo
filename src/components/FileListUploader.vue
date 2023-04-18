@@ -62,7 +62,8 @@ const remove = function (index: number) {
 }
 const download = function (file: File) {
     console.log(file);
-    /*const param = '?path='+file.path+'&fileNm='+file.fleNm+'&originNm='+file.originNm;
+    /*
+    const param = '?path='+file.path+'&fileNm='+file.fleNm+'&originNm='+file.originNm;
     CommonService.fileDown(param).then(
         (resp) => {
             const href = URL.createObjectURL(resp);
@@ -130,10 +131,10 @@ const createFile = function (e: any) {
 </script>
 <style scoped>
 .fileUploaderWrap {width:100%;}
-.dragWrap {width:100%; text-align:center; padding:20px; border:3px dotted #aaa; margin:10px 0; background:#f1f1f1; cursor:pointer;}
+.dragWrap {width:100%; text-align:center; padding:20px; border:3px dotted #aaa; background:#f1f1f1; cursor:pointer;}
 .dragWrap p {font-size:11px;}
 .dragWrap p .icon {font-size:30px; vertical-align:middle; margin-right:20px; color:#aaa;}
-.fileItemWrap {width: 100%;}
+.fileItemWrap {width:100%;}
 .fileItem {width: 80px; height: 80px; display: inline-block; margin: 5px; position:relative;}
 .fileItem .icon {font-size:18px; text-shadow:1px 1px 2px rgba(255,255,255,0.7); color:#666;}
 .fileItem .icon.remove {position:absolute; right:1px; top:1px; cursor:pointer;}

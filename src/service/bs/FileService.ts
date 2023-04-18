@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/bs/setFileList', json ? json : {});
 		return res.data;
 	}
-	async insertFile(json?:any) { // 파일 등록 [BS_FILE]
-		const res = await jsonApi('/bo/bs/insertFile', json ? json : {});
+	async insertFile(formdata:FormData) { // 파일 등록 [BS_FILE]
+		const res = await formApi('/bo/bs/insertFile', formdata);
 		return res.data;
 	}
-	async updateFile(json?:any) { // 파일 수정 [BS_FILE]
-		const res = await jsonApi('/bo/bs/updateFile', json ? json : {});
+	async updateFile(formdata:FormData) { // 파일 수정 [BS_FILE]
+		const res = await formApi('/bo/bs/updateFile', formdata);
 		return res.data;
 	}
-	async deleteFile(json?:any) { // 파일 삭제 [BS_FILE]
-		const res = await jsonApi('/bo/bs/getFileList', json ? json : {});
+	async deleteFile(formdata:FormData) { // 파일 삭제 [BS_FILE]
+		const res = await formApi('/bo/bs/getFileList', formdata);
 		return res.data;
 	}
 }
