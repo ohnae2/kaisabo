@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/dp/setDisplayProductList', json ? json : {});
 		return res.data;
 	}
-	async insertDisplayProduct(formdata:FormData) { // 전시상품 등록 [DP_DISP_PROD]
-		const res = await formApi('/bo/dp/insertDisplayProduct', formdata);
+	async insertDisplayProduct(formData:FormData) { // 전시상품 등록 [DP_DISP_PROD]
+		const res = await formApi('/bo/dp/insertDisplayProduct', formData);
 		return res.data;
 	}
-	async updateDisplayProduct(formdata:FormData) { // 전시상품 수정 [DP_DISP_PROD]
-		const res = await formApi('/bo/dp/updateDisplayProduct', formdata);
+	async updateDisplayProduct(formData:FormData) { // 전시상품 수정 [DP_DISP_PROD]
+		const res = await formApi('/bo/dp/updateDisplayProduct', formData);
 		return res.data;
 	}
-	async deleteDisplayProduct(formdata:FormData) { // 전시상품 삭제 [DP_DISP_PROD]
-		const res = await formApi('/bo/dp/getDisplayProductList', formdata);
+	async deleteDisplayProduct(formData:FormData) { // 전시상품 삭제 [DP_DISP_PROD]
+		const res = await formApi('/bo/dp/getDisplayProductList', formData);
 		return res.data;
 	}
 }

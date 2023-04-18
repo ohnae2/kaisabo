@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/mb/setPointList', json ? json : {});
 		return res.data;
 	}
-	async insertPoint(formdata:FormData) { // 포인트 등록 [MB_PNT]
-		const res = await formApi('/bo/mb/insertPoint', formdata);
+	async insertPoint(formData:FormData) { // 포인트 등록 [MB_PNT]
+		const res = await formApi('/bo/mb/insertPoint', formData);
 		return res.data;
 	}
-	async updatePoint(formdata:FormData) { // 포인트 수정 [MB_PNT]
-		const res = await formApi('/bo/mb/updatePoint', formdata);
+	async updatePoint(formData:FormData) { // 포인트 수정 [MB_PNT]
+		const res = await formApi('/bo/mb/updatePoint', formData);
 		return res.data;
 	}
-	async deletePoint(formdata:FormData) { // 포인트 삭제 [MB_PNT]
-		const res = await formApi('/bo/mb/getPointList', formdata);
+	async deletePoint(formData:FormData) { // 포인트 삭제 [MB_PNT]
+		const res = await formApi('/bo/mb/getPointList', formData);
 		return res.data;
 	}
 }

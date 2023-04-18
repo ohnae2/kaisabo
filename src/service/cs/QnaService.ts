@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/cs/setQnaList', json ? json : {});
 		return res.data;
 	}
-	async insertQna(formdata:FormData) { // QNA 등록 [CS_QNA]
-		const res = await formApi('/bo/cs/insertQna', formdata);
+	async insertQna(formData:FormData) { // QNA 등록 [CS_QNA]
+		const res = await formApi('/bo/cs/insertQna', formData);
 		return res.data;
 	}
-	async updateQna(formdata:FormData) { // QNA 수정 [CS_QNA]
-		const res = await formApi('/bo/cs/updateQna', formdata);
+	async updateQna(formData:FormData) { // QNA 수정 [CS_QNA]
+		const res = await formApi('/bo/cs/updateQna', formData);
 		return res.data;
 	}
-	async deleteQna(formdata:FormData) { // QNA 삭제 [CS_QNA]
-		const res = await formApi('/bo/cs/getQnaList', formdata);
+	async deleteQna(formData:FormData) { // QNA 삭제 [CS_QNA]
+		const res = await formApi('/bo/cs/getQnaList', formData);
 		return res.data;
 	}
 }

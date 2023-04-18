@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/bs/setMenuList', json ? json : {});
 		return res.data;
 	}
-	async insertMenu(formdata:FormData) { // 메뉴 등록 [BS_MENU]
-		const res = await formApi('/bo/bs/insertMenu', formdata);
+	async insertMenu(formData:FormData) { // 메뉴 등록 [BS_MENU]
+		const res = await formApi('/bo/bs/insertMenu', formData);
 		return res.data;
 	}
-	async updateMenu(formdata:FormData) { // 메뉴 수정 [BS_MENU]
-		const res = await formApi('/bo/bs/updateMenu', formdata);
+	async updateMenu(formData:FormData) { // 메뉴 수정 [BS_MENU]
+		const res = await formApi('/bo/bs/updateMenu', formData);
 		return res.data;
 	}
-	async deleteMenu(formdata:FormData) { // 메뉴 삭제 [BS_MENU]
-		const res = await formApi('/bo/bs/getMenuList', formdata);
+	async deleteMenu(formData:FormData) { // 메뉴 삭제 [BS_MENU]
+		const res = await formApi('/bo/bs/getMenuList', formData);
 		return res.data;
 	}
 }

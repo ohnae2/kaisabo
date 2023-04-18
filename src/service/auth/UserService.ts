@@ -2,8 +2,8 @@
 import { formApi } from '../../utils/formApi';
 
 class UserService {
-  async getUserLogin(formdata:FormData) {
-    const res = await formApi('/auth/getUserLogin', formdata);
+  async getUserLogin(formData:FormData) {
+    const res = await formApi('/auth/getUserLogin', formData);
     return res.data;
   }
 }

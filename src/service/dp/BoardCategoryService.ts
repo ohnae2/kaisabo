@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/dp/setBoardCategoryList', json ? json : {});
 		return res.data;
 	}
-	async insertBoardCategory(formdata:FormData) { // 게시판분류 등록 [DP_BRD_CAT]
-		const res = await formApi('/bo/dp/insertBoardCategory', formdata);
+	async insertBoardCategory(formData:FormData) { // 게시판분류 등록 [DP_BRD_CAT]
+		const res = await formApi('/bo/dp/insertBoardCategory', formData);
 		return res.data;
 	}
-	async updateBoardCategory(formdata:FormData) { // 게시판분류 수정 [DP_BRD_CAT]
-		const res = await formApi('/bo/dp/updateBoardCategory', formdata);
+	async updateBoardCategory(formData:FormData) { // 게시판분류 수정 [DP_BRD_CAT]
+		const res = await formApi('/bo/dp/updateBoardCategory', formData);
 		return res.data;
 	}
-	async deleteBoardCategory(formdata:FormData) { // 게시판분류 삭제 [DP_BRD_CAT]
-		const res = await formApi('/bo/dp/getBoardCategoryList', formdata);
+	async deleteBoardCategory(formData:FormData) { // 게시판분류 삭제 [DP_BRD_CAT]
+		const res = await formApi('/bo/dp/getBoardCategoryList', formData);
 		return res.data;
 	}
 }

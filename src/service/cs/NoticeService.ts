@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/cs/setNoticeList', json ? json : {});
 		return res.data;
 	}
-	async insertNotice(formdata:FormData) { // 공지 등록 [CS_NOTI]
-		const res = await formApi('/bo/cs/insertNotice', formdata);
+	async insertNotice(formData:FormData) { // 공지 등록 [CS_NOTI]
+		const res = await formApi('/bo/cs/insertNotice', formData);
 		return res.data;
 	}
-	async updateNotice(formdata:FormData) { // 공지 수정 [CS_NOTI]
-		const res = await formApi('/bo/cs/updateNotice', formdata);
+	async updateNotice(formData:FormData) { // 공지 수정 [CS_NOTI]
+		const res = await formApi('/bo/cs/updateNotice', formData);
 		return res.data;
 	}
-	async deleteNotice(formdata:FormData) { // 공지 삭제 [CS_NOTI]
-		const res = await formApi('/bo/cs/getNoticeList', formdata);
+	async deleteNotice(formData:FormData) { // 공지 삭제 [CS_NOTI]
+		const res = await formApi('/bo/cs/getNoticeList', formData);
 		return res.data;
 	}
 }

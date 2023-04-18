@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/mb/setCouponList', json ? json : {});
 		return res.data;
 	}
-	async insertCoupon(formdata:FormData) { // 쿠폰 등록 [MB_CPN]
-		const res = await formApi('/bo/mb/insertCoupon', formdata);
+	async insertCoupon(formData:FormData) { // 쿠폰 등록 [MB_CPN]
+		const res = await formApi('/bo/mb/insertCoupon', formData);
 		return res.data;
 	}
-	async updateCoupon(formdata:FormData) { // 쿠폰 수정 [MB_CPN]
-		const res = await formApi('/bo/mb/updateCoupon', formdata);
+	async updateCoupon(formData:FormData) { // 쿠폰 수정 [MB_CPN]
+		const res = await formApi('/bo/mb/updateCoupon', formData);
 		return res.data;
 	}
-	async deleteCoupon(formdata:FormData) { // 쿠폰 삭제 [MB_CPN]
-		const res = await formApi('/bo/mb/getCouponList', formdata);
+	async deleteCoupon(formData:FormData) { // 쿠폰 삭제 [MB_CPN]
+		const res = await formApi('/bo/mb/getCouponList', formData);
 		return res.data;
 	}
 }

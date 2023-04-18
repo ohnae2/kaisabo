@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/bs/setCodeList', json ? json : {});
 		return res.data;
 	}
-	async insertCode(formdata:FormData) { // 코드 등록 [BS_CD]
-		const res = await formApi('/bo/bs/insertCode', formdata);
+	async insertCode(formData:FormData) { // 코드 등록 [BS_CD]
+		const res = await formApi('/bo/bs/insertCode', formData);
 		return res.data;
 	}
-	async updateCode(formdata:FormData) { // 코드 수정 [BS_CD]
-		const res = await formApi('/bo/bs/updateCode', formdata);
+	async updateCode(formData:FormData) { // 코드 수정 [BS_CD]
+		const res = await formApi('/bo/bs/updateCode', formData);
 		return res.data;
 	}
-	async deleteCode(formdata:FormData) { // 코드 삭제 [BS_CD]
-		const res = await formApi('/bo/bs/getCodeList', formdata);
+	async deleteCode(formData:FormData) { // 코드 삭제 [BS_CD]
+		const res = await formApi('/bo/bs/getCodeList', formData);
 		return res.data;
 	}
 }

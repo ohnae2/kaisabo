@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/mb/setUserList', json ? json : {});
 		return res.data;
 	}
-	async insertUser(formdata:FormData) { // 사용자 등록 [MB_USR]
-		const res = await formApi('/bo/mb/insertUser', formdata);
+	async insertUser(formData:FormData) { // 사용자 등록 [MB_USR]
+		const res = await formApi('/bo/mb/insertUser', formData);
 		return res.data;
 	}
-	async updateUser(formdata:FormData) { // 사용자 수정 [MB_USR]
-		const res = await formApi('/bo/mb/updateUser', formdata);
+	async updateUser(formData:FormData) { // 사용자 수정 [MB_USR]
+		const res = await formApi('/bo/mb/updateUser', formData);
 		return res.data;
 	}
-	async deleteUser(formdata:FormData) { // 사용자 삭제 [MB_USR]
-		const res = await formApi('/bo/mb/getUserList', formdata);
+	async deleteUser(formData:FormData) { // 사용자 삭제 [MB_USR]
+		const res = await formApi('/bo/mb/getUserList', formData);
 		return res.data;
 	}
 }

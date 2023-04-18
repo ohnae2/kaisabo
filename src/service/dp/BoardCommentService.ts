@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/dp/setBoardCommentList', json ? json : {});
 		return res.data;
 	}
-	async insertBoardComment(formdata:FormData) { // 게시판 댓글 등록 [DP_BRD_CMMT]
-		const res = await formApi('/bo/dp/insertBoardComment', formdata);
+	async insertBoardComment(formData:FormData) { // 게시판 댓글 등록 [DP_BRD_CMMT]
+		const res = await formApi('/bo/dp/insertBoardComment', formData);
 		return res.data;
 	}
-	async updateBoardComment(formdata:FormData) { // 게시판 댓글 수정 [DP_BRD_CMMT]
-		const res = await formApi('/bo/dp/updateBoardComment', formdata);
+	async updateBoardComment(formData:FormData) { // 게시판 댓글 수정 [DP_BRD_CMMT]
+		const res = await formApi('/bo/dp/updateBoardComment', formData);
 		return res.data;
 	}
-	async deleteBoardComment(formdata:FormData) { // 게시판 댓글 삭제 [DP_BRD_CMMT]
-		const res = await formApi('/bo/dp/getBoardCommentList', formdata);
+	async deleteBoardComment(formData:FormData) { // 게시판 댓글 삭제 [DP_BRD_CMMT]
+		const res = await formApi('/bo/dp/getBoardCommentList', formData);
 		return res.data;
 	}
 }

@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/or/setPaymentList', json ? json : {});
 		return res.data;
 	}
-	async insertPayment(formdata:FormData) { // 결제내역 등록 [OR_PAY]
-		const res = await formApi('/bo/or/insertPayment', formdata);
+	async insertPayment(formData:FormData) { // 결제내역 등록 [OR_PAY]
+		const res = await formApi('/bo/or/insertPayment', formData);
 		return res.data;
 	}
-	async updatePayment(formdata:FormData) { // 결제내역 수정 [OR_PAY]
-		const res = await formApi('/bo/or/updatePayment', formdata);
+	async updatePayment(formData:FormData) { // 결제내역 수정 [OR_PAY]
+		const res = await formApi('/bo/or/updatePayment', formData);
 		return res.data;
 	}
-	async deletePayment(formdata:FormData) { // 결제내역 삭제 [OR_PAY]
-		const res = await formApi('/bo/or/getPaymentList', formdata);
+	async deletePayment(formData:FormData) { // 결제내역 삭제 [OR_PAY]
+		const res = await formApi('/bo/or/getPaymentList', formData);
 		return res.data;
 	}
 }

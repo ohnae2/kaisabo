@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/bs/setMenuRoleList', json ? json : {});
 		return res.data;
 	}
-	async insertMenuRole(formdata:FormData) { // 업체메뉴권한 등록 [BS_MENU_ROLE]
-		const res = await formApi('/bo/bs/insertMenuRole', formdata);
+	async insertMenuRole(formData:FormData) { // 업체메뉴권한 등록 [BS_MENU_ROLE]
+		const res = await formApi('/bo/bs/insertMenuRole', formData);
 		return res.data;
 	}
-	async updateMenuRole(formdata:FormData) { // 업체메뉴권한 수정 [BS_MENU_ROLE]
-		const res = await formApi('/bo/bs/updateMenuRole', formdata);
+	async updateMenuRole(formData:FormData) { // 업체메뉴권한 수정 [BS_MENU_ROLE]
+		const res = await formApi('/bo/bs/updateMenuRole', formData);
 		return res.data;
 	}
-	async deleteMenuRole(formdata:FormData) { // 업체메뉴권한 삭제 [BS_MENU_ROLE]
-		const res = await formApi('/bo/bs/getMenuRoleList', formdata);
+	async deleteMenuRole(formData:FormData) { // 업체메뉴권한 삭제 [BS_MENU_ROLE]
+		const res = await formApi('/bo/bs/getMenuRoleList', formData);
 		return res.data;
 	}
 }

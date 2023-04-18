@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/cs/setFaqList', json ? json : {});
 		return res.data;
 	}
-	async insertFaq(formdata:FormData) { // FAQ 등록 [CS_FAQ]
-		const res = await formApi('/bo/cs/insertFaq', formdata);
+	async insertFaq(formData:FormData) { // FAQ 등록 [CS_FAQ]
+		const res = await formApi('/bo/cs/insertFaq', formData);
 		return res.data;
 	}
-	async updateFaq(formdata:FormData) { // FAQ 수정 [CS_FAQ]
-		const res = await formApi('/bo/cs/updateFaq', formdata);
+	async updateFaq(formData:FormData) { // FAQ 수정 [CS_FAQ]
+		const res = await formApi('/bo/cs/updateFaq', formData);
 		return res.data;
 	}
-	async deleteFaq(formdata:FormData) { // FAQ 삭제 [CS_FAQ]
-		const res = await formApi('/bo/cs/getFaqList', formdata);
+	async deleteFaq(formData:FormData) { // FAQ 삭제 [CS_FAQ]
+		const res = await formApi('/bo/cs/getFaqList', formData);
 		return res.data;
 	}
 }

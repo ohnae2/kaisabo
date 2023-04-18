@@ -14,16 +14,16 @@ class CodeService {
 		const res = await jsonApi('/bo/bs/setMessageHistoryList', json ? json : {});
 		return res.data;
 	}
-	async insertMessageHistory(formdata:FormData) { // 문자메시지이력 등록 [BS_MSG_HIST]
-		const res = await formApi('/bo/bs/insertMessageHistory', formdata);
+	async insertMessageHistory(formData:FormData) { // 문자메시지이력 등록 [BS_MSG_HIST]
+		const res = await formApi('/bo/bs/insertMessageHistory', formData);
 		return res.data;
 	}
-	async updateMessageHistory(formdata:FormData) { // 문자메시지이력 수정 [BS_MSG_HIST]
-		const res = await formApi('/bo/bs/updateMessageHistory', formdata);
+	async updateMessageHistory(formData:FormData) { // 문자메시지이력 수정 [BS_MSG_HIST]
+		const res = await formApi('/bo/bs/updateMessageHistory', formData);
 		return res.data;
 	}
-	async deleteMessageHistory(formdata:FormData) { // 문자메시지이력 삭제 [BS_MSG_HIST]
-		const res = await formApi('/bo/bs/getMessageHistoryList', formdata);
+	async deleteMessageHistory(formData:FormData) { // 문자메시지이력 삭제 [BS_MSG_HIST]
+		const res = await formApi('/bo/bs/getMessageHistoryList', formData);
 		return res.data;
 	}
 }
