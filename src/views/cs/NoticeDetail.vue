@@ -5,8 +5,8 @@
 			<div class="close" @click="close"><span class="icon">&#xe097;</span></div>
 			<form @submit.prevent="save">
 				<table class="popT">
-					<tr><th class="th">업체ID</th><td class="td"><input type="text" v-model="props.data.cmpId" /></td></tr>
-					<tr><th class="th required">제목</th><td class="td"><input type="text" v-model="props.data.tit" /></td></tr>
+					<tr><th class="th">업체ID</th><td class="td"><input type="text" v-model="props.data.cmpId" minlength="5" maxlength="50" /></td></tr>
+					<tr><th class="th required">제목</th><td class="td"><input type="text" v-model="props.data.tit" minlength="5" maxlength="100" /></td></tr>
 					<!--<tr><th class="th">파일번호</th><td class="td"><input type="text" v-model="props.data.fileNo" /></td></tr>-->
 					<tr><th class="th">사용여부</th><td class="td">
 						<CommonCode :cd="'YN_CD'" :model="props.data.useYn" @set-data="(val) => { props.data.useYn = val; }" />
@@ -35,8 +35,10 @@
 						/>
 					</td></tr>
 					<tr><th class="th">파일</th><td class="td">
+						<!-- TODO -->
 						<FileListUploader
 							:name="'notice'"
+							:fileNo="file.list"
 							:fileList="file.list"
 							@set-file="(o) => {
 								file.list = o;
@@ -58,18 +60,29 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue';
+import { onMounted, ref, reactive, ComponentObjectPropsOptions } from 'vue';
 import NoticeService from '../../service/cs/NoticeService';
+import FileService from '../../service/bs/FileService';
 import SelectDate from '../../components/SelectDate.vue';
 import CommonCode from '../../components/CommonCode.vue';
 import FileListUploader from '../../components/FileListUploader.vue';
 import Editor from '@toast-ui/editor';
 import dateUtil from '../../utils/util.date';
 
-const emit = defineEmits(['set-close'])
+const emit = defineEmits(['set-close']);
 
+interface NoticeDetail {
+    notiNo: number;
+    cmpId: string;
+    tit: string;
+    fileNo: number;
+    useYn: string;
+    strtDt: string;
+    endDt: string;
+    cnts: string;
+}
 const props = defineProps({
-	data: { type: Object, required: true },
+	data: { type: NoticeDetail, required: true },
 });
 
 const file = reactive({
@@ -79,9 +92,11 @@ const file = reactive({
 if(!props.data.strtDt) {
 	props.data.strtDt = dateUtil.format(new Date(),'YYYY-MM-DD HH:mm');
 }
-
 if(!props.data.endDt) {
 	props.data.endDt = dateUtil.format(new Date(),'YYYY-MM-DD HH:mm');
+}
+if(!props.data.useYn) {
+	props.data.useYn = 'Y';
 }
 
 const edit = reactive({
@@ -91,6 +106,39 @@ const edit = reactive({
 
 const save = function(){
 
+	let fileData = new FormData();
+	/*private String folderName;
+    private String originalFileName;
+    private String exe;
+    private String path;
+    private String type;
+    private long fileNo;
+    private String saveFileName;
+    private MultipartFile file;
+    private long fileSize;
+    private boolean success;*/
+	
+	// fileData.append();
+
+	console.log(file.list);
+
+	return;
+
+	FileService.uploadList(fileData).then(
+		(res) => {
+			if(res.success) {
+				location.reload();
+			} else {
+				console.log(res);
+			}
+		},
+		(err) => {
+			console.log(err);
+		},
+	);
+
+	return;
+	
 	let formData = new FormData();
 	formData.append('notiNo', props.data.notiNo);
 	formData.append('cmpId', props.data.cmpId);
@@ -132,9 +180,8 @@ const save = function(){
 const close = function(){
     emit('set-close');
 }
-onMounted(() => {
-	/* 
-	console.log(props.data.notiNo);
+
+const getDetail = function(){
 	if(props.data.notiNo) {
 		NoticeService.getNotice({ notiNo: props.data.notiNo}).then(
 			(res) => {
@@ -145,7 +192,12 @@ onMounted(() => {
 			},
 		);
 	}
-	*/
+}
+
+onMounted(() => {
+	
+	// getDetail();
+	
 	// ![image](http://pumpkinev.iptime.org:5526/static/25bd3aa3/images/svgs/logo.svg)
 	edit.editor = new Editor({
 		el: document.querySelector('#noticeEditor') as HTMLElement,
@@ -153,7 +205,7 @@ onMounted(() => {
 		// previewStyle: 'tab',
 		initialEditType: 'markdown', // 'wysiwyg',
 		height: '390px',
-		initialValue: props.data.cnts,
+		initialValue: props.data.cnts || '', // null 시 에러발생 
 	});
 
 	edit.editor.removeHook("addImageBlobHook");

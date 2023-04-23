@@ -37,7 +37,6 @@ const routes: RouteRecordRaw[] = [
             { path: '/bs/code', name: 'code', meta: { title: 'code', auth: true, }, component: () => import( '../views/bs/Code.vue'), },
             { path: '/bs/file', name: 'file', meta: { title: 'file', auth: true, }, component: () => import( '../views/bs/File.vue'), },
             { path: '/bs/filedetail', name: 'filedetail', meta: { title: 'filedetail', auth: true, }, component: () => import( '../views/bs/FileDetail.vue'), },
-            { path: '/bs/fileinformation', name: 'fileinformation', meta: { title: 'fileinformation', auth: true, }, component: () => import( '../views/bs/FileInformation.vue'), },
             { path: '/bs/linkhistory', name: 'linkhistory', meta: { title: 'linkhistory', auth: true, }, component: () => import( '../views/bs/LinkHistory.vue'), },
             { path: '/bs/menu', name: 'menu', meta: { title: 'menu', auth: true, }, component: () => import( '../views/bs/Menu.vue'), },
             { path: '/bs/menurole', name: 'menurole', meta: { title: 'menurole', auth: true, }, component: () => import( '../views/bs/MenuRole.vue'), },

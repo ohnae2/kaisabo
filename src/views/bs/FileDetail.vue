@@ -95,7 +95,7 @@ const search = reactive({
 // 파일상세
 const data = reactive({
 	grid: {} as Grid,
-	required: ['fileNo', 'path', 'size', 'fileNm', 'fileOrgNm'],
+	required: ['fileNo', 'fileNm', 'path', 'size', 'fileOrgNm'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -184,11 +184,10 @@ onMounted(() => {
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
-			{header: '파일상세번호', name: 'fileDtlNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 파일상세번호
 			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 파일번호
+			{header: '파일명', name: 'fileNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 파일명
 			{header: '경로', name: 'path', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 경로
 			{header: '사이즈', name: 'size', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 사이즈
-			{header: '파일명', name: 'fileNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 파일명
 			{header: '파일원명', name: 'fileOrgNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 파일원명
 			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
 			{header: '수정ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정ID

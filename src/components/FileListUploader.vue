@@ -2,36 +2,17 @@
     <div class="fileUploaderWrap">
         <div class="fileItemWrap">
             <!-- 기존 파일 -->
-            <div class="fileItem" v-for="(file, index) in data.fleIdList" :key="index" v-show="file.delYn !== 'Y'">
-                <template v-if="file.fleExt == 'jpg' || file.fleExt == 'png' || file.fleExt == 'gif' || file.fleExt == 'jpeg'">
-                    <span class="icon remove" @click="remove(index)">&#xe042;</span>
-                    <span class="icon download" @click="download(file)">&#xf0ed;</span>
-                    <img :src="'/file/image?fileNm=' + file.path + file.fleNm">
-                    <!--<img :src="'/file/image?fileNm=/image/AS0010/FLE_GRP_ID/20221130122145661c22.jpg'" />-->
-                </template>
-                <template v-else>
-                    <span class="icon remove" @click="remove(index)">&#xe042;</span>
-                    <span class="icon download" @click="download(file)">&#xf0ed;</span>
-                    <img :src="'img/common/file.png'">
-                </template>
-            </div>
-            <!-- 신규 파일 -->
-            <div class="fileItem" v-for="(file, index) in data.addFleList" :key="index">
-                <template v-if="file.fleExt == 'image'">
-                    <span class="icon remove" @click="cancel(index)">&#xe042;</span>
-                    <img :src="file.tmpUrl">
-                </template>
-                <template v-else>
-                    <span class="icon remove" @click="cancel(index)">&#xe042;</span>
-                    <img :src="'img/common/file.png'">
-                </template>
+            <div class="fileItem" v-for="(o, index) in props.fileList" :key="index">
+                <span class="icon remove" @click="remove(o)">&#xe042;</span>
+                <!--<span class="icon download" @click="download(o)">&#xf0ed;</span>-->
+                <img :src="(o.path) ? o.path + o.fileNm : o.tempUrl">
             </div>
         </div>
         <div class="dragWrap" @drop.prevent="drop($event)" @click.self="clickOnInput()" @dragover.prevent="dragover($event)">
             <div @click.self="clickOnInput()">
                 <p @click.self="clickOnInput()"><span class="icon">&#xe01b;</span>이곳에 파일을 넣어주세요. 클릭해도 됩니다.</p>
                 <label for="file-upload" style="display:none;">
-                    <input multiple @change="clickedInput($event)" v-bind:id="data.name + 'FileUpload'" type="file" class="sr-only" />
+                    <input multiple @change="clickedInput($event)" v-bind:id="props.name + 'FileUpload'" type="file" class="sr-only" />
                 </label>
             </div>
         </div>
@@ -40,36 +21,40 @@
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue';
 
-const data = reactive({
-    fleIdList: new Array(),
-    name: '',
-    addFleList: new Array(),
-    size: 1000000,
-    length: 100,
-});
+const emit = defineEmits(['set-file'])
 
-data.name = data.name;
-data.fleIdList = data.fleIdList;
-data.addFleList = new Array();
-data.fleIdList.forEach(o => {
-    o.delYn = 'N';
-});
-
-const remove = function (index: number) {
-    // URL.revokeObjectURL(file);
-    data.fleIdList[index].delYn = 'Y';
-    // data.fleIdList[index].source.cancel();
+interface FileInfo {
+    fileNo: number;
+    path: string;
+    fileNm: string;
+    fileOrgNm: string;
+    size: number;
+    tempUrl: string;
 }
-const download = function (file: File) {
-    console.log(file);
+
+const props = defineProps({
+	name: { type: String, required: true },
+	fileNo: { type: Number, required: false },
+    maxSize:  { type: Number, required: false, default: 1000000 },
+    maxLength:  { type: Number, required: false, default: 10 },
+	fileList: { type: Array<FileInfo>, required: true },
+});
+
+const remove = function (o:any) {
+    // URL.revokeObjectURL(file);
+    // data.fileList[index].delYn = 'Y';
+    // data.fileList[index].source.cancel();
+}
+const download = function (o:any) {
+    console.log(o);
     /*
-    const param = '?path='+file.path+'&fileNm='+file.fleNm+'&originNm='+file.originNm;
+    const param = '?path='+o.path+'&fileNm='+o.fleNm+'&originNm='+o.originNm;
     CommonService.fileDown(param).then(
         (resp) => {
             const href = URL.createObjectURL(resp);
             const link = document.createElement('a');
             link.href = href;
-            link.setAttribute('download', file.originNm);
+            link.setAttribute('download', o.originNm);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -81,7 +66,7 @@ const download = function (file: File) {
     );*/
 }
 const cancel = function (index: number) {
-    data.addFleList.splice(index, 1);
+    // data.addFleList.splice(index, 1);
 }
 const dragover = function (e: any) {
     e.stopPropagation();
@@ -92,40 +77,44 @@ const drop = function (e: any) {
     createFile(e);
 }
 const clickOnInput = function () {
-    const uploadInput = document.getElementById(data.name + 'FileUpload') as HTMLElement;
+    const uploadInput = document.getElementById(props.name + 'FileUpload') as HTMLElement;
     uploadInput.click();
 }
 const clickedInput = function (e: any) {
     createFile(e);
 }
 const createUrl = function (o: any) {
-    if (o.type.match(/image.*/)) {
-        o.fleExt = 'image';
-        o.tmpUrl = URL.createObjectURL(o);
-    } else {
-        o.fleExt = 'file';
-        o.tmpUrl = URL.createObjectURL(o);
-    }
+    o.tempUrl = URL.createObjectURL(o);
+    // if (o.type.match(/image.*/)) {
     return o;
 }
 const createFile = function (e: any) {
-    var files = [...e.target.files || e.dataTransfer.files]; // Array of all fleIdList
+    let files = [...e.target.files || e.dataTransfer.files]; // Array of all fileList
     let isValid = true;
-    files.forEach(o => {
-        if (o.size > data.size) {
+    files.forEach(file => {
+        if (props.maxSize < file.size) {
             isValid = false;
-            alert('파일 사이즈 ' + data.size + 'Byte 이하로 올려주시기 바랍니다.')
+            alert('파일 사이즈 ' + props.maxSize + 'Byte 이하로 올려주시기 바랍니다.')
         } else {
-            o = createUrl(o);
+                    
+            /*fileNo: number;
+            path: string;
+            fileNm: string;
+            fileOrgNm: string;
+            size: number;
+            tempUrl: string;*/
+            file.fileNo = props.fileNo;
+            
+            file = createUrl(file);
         }
     });
-    if ((data.fleIdList && data.addFleList) && (data.fleIdList.length + data.addFleList.length) >= data.length) {
+    if (props.maxLength <= files.length) {
         isValid = false;
-        alert('첨부파일은 ' + data.length + '개 이하로 올려주시기 바랍니다.')
+        alert('첨부파일은 ' + props.maxLength + '개 이하로 올려주시기 바랍니다.')
     }
     if (isValid) {
-        data.addFleList.push(...files);
-        // data.$emit('set-add-file', files);
+        props.fileList.push(...files);
+        emit('set-file', props.fileList);
     }
 }
 </script>
@@ -136,7 +125,7 @@ const createFile = function (e: any) {
 .dragWrap p .icon {font-size:30px; vertical-align:middle; margin-right:20px; color:#aaa;}
 .fileItemWrap {width:100%;}
 .fileItem {width: 80px; height: 80px; display: inline-block; margin: 5px; position:relative;}
-.fileItem .icon {font-size:18px; text-shadow:1px 1px 2px rgba(255,255,255,0.7); color:#666;}
+.fileItem .icon {font-size:18px; text-shadow:1px 1px 2px rgba(255,255,255,0.7); color:#888;}
 .fileItem .icon.remove {position:absolute; right:1px; top:1px; cursor:pointer;}
 .fileItem .icon.download {position:absolute; left:1px; bottom:1px; cursor:pointer;}
 .fileItem .icon:hover {color:#000;}

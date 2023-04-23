@@ -26,6 +26,20 @@ class CodeService {
 		const res = await formApi('/bo/bs/getFileList', formData);
 		return res.data;
 	}
+	/**
+	 * file
+	 * 
+	 * @param formData 
+	 * @returns 
+	 */
+	async uploadList(formData:FormData) {
+		const res = await formApi('/file/uploadList', formData);
+		return res.data;
+	}
+	async getList(formData:FormData) {
+		const res = await formApi('/file/getList', formData);
+		return res.data;
+	}
 }
 export default new CodeService();
 
