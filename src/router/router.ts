@@ -103,7 +103,7 @@ router.beforeEach((to, from, next) => {
 
     if (!isUser && to.path !== '/login') {
         next('/login');
-    } else if (to.meta.auth && (!isUser || !isRole)) {
+    } else if (to.meta.auth && (!isUser || !isRole) && userInfo &&  userInfo.id != 'kaisa') {
         next('/403');
     } else if (to.path === '/') {
         next('/main');

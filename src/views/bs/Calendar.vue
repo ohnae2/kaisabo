@@ -5,7 +5,7 @@
     <table class="calendar">
       <thead>
         <th colspan="7">
-          <p><span> {{ calendar.year }} </span>년 <span> {{ calendar.month }} </span>월</p>
+          <h2><span class="icon" @click="move('prev')">&#xe046;</span><span> {{ calendar.year }} </span>년 <span> {{ calendar.month }} </span>월<span class="icon" @click="move('next')">&#xe048;</span></h2>
         </th>
       </thead>
       <thead>
@@ -66,11 +66,9 @@ import MainService from '../../service/auth/MainService';
 
 //rvCalendar
 const calendar = reactive({
-  year: '2023',
-  month: '04',
   date: new Date(),
-  dateFullYear: new Date().getFullYear(),
-  dateMonth: new Date().getMonth(),
+  year: dateUtil.format(new Date(), 'YYYY'),
+  month: dateUtil.format(new Date(), 'MM'),
   dateArray: [
     [{
       day: '',
@@ -82,25 +80,24 @@ const calendar = reactive({
   ],
 });
 
-const click = function () {
-
+const move = function (str:string) {
+  if(str === 'prev') {
+    calendar.date.setMonth(calendar.date.getMonth() - 1);
+  } else {
+    calendar.date.setMonth(calendar.date.getMonth() + 1);
+  }
+  calendar.year = dateUtil.format(calendar.date, 'YYYY');
+  calendar.month = dateUtil.format(calendar.date, 'MM');
+  getList();
 }
-
 const getFirstDay = function () {
-  return new Date(calendar.dateFullYear, calendar.dateMonth).getDay();
+  return calendar.date.getDay();
 }
-
 const getLastDay = function () {
-  return new Date(calendar.dateFullYear, calendar.dateMonth + 1, 0).getDate();
+  return new Date(calendar.date.getFullYear(), calendar.date.getMonth() + 1, 0).getDate();
 }
-
-const getFormat = function (date: Date, format: string) {
-  return dateUtil.format(date, format);
-}
-
-onMounted(() => {
-
-  MainService.getCalendar({ year: '2023', month: '04' }).then(
+const getList = function() {
+  MainService.getCalendar({ year: calendar.year, month: calendar.month }).then(
     (res) => {
       console.log(res.data);
 
@@ -108,7 +105,7 @@ onMounted(() => {
       calendar.dateArray = [];
       let array = [];
       for (let i = 1; i < 43; i++) {
-        let date = new Date(calendar.dateFullYear, calendar.dateMonth).setDate(i - fd);
+        let date = new Date(calendar.date.getFullYear(), calendar.date.getMonth()).setDate(i - fd);
         let YYYYMMDD = dateUtil.format(date, 'YYYY-MM-DD');
         let rsvList = [];
         let idx = 0;
@@ -137,6 +134,10 @@ onMounted(() => {
       console.log(err);
     },
   );
+}
+
+onMounted(() => {
+  getList();
 });
 
 </script>
@@ -144,6 +145,8 @@ onMounted(() => {
 <style scoped>
 #calendar {width: 100%;}
 table.calendar {width: 100%;}
+table.calendar h2 {font-size:20px; color:#333;}
+table.calendar h2 .icon {font-size:20px; color:#333;}
 table.calendar th {width: 14%;text-align: center;}
 table.calendar td {text-align:left; vertical-align:top; height:110px; white-space:nowrap;}
 table.calendar td.off {color:#ccc; background:#f2f2f2;}

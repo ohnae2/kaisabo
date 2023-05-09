@@ -109,7 +109,16 @@ const data = reactive({
 	list: [],
 	audit: false,
 	detailShow: false,
-	detail: {},
+	detail: {
+		notiNo: 0,
+		cmpId: '',
+		tit: '',
+		fileNo: 0,
+		useYn: '',
+		strtDt: '',
+		endDt: '',
+		cnts: '',
+	},
 });
 const getList = function () {
 	NoticeService.getNoticeList(search).then(
@@ -125,11 +134,10 @@ const getList = function () {
 }
 const add = function() {
 	data.detail = {
-		mode: 'add',
 		notiNo: 0,
 		cmpId: '',
 		tit: '',
-		fileNo: '',
+		fileNo: 0,
 		useYn: '',
 		strtDt: '',
 		endDt: '',

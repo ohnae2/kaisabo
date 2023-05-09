@@ -46,7 +46,7 @@
 						/>
 					</td></tr>
 					<tr><td colspan="2" class="td">
-						<!--<input type="text" v-model="data.cnts" />-->
+						<!--<input type="text" v-model="props.data.cnts" />-->
 						<div id="noticeEditor"></div>
 					</td></tr>
 				</table>
@@ -60,7 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, reactive, ComponentObjectPropsOptions } from 'vue';
+import { onMounted, ref, reactive, PropType, ComponentObjectPropsOptions } from 'vue';
 import NoticeService from '../../service/cs/NoticeService';
 import FileService from '../../service/bs/FileService';
 import SelectDate from '../../components/SelectDate.vue';
@@ -81,8 +81,9 @@ interface NoticeDetail {
     endDt: string;
     cnts: string;
 }
+
 const props = defineProps({
-	data: { type: NoticeDetail, required: true },
+	data: { type: Object as PropType<NoticeDetail>, required: true },
 });
 
 const file = reactive({
@@ -104,6 +105,38 @@ const edit = reactive({
 	editorOption: {}
 });
 
+const getDetail = function(){
+	if(props.data.notiNo) {
+		NoticeService.getNotice({ notiNo: props.data.notiNo}).then(
+			(res) => {
+				console.log(res.data);
+				// props.data.fileNo = res.data.fileNo;
+				props.data.cnts = res.data.cnts;
+				drawDetail();
+			},
+			(err) => {
+				console.log(err);
+			},
+		);
+	}
+}
+
+const drawDetail = function(){
+	// ![image](http://pumpkinev.iptime.org:5526/static/25bd3aa3/images/svgs/logo.svg)
+	edit.editor = new Editor({
+		el: document.querySelector('#noticeEditor') as HTMLElement,
+		previewStyle: 'vertical',
+		// previewStyle: 'tab',
+		initialEditType: 'markdown', // 'wysiwyg',
+		height: '390px',
+		initialValue: props.data.cnts || '', // null 시 에러발생 
+	});
+	edit.editor.removeHook("addImageBlobHook");
+	edit.editor.addHook("addImageBlobHook", (blob, callback) => {
+		console.log(blob);
+	});
+}
+
 const save = function(){
 
 	let fileData = new FormData();
@@ -119,28 +152,25 @@ const save = function(){
     private boolean success;*/
 	
 	// fileData.append();
-
 	console.log(file.list);
 
-	return;
-
-	FileService.uploadList(fileData).then(
-		(res) => {
-			if(res.success) {
-				location.reload();
-			} else {
-				console.log(res);
-			}
-		},
-		(err) => {
-			console.log(err);
-		},
-	);
-
-	return;
+	if (1 + 1 == 3) {
+		FileService.uploadList(fileData).then(
+			(res) => {
+				if (res.success) {
+					location.reload();
+				} else {
+					console.log(res);
+				}
+			},
+			(err) => {
+				console.log(err);
+			},
+		);
+	}
 	
 	let formData = new FormData();
-	formData.append('notiNo', props.data.notiNo);
+	formData.append('notiNo', props.data.notiNo + '');
 	formData.append('cmpId', props.data.cmpId);
 	formData.append('tit', props.data.tit);
 	// formData.append('fileNo', props.data.fileNo);
@@ -149,7 +179,7 @@ const save = function(){
 	formData.append('endDt', props.data.endDt);
 	formData.append('cnts', edit.editor.getMarkdown());
 
-	if(props.data.mode === 'add') {
+	if(!props.data.notiNo) {
 		NoticeService.insertNotice(formData).then(
 			(res) => {
 				if(res.success) {
@@ -181,37 +211,10 @@ const close = function(){
     emit('set-close');
 }
 
-const getDetail = function(){
-	if(props.data.notiNo) {
-		NoticeService.getNotice({ notiNo: props.data.notiNo}).then(
-			(res) => {
-				props.data.cnts = res.data.cnts;
-			},
-			(err) => {
-				console.log(err);
-			},
-		);
-	}
-}
-
 onMounted(() => {
 	
-	// getDetail();
+	getDetail();
 	
-	// ![image](http://pumpkinev.iptime.org:5526/static/25bd3aa3/images/svgs/logo.svg)
-	edit.editor = new Editor({
-		el: document.querySelector('#noticeEditor') as HTMLElement,
-		previewStyle: 'vertical',
-		// previewStyle: 'tab',
-		initialEditType: 'markdown', // 'wysiwyg',
-		height: '390px',
-		initialValue: props.data.cnts || '', // null 시 에러발생 
-	});
-
-	edit.editor.removeHook("addImageBlobHook");
-	edit.editor.addHook("addImageBlobHook", (blob, callback) => {
-		console.log(blob);
-	});
 });
 
 </script>
