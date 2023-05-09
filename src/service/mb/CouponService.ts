@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class CouponService {
 	async getCouponList(json?:any) { // 쿠폰 리스트 [MB_CPN]
 		const res = await jsonApi('/bo/mb/getCouponList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new CouponService();
 

@@ -1,6 +1,5 @@
 <template>
   <div id="calendar">
-    <h1>calendar</h1>
 
     <table class="calendar">
       <thead>
@@ -91,22 +90,19 @@ const move = function (str:string) {
   getList();
 }
 const getFirstDay = function () {
-  return calendar.date.getDay();
-}
-const getLastDay = function () {
-  return new Date(calendar.date.getFullYear(), calendar.date.getMonth() + 1, 0).getDate();
+  return new Date(calendar.date.getFullYear(), calendar.date.getMonth(), 1).getDay();
 }
 const getList = function() {
   MainService.getCalendar({ year: calendar.year, month: calendar.month }).then(
     (res) => {
-      console.log(res.data);
-
-      let fd = getFirstDay();
+      // console.log(res.data);
+      let firstDay = getFirstDay();
       calendar.dateArray = [];
       let array = [];
       for (let i = 1; i < 43; i++) {
-        let date = new Date(calendar.date.getFullYear(), calendar.date.getMonth()).setDate(i - fd);
+        let date = new Date(calendar.date.getFullYear(), calendar.date.getMonth()).setDate(i - firstDay);
         let YYYYMMDD = dateUtil.format(date, 'YYYY-MM-DD');
+        console.log(YYYYMMDD);
         let rsvList = [];
         let idx = 0;
         for (let o of res.data) {
@@ -145,9 +141,9 @@ onMounted(() => {
 <style scoped>
 #calendar {width: 100%;}
 table.calendar {width: 100%;}
-table.calendar h2 {font-size:20px; color:#333;}
+table.calendar h2 {font-size:20px; color:#333; padding:20px 0 10px 0;}
 table.calendar h2 .icon {font-size:20px; color:#333;}
-table.calendar th {width: 14%;text-align: center;}
-table.calendar td {text-align:left; vertical-align:top; height:110px; white-space:nowrap;}
+table.calendar th {width: 14%;text-align: center; padding:10px 0;}
+table.calendar td {text-align:left; vertical-align:top; height:110px; padding:10px 0; white-space:nowrap;}
 table.calendar td.off {color:#ccc; background:#f2f2f2;}
 </style>

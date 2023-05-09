@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class MessageHistoryService {
 	async getMessageHistoryList(json?:any) { // 문자메시지이력 리스트 [BS_MSG_HIST]
 		const res = await jsonApi('/bo/bs/getMessageHistoryList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new MessageHistoryService();
 

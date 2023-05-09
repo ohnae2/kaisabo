@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class FileDetailService {
 	async getFileDetailList(json?:any) { // 파일상세 리스트 [BS_FILE_DTL]
 		const res = await jsonApi('/bo/bs/getFileDetailList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new FileDetailService();
 

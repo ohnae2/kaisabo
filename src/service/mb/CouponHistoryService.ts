@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class CouponHistoryService {
 	async getCouponHistoryList(json?:any) { // 회원쿠폰내역 리스트 [MB_CPN_HIST]
 		const res = await jsonApi('/bo/mb/getCouponHistoryList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new CouponHistoryService();
 

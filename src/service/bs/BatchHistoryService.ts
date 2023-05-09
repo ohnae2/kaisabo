@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class BatchHistoryService {
 	async getBatchHistoryList(json?:any) { // 배치이력 리스트 [BS_BTCH_HIST]
 		const res = await jsonApi('/bo/bs/getBatchHistoryList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new BatchHistoryService();
 

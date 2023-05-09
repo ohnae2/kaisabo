@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class BoardCommentService {
 	async getBoardCommentList(json?:any) { // 게시판 댓글 리스트 [DP_BRD_CMMT]
 		const res = await jsonApi('/bo/dp/getBoardCommentList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new BoardCommentService();
 

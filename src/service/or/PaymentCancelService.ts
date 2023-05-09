@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class PaymentCancelService {
 	async getPaymentCancelList(json?:any) { // 결제취소내역 리스트 [OR_PAY_CNCL]
 		const res = await jsonApi('/bo/or/getPaymentCancelList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new PaymentCancelService();
 

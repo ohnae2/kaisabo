@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class UserService {
 	async getUserList(json?:any) { // 사용자 리스트 [MB_USR]
 		const res = await jsonApi('/bo/mb/getUserList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new UserService();
 

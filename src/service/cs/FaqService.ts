@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class FaqService {
 	async getFaqList(json?:any) { // FAQ 리스트 [CS_FAQ]
 		const res = await jsonApi('/bo/cs/getFaqList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new FaqService();
 

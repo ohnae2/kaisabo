@@ -62,7 +62,7 @@
 <script setup lang="ts">
 import { onMounted, ref, reactive, PropType, ComponentObjectPropsOptions } from 'vue';
 import NoticeService from '../../service/cs/NoticeService';
-import FileService from '../../service/bs/FileService';
+import FtpService from '../../service/common/FtpService';
 import SelectDate from '../../components/SelectDate.vue';
 import CommonCode from '../../components/CommonCode.vue';
 import FileListUploader from '../../components/FileListUploader.vue';
@@ -139,7 +139,7 @@ const drawDetail = function(){
 
 const save = function(){
 
-	let fileData = new FormData();
+
 	/*private String folderName;
     private String originalFileName;
     private String exe;
@@ -152,10 +152,14 @@ const save = function(){
     private boolean success;*/
 	
 	// fileData.append();
+	let fileData = new FormData();
 	console.log(file.list);
+	fileData.append('fileList', file.list);
+	fileData.append('fileList', file.list);
 
-	if (1 + 1 == 3) {
-		FileService.uploadList(fileData).then(
+	if (file.list.length > 0) {
+		// table and fileNo
+		FtpService.uploadList(fileData).then(
 			(res) => {
 				if (res.success) {
 					location.reload();
@@ -168,6 +172,7 @@ const save = function(){
 			},
 		);
 	}
+	return;
 	
 	let formData = new FormData();
 	formData.append('notiNo', props.data.notiNo + '');
@@ -178,6 +183,9 @@ const save = function(){
 	formData.append('strtDt', props.data.strtDt);
 	formData.append('endDt', props.data.endDt);
 	formData.append('cnts', edit.editor.getMarkdown());
+
+	formData.append('fileList', file.list);
+
 
 	if(!props.data.notiNo) {
 		NoticeService.insertNotice(formData).then(

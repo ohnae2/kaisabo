@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class DisplayService {
 	async getDisplayList(json?:any) { // 전시 리스트 [DP_DISP]
 		const res = await jsonApi('/bo/dp/getDisplayList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new DisplayService();
 

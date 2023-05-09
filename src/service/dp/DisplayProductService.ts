@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class DisplayProductService {
 	async getDisplayProductList(json?:any) { // 전시상품 리스트 [DP_DISP_PROD]
 		const res = await jsonApi('/bo/dp/getDisplayProductList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new DisplayProductService();
 

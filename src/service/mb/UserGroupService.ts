@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class UserGroupService {
 	async getUserGroupList(json?:any) { // 그룹 리스트 [MB_USR_GRP]
 		const res = await jsonApi('/bo/mb/getUserGroupList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new UserGroupService();
 

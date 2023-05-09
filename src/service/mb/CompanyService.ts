@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class CompanyService {
 	async getCompanyList(json?:any) { // 업체 리스트 [MB_CMP]
 		const res = await jsonApi('/bo/mb/getCompanyList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new CompanyService();
 

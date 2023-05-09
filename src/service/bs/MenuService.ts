@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class MenuService {
 	async getMenuList(json?:any) { // 메뉴 리스트 [BS_MENU]
 		const res = await jsonApi('/bo/bs/getMenuList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new MenuService();
 

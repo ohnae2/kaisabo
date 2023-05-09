@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class PointHistoryService {
 	async getPointHistoryList(json?:any) { // 회원포인트내역 리스트 [MB_PNT_HIST]
 		const res = await jsonApi('/bo/mb/getPointHistoryList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new PointHistoryService();
 

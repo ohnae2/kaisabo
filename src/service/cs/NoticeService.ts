@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class NoticeService {
 	async getNoticeList(json?:any) { // 공지 리스트 [CS_NOTI]
 		const res = await jsonApi('/bo/cs/getNoticeList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new NoticeService();
 

@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class PaymentService {
 	async getPaymentList(json?:any) { // 결제내역 리스트 [OR_PAY]
 		const res = await jsonApi('/bo/or/getPaymentList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new PaymentService();
 

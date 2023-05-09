@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class BoardCategoryService {
 	async getBoardCategoryList(json?:any) { // 게시판분류 리스트 [DP_BRD_CAT]
 		const res = await jsonApi('/bo/dp/getBoardCategoryList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new BoardCategoryService();
 

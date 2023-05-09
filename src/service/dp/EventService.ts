@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class EventService {
 	async getEventList(json?:any) { // 이벤트 리스트 [DP_EVT]
 		const res = await jsonApi('/bo/dp/getEventList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new EventService();
 

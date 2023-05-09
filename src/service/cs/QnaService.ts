@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class QnaService {
 	async getQnaList(json?:any) { // QNA 리스트 [CS_QNA]
 		const res = await jsonApi('/bo/cs/getQnaList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new QnaService();
 

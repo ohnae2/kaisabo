@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class ApiHistoryService {
 	async getApiHistoryList(json?:any) { // API이력 리스트 [BS_API_HIST]
 		const res = await jsonApi('/bo/bs/getApiHistoryList', json ? json : {});
 		return res.data;
@@ -27,5 +27,5 @@ class CodeService {
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new ApiHistoryService();
 
