@@ -6,27 +6,29 @@
     </ul>
 
     <h2>월별 매출현황</h2>
-    <Chart :size="{ width: 800, height: 200 }" :data="data.yearSales" :margin="{ left: 0, top: 10, right: 0, bottom: 0 }" :direction="'horizontal'" :axis="axis">
-      <template #layers>
-        <Grid strokeDasharray="2,2" />
-        <Area :dataKeys="['rsvMon', 'sumPrice']" type="monotone" :areaStyle="{ fill: 'url(#grad)' }" />
-        <Line :dataKeys="['rsvMon', 'sumPrice']" type="monotone" :lineStyle="{
-          stroke: '#9f7aea'
-        }" />
-        <Marker :value="1000" label="Mean." color="green" strokeWidth="2" strokeDasharray="6 6" />
-        <defs>
-          <linearGradient id="grad" gradientTransform="rotate(90)">
-            <stop offset="0%" stop-color="#be90ff" stop-opacity="1" />
-            <stop offset="100%" stop-color="white" stop-opacity="0.4" />
-          </linearGradient>
-        </defs>
-      </template>
-      <template #widgets>
-        <Tooltip borderColor="#48CAE4" :config="{
-          pl: { color: '#9f7aea' },
-        }" />
-      </template>
-    </Chart>
+    <div style="width:100%; padding:10px 0 20px 0; overflow:auto;">
+      <Chart :size="{ width: 1200, height: 200 }" :data="data.yearSales" :margin="{ left: 0, top: 10, right: 0, bottom: 0 }" :direction="'horizontal'" :axis="axis">
+        <template #layers>
+          <Grid strokeDasharray="2,2" />
+          <Area :dataKeys="['rsvMon', 'sumPrice']" type="monotone" :areaStyle="{ fill: 'url(#grad)' }" />
+          <Line :dataKeys="['rsvMon', 'sumPrice']" type="monotone" :lineStyle="{
+            stroke: '#9f7aea'
+          }" />
+          <Marker :value="1000" label="Mean." color="green" strokeWidth="2" strokeDasharray="6 6" />
+          <defs>
+            <linearGradient id="grad" gradientTransform="rotate(90)">
+              <stop offset="0%" stop-color="#be90ff" stop-opacity="1" />
+              <stop offset="100%" stop-color="white" stop-opacity="0.4" />
+            </linearGradient>
+          </defs>
+        </template>
+        <template #widgets>
+          <Tooltip borderColor="#48CAE4" :config="{
+            pl: { color: '#9f7aea' },
+          }" />
+        </template>
+      </Chart>
+    </div>
     <!--{{ data.totalSales }}-->
   </div>
 </template>
@@ -51,7 +53,6 @@ const data = reactive({
     { rsvMon: '11', sumPrice: 0 },
     { rsvMon: '12', sumPrice: 0 },
   ],
-  latestYearSales: [],
   orderStateCount: [{ "cnt": 0, "cdNm": "결제완료"},{ "cnt": 0, "cdNm": "취소"},{ "cnt": 0, "cdNm": "예약"},{ "cnt": 0, "cdNm": "결제취소"}],
   totalSales: 0,
 });
@@ -71,7 +72,6 @@ const setDashboard = function () {
   MainService.getDashboard({}).then(
     (res) => {
       data.yearSales = res.data.yearSales;
-      data.latestYearSales = res.data.latestYearSales;
       data.orderStateCount = res.data.orderStateCount;
       data.totalSales = res.data.totalSales;
     },

@@ -35,13 +35,15 @@
 						/>
 					</td></tr>
 					<tr><th class="th">파일</th><td class="td">
-						<!-- TODO -->
+						<!-- 보이는 이미지와 저장이미지 (저장이미지만 리턴받음) -->
 						<FileListUploader
 							:name="'notice'"
-							:fileNo="file.list"
-							:fileList="file.list"
-							@set-file="(o) => {
-								file.list = o;
+							:fileList="props.data.fileList"
+							@set-file-list="(o:any) => {
+								props.data.fileList = o;
+							}"
+							@set-add-file-list="(o:any) => {
+								data.addFileList = o;
 							}"
 						/>
 					</td></tr>
@@ -71,23 +73,9 @@ import dateUtil from '../../utils/util.date';
 
 const emit = defineEmits(['set-close']);
 
-interface NoticeDetail {
-    notiNo: number;
-    cmpId: string;
-    tit: string;
-    fileNo: number;
-    useYn: string;
-    strtDt: string;
-    endDt: string;
-    cnts: string;
-}
-
 const props = defineProps({
-	data: { type: Object as PropType<NoticeDetail>, required: true },
-});
-
-const file = reactive({
-	list: [] as any
+	// data: { type: Object as PropType<NoticeDetail>, required: true },
+	data: { type: Object as any, required: true },
 });
 
 if(!props.data.strtDt) {
@@ -99,6 +87,9 @@ if(!props.data.endDt) {
 if(!props.data.useYn) {
 	props.data.useYn = 'Y';
 }
+const data = reactive({
+	addFileList: [] as any,
+});
 
 const edit = reactive({
 	editor: {} as Editor,
@@ -109,15 +100,17 @@ const getDetail = function(){
 	if(props.data.notiNo) {
 		NoticeService.getNotice({ notiNo: props.data.notiNo}).then(
 			(res) => {
-				console.log(res.data);
-				// props.data.fileNo = res.data.fileNo;
+				props.data.fileNo = res.data.fileNo;
 				props.data.cnts = res.data.cnts;
+				props.data.fileList = res.data.fileList;
 				drawDetail();
 			},
 			(err) => {
 				console.log(err);
 			},
 		);
+	} else {
+		drawDetail();
 	}
 }
 
@@ -129,7 +122,7 @@ const drawDetail = function(){
 		// previewStyle: 'tab',
 		initialEditType: 'markdown', // 'wysiwyg',
 		height: '390px',
-		initialValue: props.data.cnts || '', // null 시 에러발생 
+		initialValue: props.data.cnts || ' ', // null 시 에러발생 
 	});
 	edit.editor.removeHook("addImageBlobHook");
 	edit.editor.addHook("addImageBlobHook", (blob, callback) => {
@@ -138,31 +131,29 @@ const drawDetail = function(){
 }
 
 const save = function(){
-
-
-	/*private String folderName;
-    private String originalFileName;
-    private String exe;
-    private String path;
-    private String type;
-    private long fileNo;
-    private String saveFileName;
-    private MultipartFile file;
-    private long fileSize;
-    private boolean success;*/
-	
-	// fileData.append();
 	let fileData = new FormData();
-	console.log(file.list);
-	fileData.append('fileList', file.list);
-	fileData.append('fileList', file.list);
-
-	if (file.list.length > 0) {
-		// table and fileNo
+	
+	fileData.append('fileNo', props.data.fileNo + '');
+	fileData.append('path', 'notice');
+	// 추가파일 
+	let countAdd = 0;
+	for(let file of data.addFileList) {
+		fileData.append('addFileList', file);
+		countAdd++;
+	}
+	// 삭제파일 
+	let countDel = 0;
+	for(let file of props.data.fileList) {
+		if(file.deYn == 'Y') {
+			fileData.append('deleteFileDtlNo', file.fileDtlNo);
+			countDel++;
+		}
+	}
+	if (countAdd > 0 || countDel > 0) {
 		FtpService.uploadList(fileData).then(
 			(res) => {
 				if (res.success) {
-					location.reload();
+					// location.reload();
 				} else {
 					console.log(res);
 				}
@@ -178,14 +169,11 @@ const save = function(){
 	formData.append('notiNo', props.data.notiNo + '');
 	formData.append('cmpId', props.data.cmpId);
 	formData.append('tit', props.data.tit);
-	// formData.append('fileNo', props.data.fileNo);
+	formData.append('fileNo', props.data.fileNo + '');
 	formData.append('useYn', props.data.useYn);
 	formData.append('strtDt', props.data.strtDt);
 	formData.append('endDt', props.data.endDt);
 	formData.append('cnts', edit.editor.getMarkdown());
-
-	formData.append('fileList', file.list);
-
 
 	if(!props.data.notiNo) {
 		NoticeService.insertNotice(formData).then(
@@ -220,9 +208,7 @@ const close = function(){
 }
 
 onMounted(() => {
-	
 	getDetail();
-	
 });
 
 </script>

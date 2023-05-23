@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "local": "vite serve --port 8888 --mode local",
     "dev": "vite serve --port 8888 --mode development",
     "prod": "vite preview --port 8888 --mode production",
     "build": "vue-tsc && vite build",

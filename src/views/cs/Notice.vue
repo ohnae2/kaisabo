@@ -74,7 +74,7 @@
 		<div id="grid"></div>
 
 	</div>
-
+	{{ data.detailShow }}
 	<NoticeDetail v-if="data.detailShow" :data="data.detail"
 		@set-close="(o) => {
 			data.detailShow = false;
@@ -117,7 +117,6 @@ const data = reactive({
 		useYn: '',
 		strtDt: '',
 		endDt: '',
-		cnts: '',
 	},
 });
 const getList = function () {
@@ -141,7 +140,6 @@ const add = function() {
 		useYn: '',
 		strtDt: '',
 		endDt: '',
-		cnts: '',
 	}
 	data.detailShow = true;
 	// data.grid.appendRow({}, {at: 0});
