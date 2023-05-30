@@ -19,6 +19,10 @@ git push -u --force origin master
 npm create vite@latest
 ```
 
+## env
+.env.환경 에 따라 prefix 에 VATE_ 를 붙여야만 되며 import.meta.env 로 쉽게 사용할수 있습니다. 
+
+
 ## jenkin
 
 nodejs 플러그인 설치

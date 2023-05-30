@@ -208,7 +208,11 @@ const save = function() {
 		);
 	}
 }
+console.log(import.meta.env.VITE_IMG_HOST);
 onMounted(() => {
+	
+	console.log(1);
+
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],

@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "local": "vite serve --port 8888 --mode local",
-    "dev": "vite serve --port 8888 --mode development",
-    "prod": "vite preview --port 8888 --mode production",
+    "dev": "vite serve --port 8888 --mode dev",
+    "prod": "vite preview --port 8888 --mode prod",
     "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
