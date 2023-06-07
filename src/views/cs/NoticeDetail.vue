@@ -132,7 +132,6 @@ const drawDetail = function(){
 
 const save = function(){
 	let fileData = new FormData();
-	
 	fileData.append('fileNo', props.data.fileNo + '');
 	fileData.append('path', 'notice');
 	// 추가파일 
@@ -144,27 +143,35 @@ const save = function(){
 	// 삭제파일 
 	let countDel = 0;
 	for(let file of props.data.fileList) {
-		if(file.deYn == 'Y') {
+		if(file.delYn == 'Y') {
 			fileData.append('deleteFileDtlNo', file.fileDtlNo);
 			countDel++;
 		}
 	}
+	/**
+	 * 파일업로드
+	 */
 	if (countAdd > 0 || countDel > 0) {
 		FtpService.uploadList(fileData).then(
 			(res) => {
 				if (res.success) {
-					// location.reload();
+					props.data.fileNo = res.data.fileNo;
+					saveInfo();
 				} else {
-					console.log(res);
+					return false;
 				}
 			},
 			(err) => {
 				console.log(err);
+				return false;
 			},
 		);
 	}
-	return;
-	
+}
+const saveInfo = function() {
+	/**
+	 * 정보저장
+	 */
 	let formData = new FormData();
 	formData.append('notiNo', props.data.notiNo + '');
 	formData.append('cmpId', props.data.cmpId);
@@ -174,7 +181,6 @@ const save = function(){
 	formData.append('strtDt', props.data.strtDt);
 	formData.append('endDt', props.data.endDt);
 	formData.append('cnts', edit.editor.getMarkdown());
-
 	if(!props.data.notiNo) {
 		NoticeService.insertNotice(formData).then(
 			(res) => {

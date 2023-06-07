@@ -29,7 +29,7 @@ nodejs 플러그인 설치
 managed files 설치
 
 - Global Tool Configuration 에서 
-nodejs 8.17.0 install 
+nodejs 18.17.0 install 
 
 git repositories 와 등록된 계정 credientials 연결하고 
 branch build 는 master 로 

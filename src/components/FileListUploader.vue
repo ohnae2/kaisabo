@@ -1,33 +1,31 @@
 <template>
     <div class="fileUploaderWrap">
-        {{ props.fileList }}
         <div class="fileItemWrap">
             <!-- 기존 파일 -->
-            <div class="fileItem" v-for="(file, index) in props.fileList" :key="index">
+            <div class="fileItem" v-for="(file, index) in props.fileList" :key="index" v-show="file.delYn !== 'Y'">
                 <template v-if="file.fileNm.match('jpg') || file.fileNm.match('png') || file.fileNm.match('gif') || file.fileNm.match('jpeg') ">
                     <span class="icon remove" @click="remove(file)">&#xe042;</span>
                     <!--<span class="icon download" @click="download(file)">&#xf0ed;</span>-->
-                    <img :src="file.path + file.fileNm">
+                    <img :src="IMG_HOST + '/' + file.path + '/' + file.fileNm">
                 </template>
                 <template v-else>
                     <span class="icon remove" @click="remove(file)">&#xe042;</span>
                     <!--<span class="icon download" @click="download(file)">&#xf0ed;</span>-->
-                    <img :src="'img/common/file.png'">
+                    <img :src="fileImgUrl" alt="" />
                 </template>
             </div>
             <!-- 신규 파일 -->
             <div class="fileItem" v-for="(file, index) in data.addFileList" :key="index">
                 <template v-if="file.name.match('jpg') || file.name.match('png') || file.name.match('gif') || file.name.match('jpeg')">
                     <span class="icon remove" @click="cancel(index)">&#xe042;</span>
-                    <img :src="file.tempUrl" alt="">
+                    <img :src="file.tempUrl" alt="" />
                 </template>
                 <template v-else>
                     <span class="icon remove" @click="cancel(index)">&#xe042;</span>
-                    <img :src="'img/common/file.png'">
+                    <img :src="fileImgUrl" alt="" />
                 </template>
             </div>
             <br />
-            {{ data.addFileList }}
         </div>
         <div class="dragWrap" @drop.prevent="drop($event)" @click.self="clickOnInput()" @dragover.prevent="dragover($event)">
             <div @click.self="clickOnInput()">
@@ -41,6 +39,9 @@
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue';
+import fileImgUrl from '../assets/img/common/file.png';
+
+const IMG_HOST = import.meta.env.VITE_IMG_HOST;
 
 const emit = defineEmits(['set-file-list','set-add-file-list']);
 
