@@ -57,7 +57,7 @@ interface FileInfo {
 const props = defineProps({
 	name: { type: String, required: true },
 	fileNo: { type: Number, required: false },
-    maxSize:  { type: Number, required: false, default: 1000000 },
+    maxSize:  { type: Number, required: false, default: 10485760 }, // 10485760 10메가
     maxLength:  { type: Number, required: false, default: 10 },
 	fileList: { type: Array<FileInfo>, required: false },
     delYn: { type: String, required: false, default: 'N' },
@@ -120,14 +120,14 @@ const createFile = function (e: any) {
     files.forEach(file => {
         if (props.maxSize < file.size) {
             isValid = false;
-            alert('파일 사이즈 ' + props.maxSize + 'Byte 이하로 올려주시기 바랍니다.')
+            alert('파일 사이즈 ' + Math.floor(props.maxSize / 1048576) + 'MB 이하로 올려주시기 바랍니다.');
         } else {
             file = createUrl(file);
         }
     });
     if (props.maxLength <= files.length) {
         isValid = false;
-        alert('첨부파일은 ' + props.maxLength + '개 이하로 올려주시기 바랍니다.')
+        alert('첨부파일은 ' + Math.floor(props.maxSize / 1048576) + 'MB 이하로 올려주시기 바랍니다.');
     }
     if (isValid) {
         data.addFileList.push(...files);

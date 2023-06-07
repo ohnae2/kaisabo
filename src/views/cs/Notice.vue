@@ -74,7 +74,6 @@
 		<div id="grid"></div>
 
 	</div>
-	{{ data.detailShow }}
 	<NoticeDetail v-if="data.detailShow" :data="data.detail"
 		@set-close="(o) => {
 			data.detailShow = false;
@@ -208,11 +207,7 @@ const save = function() {
 		);
 	}
 }
-console.log(import.meta.env.VITE_IMG_HOST);
 onMounted(() => {
-	
-	console.log(1);
-
 	data.grid = new Grid({
 		el: document.getElementById('grid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
