@@ -79,7 +79,7 @@ const calendar = reactive({
   ],
 });
 
-const move = function (str:string) {
+const move = (str:string) => {
   if(str === 'prev') {
     calendar.date.setMonth(calendar.date.getMonth() - 1);
   } else {
@@ -89,10 +89,10 @@ const move = function (str:string) {
   calendar.month = dateUtil.format(calendar.date, 'MM');
   getList();
 }
-const getFirstDay = function () {
+const getFirstDay = () => {
   return new Date(calendar.date.getFullYear(), calendar.date.getMonth(), 1).getDay();
 }
-const getList = function() {
+const getList = () => {
   MainService.getCalendar({ year: calendar.year, month: calendar.month }).then(
     (res) => {
       // console.log(res.data);

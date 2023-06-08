@@ -96,7 +96,7 @@ const data = reactive({
 	list: [] as any,
 	audit: false,
 });
-const getList = function () {
+const getList = () => {
 	data.totalCount = 0;
 	DictionaryService.getDictionaryList(search).then(
 		(res) => {
@@ -109,10 +109,10 @@ const getList = function () {
 		},
 	);
 }
-const add = function() {
+const add = () => {
 	data.grid.appendRow({}, {at: 0});
 }
-const del = function () {
+const del = () => {
 	let selectRow = data.grid.getFocusedCell();
 	if(selectRow.rowKey == null || selectRow.rowKey == undefined) {
 		alert('행을 먼저 선택해주세요.');
@@ -122,10 +122,10 @@ const del = function () {
 		data.grid.removeRow(selectRow.rowKey);
 	}
 }
-const refresh = function() {
+const refresh = () => {
 	location.reload();
 }
-const valid = function(o:any) {
+const valid = (o:any) => {
 	for(let c in o) {
 		for(let r of data.required) {
 			if(c == r && !o[c]) {
@@ -136,7 +136,7 @@ const valid = function(o:any) {
 	}
 	return true;
 }
-const save = function() {
+const save = () => {
 	data.grid.blur();
 	let saveList = [];
 	let count = [0, 0, 0];
@@ -201,7 +201,7 @@ onMounted(() => {
 			height: 40,
 		},
 	});
-	data.grid.on('click', function(e:any) {
+	data.grid.on('click', (e:any) => {
 		if( e.columnName === 'abb') {
 			//console.log('click')
 		}

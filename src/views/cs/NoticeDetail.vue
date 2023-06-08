@@ -96,7 +96,7 @@ const edit = reactive({
 	editorOption: {}
 });
 
-const getDetail = function(){
+const getDetail = () => {
 	if(props.data.notiNo) {
 		NoticeService.getNotice({ notiNo: props.data.notiNo}).then(
 			(res) => {
@@ -114,7 +114,7 @@ const getDetail = function(){
 	}
 }
 
-const drawDetail = function(){
+const drawDetail = () => {
 	// ![image](http://pumpkinev.iptime.org:5526/static/25bd3aa3/images/svgs/logo.svg)
 	edit.editor = new Editor({
 		el: document.querySelector('#noticeEditor') as HTMLElement,
@@ -130,7 +130,7 @@ const drawDetail = function(){
 	});
 }
 
-const save = function(){
+const save = () => {
 	let fileData = new FormData();
 	fileData.append('fileNo', props.data.fileNo + '');
 	fileData.append('path', 'notice');
@@ -168,7 +168,7 @@ const save = function(){
 		);
 	}
 }
-const saveInfo = function() {
+const saveInfo = () => {
 	/**
 	 * 정보저장
 	 */
@@ -209,7 +209,7 @@ const saveInfo = function() {
 		);
 	}
 }
-const close = function(){
+const close = () => {
     emit('set-close');
 }
 

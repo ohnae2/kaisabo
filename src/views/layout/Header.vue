@@ -77,7 +77,7 @@ const data = reactive({
   path: '',
 });
 
-const toggleFav = function(menu:any) {
+const toggleFav = (menu:any) => {
   let isExists = false;
   let idx = 0;
   for(let o of setting.favList) {
@@ -116,22 +116,22 @@ const toggleFav = function(menu:any) {
   cookies.set('favList', JSON.stringify(setting.favList) || '[]');
 }
 
-const closeAll = function(menu:any) {
+const closeAll = (menu:any) => {
   cookies.set('favList', JSON.stringify([]) || '[]');
 }
 // h2 @click="clickCategory(side)"
-const clickCategory = function(side:any) {
+const clickCategory = (side:any) => {
   side.active = !side.active;
 }
-const clickMenu = function(menu:any) {
+const clickMenu = (menu:any) => {
   setting.hash = menu.url;
   router.push(menu.url);
 }
-const clickHome = function() {
+const clickHome = () => {
   setting.hash = '/main';
   router.push('/main');
 }
-const clickFav = function(fav:any, idx:number) {
+const clickFav = (fav:any, idx:number) => {
   setting.hash = fav.url;
   router.push(fav.url);
 }

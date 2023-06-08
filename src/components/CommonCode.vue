@@ -25,7 +25,7 @@ const data = reactive({
   value: props.model,
 });
 
-const change = function(){
+const change = () => {
   console.log(data.value);
   emit('set-data', data.value);
 }

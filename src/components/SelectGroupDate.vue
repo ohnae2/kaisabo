@@ -41,7 +41,7 @@ const data = reactive({
   allChecked: props.isAll,
 });
 
-const term = function(n:number){
+const term = (n:number) => {
   data.term = n;
   let date:Date = new Date();
   switch (n) {
@@ -64,7 +64,7 @@ const term = function(n:number){
   emit('set-end-date', { date: props.date[1] });
 }
 
-const allChecked = function(){
+const allChecked = () => {
   data.term = 0;
   data.allChecked = !data.allChecked;
   if(data.allChecked) {
@@ -125,7 +125,7 @@ if (props.timer) {
   };
 }
 
-const setDatepick = function (){
+const setDatepick = () => {
   const startPicker = new DatePicker(document.getElementById(props.name[0] + 'Container') as any, startObject as any); // HTMLElement
   const endPicker = new DatePicker(document.getElementById(props.name[1] + 'Container') as any, endObject as any);
 

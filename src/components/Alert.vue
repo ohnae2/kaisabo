@@ -31,7 +31,7 @@ defineProps({
     },
   },
 });
-const closeAlert = function(){
+const closeAlert = () => {
   alert.close();
 }
 

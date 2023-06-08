@@ -33,7 +33,7 @@ const data = reactive({
   clickChecked: props.isAll,
 });
 
-const clickChecked = function () {
+const clickChecked = () => {
   data.clickChecked = !data.clickChecked;
   if (data.clickChecked) {
     props.date[0] = '';
@@ -66,7 +66,7 @@ if (props.timer) {
   };
 }
 
-const setDatepick = function () {
+const setDatepick = () => {
   const startPicker = new DatePicker(document.getElementById(props.name[0] + 'Container') as any, startObject as any); // HTMLElement
   startPicker.on('open', () => {
     startPicker.setDate(new Date((props.date[0]) as string));

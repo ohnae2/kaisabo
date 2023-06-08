@@ -68,7 +68,7 @@ const axis = ref({
   }
 }) as any;
 
-const setDashboard = function () {
+const setDashboard = () => {
   MainService.getDashboard({}).then(
     (res) => {
       data.yearSales = res.data.yearSales;

@@ -67,11 +67,11 @@ const data = reactive({
     addFileList: [] as any,
 });
 
-const remove = function (file:any) {
+const remove = (file:any) => {
     file.delYn = 'Y';
     emit('set-file-list', props.fileList);
 }
-const download = function (o:any) {
+const download = (o:any) => {
     console.log(o);
     /*
     const param = '?path='+o.path+'&fileNm='+o.fleNm+'&originNm='+o.originNm;
@@ -91,30 +91,30 @@ const download = function (o:any) {
         },
     );*/
 }
-const cancel = function (index: number) {
+const cancel = (index: number) => {
     data.addFileList.splice(index, 1);
     emit('set-add-file-list', data.addFileList);
 }
-const dragover = function (e: any) {
+const dragover = (e: any) => {
     e.stopPropagation();
     e.dataTransfer.dropEffect = 'copy';
 }
-const drop = function (e: any) {
+const drop = (e: any) => {
     e.stopPropagation();
     createFile(e);
 }
-const clickOnInput = function () {
+const clickOnInput = () => {
     const uploadInput = document.getElementById(props.name + 'FileUpload') as HTMLElement;
     uploadInput.click();
 }
-const clickedInput = function (e: any) {
+const clickedInput = (e: any) => {
     createFile(e);
 }
-const createUrl = function (o: any) {
+const createUrl = (o: any) => {
     o.tempUrl = URL.createObjectURL(o); // if (o.type.match(/image.*/)) {
     return o;
 }
-const createFile = function (e: any) {
+const createFile = (e: any) => {
     let files = [...e.target.files || e.dataTransfer.files]; // Array of all fileList
     let isValid = true;
     files.forEach(file => {
