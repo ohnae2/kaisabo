@@ -1,78 +1,76 @@
 <template>
-	<div id="displayproduct">
-		<form class="search" @submit.prevent="getList" @keyup.enter="getList">
-			<fieldset>
-				<legend>검색</legend>
-				<table>
-					<colgroup>
-						<col width="80" />
-						<col width="30%" />
-						<col width="80" />
-						<col width="*" />
-					</colgroup>
-					<tbody>
-						<tr>
-							<th>검색조건</th>
-							<td colspan="3"><input type="text" v-model="search.keyword" /></td>
-						</tr>
-						<tr v-if="auth.userInfo.cmpId == 'kaisa'">
-							<th>업체ID</th>
-							<td colspan="3"><input type="text" v-model="search.cmpId" /></td>
-						</tr>
-					</tbody>
-					<tbody class="audit" v-show="data.audit">
-						<tr>
-							<th>수정기간</th>
-							<td colspan="3">
-								<SelectGroupDate 
-									:name="['startModDt', 'endModDt']"
-									:format="'YYYY-MM-DD'"
-									:date="[search.startModDt, search.endModDt]"
-									@set-start-date="(o) => {
-										search.startModDt = o.date;
-									}"
-									@set-end-date="(o) => {
-										search.endModDt = o.date;
-									}"
-								/>
-							</td>
-						</tr>
-						<tr>
-							<th>등록일</th>
-							<td colspan="3">
-								<SelectDate 
-									:name="['regDt']"
-									:format="'YYYY-MM-DD'"
-									:date="[search.regDt]"
-									@set-start-date="(o) => {
-										search.regDt = o.date;
-									}"
-								/>
-							</td>
-						</tr>
-						<tr>
-							<th>수정ID</th>
-							<td><input type="text" v-model="search.modId" /></td>
-							<th>등록ID</th>
-							<td><input type="text" v-model="search.regId" /></td>
-						</tr>
-					</tbody>
-				</table>
-			</fieldset>
-			<div class="btnWrap">
-				<span class="crud">
-					<button type="button" class="button add" @click="add"><span class="icon">&#xe813;</span>추가</button>
-					<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
-					<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>
-				</span>
-				<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
-				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
-				<button type="reset" @click="refresh"><span class="icon">&#x22;</span></button>
-				<div class="totalCount">총 {{ data.totalCount }}건</div>
-			</div>
-		</form>
-		<div id="displayProductGrid"></div>
-	</div>
+	<form class="search" @submit.prevent="getList" @keyup.enter="getList">
+		<fieldset>
+			<legend>검색</legend>
+			<table>
+				<colgroup>
+					<col width="80" />
+					<col width="30%" />
+					<col width="80" />
+					<col width="*" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<th>검색조건</th>
+						<td colspan="3"><input type="text" v-model="search.keyword" /></td>
+					</tr>
+					<tr v-if="auth.userInfo.cmpId == 'kaisa'">
+						<th>업체ID</th>
+						<td colspan="3"><input type="text" v-model="search.cmpId" /></td>
+					</tr>
+				</tbody>
+				<tbody class="audit" v-show="data.audit">
+					<tr>
+						<th>수정기간</th>
+						<td colspan="3">
+							<SelectGroupDate 
+								:name="['startModDt', 'endModDt']"
+								:format="'YYYY-MM-DD'"
+								:date="[search.startModDt, search.endModDt]"
+								@set-start-date="(o) => {
+									search.startModDt = o.date;
+								}"
+								@set-end-date="(o) => {
+									search.endModDt = o.date;
+								}"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th>등록일</th>
+						<td colspan="3">
+							<SelectDate 
+								:name="['regDt']"
+								:format="'YYYY-MM-DD'"
+								:date="[search.regDt]"
+								@set-start-date="(o) => {
+									search.regDt = o.date;
+								}"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th>수정ID</th>
+						<td><input type="text" v-model="search.modId" /></td>
+						<th>등록ID</th>
+						<td><input type="text" v-model="search.regId" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</fieldset>
+		<div class="btnWrap">
+			<span class="crud">
+				<button type="button" class="button add" @click="gridUtil.add(data.displayProductGrid, 0)"><span class="icon">&#xe813;</span>추가</button>
+				<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
+				<button type="button" class="button del" @click="gridUtil.del(data.displayProductGrid)"><span class="icon">&#xe815;</span>삭제</button>
+			</span>
+			<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
+			<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
+			<button type="reset" @click="gridUtil.reload()"><span class="icon">&#x22;</span></button>
+			<div class="totalCount">총 {{ data.totalCount }}건</div>
+		</div>
+	</form>
+	<div id="displayProductGrid"></div>
 </template>
 <script setup lang="ts">
 import { onMounted, ref, reactive } from 'vue';
@@ -81,6 +79,7 @@ import DisplayProductService from '../../service/dp/DisplayProductService';
 import SelectDate from '../../components/SelectDate.vue';
 import SelectGroupDate from '../../components/SelectGroupDate.vue';
 import { useAuthStore } from '../../store/store.auth';
+import gridUtil from '../../utils/util.grid';
 
 const auth = useAuthStore();
 const search = reactive({
@@ -112,63 +111,9 @@ const getList = () => {
 		},
 	);
 }
-const add = () => {
-	data.displayProductGrid.appendRow({}, {at: 0});
-}
-const del = () => {
-	let selectRow = data.displayProductGrid.getFocusedCell();
-	if(selectRow.rowKey == null || selectRow.rowKey == undefined) {
-		alert('행을 먼저 선택해주세요.');
-		return;
-	}
-	if (confirm('선택한 행을 정말 삭제하시겠습니까?')) {
-		data.displayProductGrid.removeRow(selectRow.rowKey);
-	}
-}
-const refresh = () => {
-	location.reload();
-}
-const valid = (o:any) => {
-	for(let c in o) {
-		for(let r of data.required) {
-			if(c == r && !o[c]) {
-				alert(c + ' 필수값이 없습니다.');
-				return false;
-			}
-		}
-	}
-	return true;
-}
 const save = () => {
-	data.displayProductGrid.blur();
-	let saveList = [];
-	let count = [0, 0, 0];
-	for(let o of data.displayProductGrid.getModifiedRows().createdRows as any) {
-		o.crud = 'C';
-		if(!valid(o)) {
-			return;
-		}
-		saveList.push(o);
-		count[0]++;
-	}
-	for(let o of data.displayProductGrid.getModifiedRows().updatedRows as any) {
-		o.crud = 'U';
-		if(!valid(o)) {
-			return;
-		}
-		saveList.push(o);
-		count[1]++;
-	}
-	for(let o of data.displayProductGrid.getModifiedRows().deletedRows as any) {
-		o.crud = 'D';
-		saveList.push(o);
-		count[2]++;
-	}
-	if(count[0] == 0 && count[1] == 0 && count[2] == 0) {
-		alert('변경사항이 없습니다.');
-		return;
-	}
-	if(confirm('등록 ' + count[0] + '건, 수정 ' + count[1] + '건, 삭제 ' + count[2] + '건을 정말 저장하시겠습니까?')) {
+	let saveList = gridUtil.save(data.holidayGrid, data.required);
+	if(saveList) {
 		DisplayProductService.setDisplayProductList(saveList).then(
 			(res) => {
 				location.reload();
@@ -225,5 +170,4 @@ onMounted(() => {
 });
 </script>
 <style scoped>
-#displayproduct {width: 100%;}
 </style>
