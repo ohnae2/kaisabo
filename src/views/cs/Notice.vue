@@ -71,7 +71,7 @@
 				<div class="totalCount">총 {{ data.totalCount }}건</div>
 			</div>
 		</form>
-		<div id="grid"></div>
+		<div id="noticeGrid"></div>
 
 	</div>
 	<NoticeDetail v-if="data.detailShow" :data="data.detail"
@@ -102,7 +102,7 @@ const search = reactive({
 });
 // 공지
 const data = reactive({
-	grid: {} as Grid,
+	noticeGrid: {} as Grid,
 	required: ['strtDt', 'endDt'],
 	totalCount: 0,
 	list: [],
@@ -123,7 +123,7 @@ const getList = () => {
 		(res) => {
 			data.totalCount = (res.count) ? res.count : 0;
 			data.list = res.data;
-			data.grid.resetData(res.data, {});
+			data.noticeGrid.resetData(res.data, {});
 		},
 		(err) => {
 			console.log(err);
@@ -141,75 +141,14 @@ const add = () => {
 		endDt: '',
 	}
 	data.detailShow = true;
-	// data.grid.appendRow({}, {at: 0});
-}
-const del = () => {
-	let selectRow = data.grid.getFocusedCell();
-	if(selectRow.rowKey == null || selectRow.rowKey == undefined) {
-		alert('행을 먼저 선택해주세요.');
-		return;
-	}
-	if (confirm('선택한 행을 정말 삭제하시겠습니까?')) {
-		data.grid.removeRow(selectRow.rowKey);
-	}
+	// data.noticeGrid.appendRow({}, {at: 0});
 }
 const refresh = () => {
 	location.reload();
 }
-const valid = (o:any) => {
-	for(let c in o) {
-		for(let r of data.required) {
-			if(c == r && !o[c]) {
-				alert(c + ' 필수값이 없습니다.');
-				return false;
-			}
-		}
-	}
-	return true;
-}
-const save = () => {
-	data.grid.blur();
-	let saveList = [];
-	let count = [0, 0, 0];
-	for(let o of data.grid.getModifiedRows().createdRows as any) {
-		o.crud = 'C';
-		if(!valid(o)) {
-			return;
-		}
-		saveList.push(o);
-		count[0]++;
-	}
-	for(let o of data.grid.getModifiedRows().updatedRows as any) {
-		o.crud = 'U';
-		if(!valid(o)) {
-			return;
-		}
-		saveList.push(o);
-		count[1]++;
-	}
-	for(let o of data.grid.getModifiedRows().deletedRows as any) {
-		o.crud = 'D';
-		saveList.push(o);
-		count[2]++;
-	}
-	if(count[0] == 0 && count[1] == 0 && count[2] == 0) {
-		alert('변경사항이 없습니다.');
-		return;
-	}
-	if(confirm('등록 ' + count[0] + '건, 수정 ' + count[1] + '건, 삭제 ' + count[2] + '건을 정말 저장하시겠습니까?')) {
-		NoticeService.setNoticeList(saveList).then(
-			(res) => {
-				location.reload();
-			},
-			(err) => {
-				console.log(err);
-			},
-		);
-	}
-}
 onMounted(() => {
-	data.grid = new Grid({
-		el: document.getElementById('grid') as HTMLElement,
+	data.noticeGrid = new Grid({
+		el: document.getElementById('noticeGrid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
 			{header: '공지 번호', name: 'notiNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 공지 번호
@@ -262,7 +201,7 @@ onMounted(() => {
 			height: 40,
 		},
 	});
-	data.grid.on('dblclick', (e:any) => {
+	data.noticeGrid.on('dblclick', (e:any) => {
 		if( e.columnName === 'tit' && data.list[e.rowKey]) {
 			data.detail = data.list[e.rowKey];
 			data.detailShow = true;

@@ -116,7 +116,6 @@ const getDetail = () => {
 }
 
 const drawDetail = () => {
-	// ![image](http://pumpkinev.iptime.org:5526/static/25bd3aa3/images/svgs/logo.svg)
 	edit.editor = new Editor({
 		el: document.querySelector('#noticeEditor') as HTMLElement,
 		previewStyle: 'vertical',
@@ -132,13 +131,7 @@ const drawDetail = () => {
 		height: '390px',
 		initialValue: props.data.cnts || ' ', // null 시 에러발생 
 	});
-	edit.editor.removeHook("addImageBlobHook");
-
-	edit.editor.addHook("addImageBlobHook", async (blob, callback) => {
-		// data.addFileList.push(blob);
-		// blob:http 임시 url 을 전달을 못한다...;;
-		// callback(URL.createObjectURL(blob).replace('blob:',''), blob.name);
-	});
+	edit.editor.removeHook("addImageBlobHook"); // blob:http 임시 url 을 전달을 못한다...;;
 }
 
 const save = () => {

@@ -71,7 +71,7 @@
 				<div class="totalCount">총 {{ data.totalCount }}건</div>
 			</div>
 		</form>
-		<div id="grid"></div>
+		<div id="boardCategoryGrid"></div>
 	</div>
 </template>
 <script setup lang="ts">
@@ -94,7 +94,7 @@ const search = reactive({
 });
 // 게시판분류
 const data = reactive({
-	grid: {} as Grid,
+	boardCategoryGrid: {} as Grid,
 	required: ['lwrkCatYn', 'catNm', 'useYn', 'dpth', 'prir'],
 	totalCount: 0,
 	list: [],
@@ -105,7 +105,7 @@ const getList = () => {
 		(res) => {
 			data.totalCount = (res.count) ? res.count : 0;
 			data.list = res.data;
-			data.grid.resetData(res.data, {});
+			data.boardCategoryGrid.resetData(res.data, {});
 		},
 		(err) => {
 			console.log(err);
@@ -113,16 +113,16 @@ const getList = () => {
 	);
 }
 const add = () => {
-	data.grid.appendRow({}, {at: 0});
+	data.boardCategoryGrid.appendRow({}, {at: 0});
 }
 const del = () => {
-	let selectRow = data.grid.getFocusedCell();
+	let selectRow = data.boardCategoryGrid.getFocusedCell();
 	if(selectRow.rowKey == null || selectRow.rowKey == undefined) {
 		alert('행을 먼저 선택해주세요.');
 		return;
 	}
 	if (confirm('선택한 행을 정말 삭제하시겠습니까?')) {
-		data.grid.removeRow(selectRow.rowKey);
+		data.boardCategoryGrid.removeRow(selectRow.rowKey);
 	}
 }
 const refresh = () => {
@@ -140,10 +140,10 @@ const valid = (o:any) => {
 	return true;
 }
 const save = () => {
-	data.grid.blur();
+	data.boardCategoryGrid.blur();
 	let saveList = [];
 	let count = [0, 0, 0];
-	for(let o of data.grid.getModifiedRows().createdRows as any) {
+	for(let o of data.boardCategoryGrid.getModifiedRows().createdRows as any) {
 		o.crud = 'C';
 		if(!valid(o)) {
 			return;
@@ -151,7 +151,7 @@ const save = () => {
 		saveList.push(o);
 		count[0]++;
 	}
-	for(let o of data.grid.getModifiedRows().updatedRows as any) {
+	for(let o of data.boardCategoryGrid.getModifiedRows().updatedRows as any) {
 		o.crud = 'U';
 		if(!valid(o)) {
 			return;
@@ -159,7 +159,7 @@ const save = () => {
 		saveList.push(o);
 		count[1]++;
 	}
-	for(let o of data.grid.getModifiedRows().deletedRows as any) {
+	for(let o of data.boardCategoryGrid.getModifiedRows().deletedRows as any) {
 		o.crud = 'D';
 		saveList.push(o);
 		count[2]++;
@@ -180,8 +180,8 @@ const save = () => {
 	}
 }
 onMounted(() => {
-	data.grid = new Grid({
-		el: document.getElementById('grid') as HTMLElement,
+	data.boardCategoryGrid = new Grid({
+		el: document.getElementById('boardCategoryGrid') as HTMLElement,
 		//rowHeaders: ['checkbox'],
 		columns: [
 			{header: '게시판분류번호', name: 'brdCatNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 게시판분류번호
@@ -226,7 +226,7 @@ onMounted(() => {
 			height: 40,
 		},
 	});
-	data.grid.on('click', (e:any) => {
+	data.boardCategoryGrid.on('click', (e:any) => {
 		if( e.columnName === 'cd') {
 			console.log('click')
 		}
