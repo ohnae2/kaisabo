@@ -1,5 +1,8 @@
 import axios, {AxiosInstance, AxiosError, AxiosResponse, AxiosRequestConfig} from 'axios';
 import { useLoadingStore } from '../store/store.loading';
+import { useAlertStore } from '../store/store.alert';
+
+const alert = useAlertStore();
 
 let baseURL = 'http://localhost:9995';
 
@@ -39,6 +42,10 @@ service.interceptors.response.use(
     (error: AxiosError) => {
         loading.end();
         console.log(error);
+        const data:any = error.response?.data;
+        if(data && data.message) {
+            alert.open({title: null, message: data.message});
+        }
         return Promise.reject();
     }
 );

@@ -39,6 +39,7 @@
 						<FileListUploader
 							:name="'notice'"
 							:fileList="props.data.fileList"
+							:addFileList="data.addFileList"
 							@set-file-list="(o:any) => {
 								props.data.fileList = o;
 							}"
@@ -120,13 +121,23 @@ const drawDetail = () => {
 		el: document.querySelector('#noticeEditor') as HTMLElement,
 		previewStyle: 'vertical',
 		// previewStyle: 'tab',
+		toolbarItems: [
+			['heading', 'bold', 'italic', 'strike'],
+			['hr', 'quote'],
+			['ul', 'ol', 'task', 'indent', 'outdent'],
+			['table', 'link'], // 'image'
+			['code', 'codeblock']
+		],
 		initialEditType: 'markdown', // 'wysiwyg',
 		height: '390px',
 		initialValue: props.data.cnts || ' ', // null 시 에러발생 
 	});
 	edit.editor.removeHook("addImageBlobHook");
-	edit.editor.addHook("addImageBlobHook", (blob, callback) => {
-		console.log(blob);
+
+	edit.editor.addHook("addImageBlobHook", async (blob, callback) => {
+		// data.addFileList.push(blob);
+		// blob:http 임시 url 을 전달을 못한다...;;
+		// callback(URL.createObjectURL(blob).replace('blob:',''), blob.name);
 	});
 }
 
@@ -166,6 +177,8 @@ const save = () => {
 				return false;
 			},
 		);
+	} else {
+		saveInfo();
 	}
 }
 const saveInfo = () => {
@@ -212,12 +225,9 @@ const saveInfo = () => {
 const close = () => {
     emit('set-close');
 }
-
 onMounted(() => {
 	getDetail();
 });
-
 </script>
-
 <style scoped>
 </style>
