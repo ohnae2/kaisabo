@@ -1,7 +1,7 @@
 import { jsonApi } from '../../utils/jsonApi';
 import { formApi } from '../../utils/formApi';
 
-class CodeService {
+class OrderService {
 	async getOrderList(json?:any) { // 주문 리스트 [OR_ORD]
 		const res = await jsonApi('/bo/or/getOrderList', json ? json : {});
 		return res.data;
@@ -14,18 +14,18 @@ class CodeService {
 		const res = await jsonApi('/bo/or/setOrderList', json ? json : {});
 		return res.data;
 	}
-	async insertOrder(json?:any) { // 주문 등록 [OR_ORD]
-		const res = await jsonApi('/bo/or/insertOrder', json ? json : {});
+	async insertOrder(formData:FormData) { // 주문 등록 [OR_ORD]
+		const res = await formApi('/bo/or/insertOrder', formData);
 		return res.data;
 	}
-	async updateOrder(json?:any) { // 주문 수정 [OR_ORD]
-		const res = await jsonApi('/bo/or/updateOrder', json ? json : {});
+	async updateOrder(formData:FormData) { // 주문 수정 [OR_ORD]
+		const res = await formApi('/bo/or/updateOrder', formData);
 		return res.data;
 	}
-	async deleteOrder(json?:any) { // 주문 삭제 [OR_ORD]
-		const res = await jsonApi('/bo/or/getOrderList', json ? json : {});
+	async deleteOrder(formData:FormData) { // 주문 삭제 [OR_ORD]
+		const res = await formApi('/bo/or/getOrderList', formData);
 		return res.data;
 	}
 }
-export default new CodeService();
+export default new OrderService();
 

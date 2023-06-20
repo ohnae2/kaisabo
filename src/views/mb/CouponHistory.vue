@@ -112,7 +112,7 @@ const getList = () => {
 	);
 }
 const save = () => {
-	let saveList = gridUtil.save(data.holidayGrid, data.required);
+	let saveList = gridUtil.save(data.couponHistoryGrid, data.required);
 	if(saveList) {
 		CouponHistoryService.setCouponHistoryList(saveList).then(
 			(res) => {

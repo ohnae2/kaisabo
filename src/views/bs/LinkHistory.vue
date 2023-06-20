@@ -112,7 +112,7 @@ const getList = () => {
 	);
 }
 const save = () => {
-	let saveList = gridUtil.save(data.holidayGrid, data.required);
+	let saveList = gridUtil.save(data.linkHistoryGrid, data.required);
 	if(saveList) {
 		LinkHistoryService.setLinkHistoryList(saveList).then(
 			(res) => {

@@ -112,7 +112,7 @@ const getList = () => {
 	);
 }
 const save = () => {
-	let saveList = gridUtil.save(data.holidayGrid, data.required);
+	let saveList = gridUtil.save(data.qnaGrid, data.required);
 	if(saveList) {
 		QnaService.setQnaList(saveList).then(
 			(res) => {

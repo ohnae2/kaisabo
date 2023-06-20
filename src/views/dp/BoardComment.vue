@@ -112,7 +112,7 @@ const getList = () => {
 	);
 }
 const save = () => {
-	let saveList = gridUtil.save(data.holidayGrid, data.required);
+	let saveList = gridUtil.save(data.boardCommentGrid, data.required);
 	if(saveList) {
 		BoardCommentService.setBoardCommentList(saveList).then(
 			(res) => {

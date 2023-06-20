@@ -112,7 +112,7 @@ const getList = () => {
 	);
 }
 const save = () => {
-	let saveList = gridUtil.save(data.holidayGrid, data.required);
+	let saveList = gridUtil.save(data.apiHistoryGrid, data.required);
 	if(saveList) {
 		ApiHistoryService.setApiHistoryList(saveList).then(
 			(res) => {
