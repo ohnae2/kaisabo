@@ -12,11 +12,9 @@ import vAlert from './components/Alert.vue';
 import { useLoadingStore } from './store/store.loading';
 import { useAlertStore } from './store/store.alert';
 import { useSettingStore } from './store/store.setting';
-import { useRouter } from 'vue-router';
 
 const loading = useLoadingStore();
 const alert = useAlertStore();
-const router = useRouter();
 const setting = useSettingStore();
 
 </script>

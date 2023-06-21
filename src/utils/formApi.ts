@@ -1,10 +1,12 @@
 import interceptor from './formInterceptor';
 
+const userInfo = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
+
 const formHeaders = {
     method: 'post',
     headers: { 
         'Content-Type': 'multipart/form-data',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        'Authorization': 'Bearer ' + userInfo?.token
     },
     withCredentials: false,
 }

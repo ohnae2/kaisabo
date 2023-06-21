@@ -88,7 +88,7 @@ router.beforeEach((to, from, next) => {
            userInfo.cmpId
         && codeList
         && menuList.length > 0
-        && sessionStorage.getItem('token')
+        && userInfo.token
     );
     
     let isRole = (to.path == '/' || to.path == '/main') ? true : false;

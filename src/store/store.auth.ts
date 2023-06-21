@@ -4,6 +4,7 @@ export const useAuthStore = defineStore('auth', {
   state : () => ({ 
     active: false,
     menuList: JSON.parse(sessionStorage.getItem('menuList') || '[]'),
+    companyList: JSON.parse(sessionStorage.getItem('companyList') || '[]'),
     codeList: JSON.parse(sessionStorage.getItem('codeList') || '{}'),
     userInfo: JSON.parse(sessionStorage.getItem('userInfo') || '{}'),
     count: 0,
@@ -15,11 +16,12 @@ export const useAuthStore = defineStore('auth', {
           id: info.id,
           cmpId: info.cmpId,
           cmpNm: info.cmpNm,
+          token: info.token,
           nm: info.nm,
         }
-        sessionStorage.setItem('menuList', JSON.stringify(info.menuList) || '{}');
+        sessionStorage.setItem('menuList', JSON.stringify(info.menuList) || '[]');
+        sessionStorage.setItem('companyList', JSON.stringify(info.companyList) || '[]');
         sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
-        sessionStorage.setItem('token', info.token);
         this.userInfo = userInfo;
       }
       let groupCodeArr:any = {};
@@ -36,6 +38,7 @@ export const useAuthStore = defineStore('auth', {
       
 			this.active = true;
 			this.menuList = info.menuList;
+			this.companyList = info.companyList;
 			this.codeList = info.codeList; // 이곳에 안담으면 아래 setTimeout을해도 문제가 생김...
       
       location.href = '/';
@@ -46,9 +49,9 @@ export const useAuthStore = defineStore('auth', {
     },
     removeSession() {
       sessionStorage.removeItem('menuList');
+      sessionStorage.removeItem('companyList');
       sessionStorage.removeItem('codeList');
       sessionStorage.removeItem('userInfo');
-      sessionStorage.removeItem('token');
 			this.active = false;
       this.userInfo = {};
     },

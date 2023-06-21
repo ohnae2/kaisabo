@@ -6,13 +6,11 @@
   <v-footer />
 </template>
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import vHeader from '../views/layout/Header.vue';
 import vFooter from '../views/layout/Footer.vue';
 import { useSettingStore } from '../store/store.setting';
 
 const setting = useSettingStore();
-
 </script>
 
 <style scoped>

@@ -53,13 +53,11 @@ const submitForm = () => {
   formData.append('id', param.id);
   formData.append('password', param.password);
   formData.append('remember', param.remember + '');
-
   if(param.remember){
     cookies.set('id', param.id);
   } else {
     cookies.remove('id');
   }
-  
   UserService.getUserLogin(formData).then(
     (res) => {
       if(res && res.success) {

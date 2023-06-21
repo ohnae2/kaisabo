@@ -16,7 +16,7 @@
 					</tr>
 					<tr v-if="auth.userInfo.cmpId == 'kaisa'">
 						<th>업체ID</th>
-						<td colspan="3"><input type="text" v-model="search.cmpId" /></td>
+						<td colspan="3"><SelectCompany :cmpId="search.cmpId" @set-company="(o: any) => { search.cmpId = o.cmpId; }" /></td>
 					</tr>
 				</tbody>
 				<tbody class="audit" v-show="data.audit">
@@ -77,6 +77,7 @@ import { onMounted, ref, reactive } from 'vue';
 import Grid from 'tui-grid';
 import BoardCommentService from '../../service/dp/BoardCommentService';
 import SelectDate from '../../components/SelectDate.vue';
+import SelectCompany from '../../components/SelectCompany.vue';
 import SelectGroupDate from '../../components/SelectGroupDate.vue';
 import { useAuthStore } from '../../store/store.auth';
 import gridUtil from '../../utils/util.grid';
