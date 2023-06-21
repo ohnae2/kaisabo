@@ -73,7 +73,7 @@
 	<div id="batchHistoryGrid"></div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import Grid from 'tui-grid';
 import BatchHistoryService from '../../service/bs/BatchHistoryService';
 import SelectDate from '../../components/SelectDate.vue';

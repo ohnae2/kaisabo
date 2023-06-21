@@ -62,15 +62,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, reactive, PropType, ComponentObjectPropsOptions } from 'vue';
+import { onMounted, reactive } from 'vue';
 import NoticeService from '../../service/cs/NoticeService';
 import FtpService from '../../service/common/FtpService';
 import SelectDate from '../../components/SelectDate.vue';
 import CommonCode from '../../components/CommonCode.vue';
 import FileListUploader from '../../components/FileListUploader.vue';
 import dateUtil from '../../utils/util.date';
-import Editor from '@toast-ui/editor';
 import gridUtil from '../../utils/util.grid';
+import Editor from '@toast-ui/editor';
 
 const emit = defineEmits(['set-close']);
 const props = defineProps({ // data: { type: Object as PropType<NoticeDetail>, required: true },

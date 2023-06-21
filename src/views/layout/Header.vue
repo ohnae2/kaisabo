@@ -117,7 +117,10 @@ const toggleFav = (menu:any) => {
 }
 
 const closeAll = (menu:any) => {
-  cookies.set('favList', JSON.stringify([]) || '[]');
+  if(confirm('즐겨찾기를 지우시겠습니까?')) {
+    cookies.set('favList', JSON.stringify([]) || '[]');
+    setting.favList = [];
+  }
 }
 // h2 @click="clickCategory(side)"
 const clickCategory = (side:any) => {

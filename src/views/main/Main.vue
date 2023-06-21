@@ -29,7 +29,7 @@
         </template>
       </Chart>
     </div>
-    <!--{{ data.totalSales }}-->
+    <div class="totalSales">총 매출: {{ data.totalSales }}</div>
   </div>
 </template>
 
@@ -92,4 +92,5 @@ h2 {color:#000; font-size:14px; padding:10px 0;}
 .orderStateCount li.on {background: #fff3f3; border:1px solid #ff6666;}
 .orderStateCount li .cdNm {color:#555; padding-top:10px; font-size:14px;}
 .orderStateCount li .cnt {color:#333; font-size:28px; padding-top:10px; font-weight:bold;}
+.totalSales {text-align:right; font-size:11px; color:#aaa;}
 </style>

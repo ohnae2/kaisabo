@@ -73,7 +73,7 @@
 	<div id="userGroupGrid"></div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import Grid from 'tui-grid';
 import UserGroupService from '../../service/mb/UserGroupService';
 import SelectDate from '../../components/SelectDate.vue';

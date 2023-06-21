@@ -73,7 +73,7 @@
 	<div id="orderGrid"></div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import Grid from 'tui-grid';
 import OrderService from '../../service/or/OrderService';
 import SelectDate from '../../components/SelectDate.vue';
