@@ -1,3 +1,5 @@
+import Editor from '@toast-ui/editor';
+
 /**
  * 행추가
  * @param grid 
@@ -5,18 +7,6 @@
  */
 const add = (grid : any, n: number) => {
 	grid.appendRow({}, {at: n});
-}
-
-const valid = (o:any, required: []) => {
-	for(let c in o) {
-		for(let r of required) {
-			if(c == r && !o[c] && o[c] != 0) {
-				alert(c + ' 필수값이 없습니다.');
-				return false;
-			}
-		}
-	}
-	return true;
 }
 
 /**
@@ -58,6 +48,17 @@ const save = (grid : any, required: any) => {
     return saveList;
   };
 }
+const valid = (o:any, required: []) => {
+	for(let c in o) {
+		for(let r of required) {
+			if(c == r && !o[c] && o[c] != 0) {
+				alert(c + ' 필수값이 없습니다.');
+				return false;
+			}
+		}
+	}
+	return true;
+}
 
 /**
  * 삭제
@@ -72,6 +73,29 @@ const del = (grid: any) => {
 		grid.removeRow(selectRow.rowKey);
 	}
 }
+/**
+ * 에디터
+ * @param obj 
+ * @returns 
+ */
+const createEditor = (obj: any) => {
+	return new Editor({
+		el: document.querySelector(obj.name) as HTMLElement,
+		previewStyle: 'vertical',
+		// previewStyle: 'tab',
+		toolbarItems: [
+			['heading', 'bold', 'italic', 'strike'],
+			['hr', 'quote'],
+			['ul', 'ol', 'task', 'indent', 'outdent'],
+			['table', 'link'], // 'image'
+			['code', 'codeblock']
+		],
+		initialEditType: 'markdown', // 'wysiwyg',
+		height: '390px',
+		initialValue: obj.cnts || ' ', // null 시 에러발생 
+	});
+	// edit.editor.removeHook("addImageBlobHook"); // blob:http 임시 url 을 전달을 못한다...;;
+}
 
 /**
  * 새로고침
@@ -80,9 +104,40 @@ const reload = () => {
   location.reload();
 }
 
+/**
+ * 
+ */
+const makeFileData = (obj: any) => {
+	let form = new FormData();
+	form.append('fileNo', obj.props.data.fileNo + '');
+	form.append('path', obj.name);
+	// 추가파일 
+	let addCount = 0;
+	for(let file of  obj.data.addFileList) {
+		form.append('addFileList', file);
+		addCount++;
+	}
+	// 삭제파일 
+	let delCount = 0;
+	if(obj.props.data.fileList) {
+		for(let file of obj.props.data.fileList) {
+			if(file.delYn == 'Y') {
+				form.append('deleteFileDtlNo', file.fileDtlNo);
+				delCount++;
+			}
+		}
+	}
+	return {
+		form: form,
+		addCount: addCount,
+		delCount: delCount,
+	}
+}
 export default {
   add,
   save,
   reload,
   del,
+  createEditor,
+  makeFileData,
 };

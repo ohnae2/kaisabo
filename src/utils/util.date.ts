@@ -6,19 +6,17 @@ import dayjs, { ConfigType, ManipulateType } from "dayjs";
 // dayjs.extend(timezone);
 // dayjs.tz.setDefault('Asia/Seoul');
 
-export const FullDateFormat = "YYYY-MM-DD HH:mm";
-export const DateFormat = "YYYYMMDDHHmm";
-export const YYYY_MM_DD_Format = "YYYY-MM-DD";
+export const DATE_FORMAT = "YYYY-MM-DD HH:mm";
 
 const isValid = (date: Date) => {
   return date && dayjs(date).isValid();
 };
 
-const format = (date: any, format = FullDateFormat) => {
+const format = (date: any, format = DATE_FORMAT) => {
   return date && dayjs(date).isValid() && dayjs(date).format(format);
 };
 
-const add = (date: Date, addDate: number, type: ManipulateType, format = FullDateFormat) => {
+const add = (date: Date, addDate: number, type: ManipulateType, format = DATE_FORMAT) => {
   let value: any;
   if (isValid(date)) {
     value = dayjs(date as ConfigType).add(addDate, type);
@@ -41,10 +39,7 @@ const getMonthLastDay = (date: any) => {
  * @param {*} format
  * @returns string
  */
-const getToday = (format = FullDateFormat) => {
-  return dayjs().format(format);
-};
-const getExcelName = (format = DateFormat) => {
+const getToday = (format = DATE_FORMAT) => {
   return dayjs().format(format);
 };
 
@@ -54,5 +49,5 @@ export default {
   add,
   getMonthLastDay,
   getToday,
-  getExcelName,
+  DATE_FORMAT,
 };

@@ -67,7 +67,7 @@
 				</span>
 				<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
 				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
-				<button type="reset" @click="refresh"><span class="icon">&#x22;</span></button>
+				<button type="reset" @click="gridUtil.reload()"><span class="icon">&#x22;</span></button>
 				<div class="totalCount">총 {{ data.totalCount }}건</div>
 			</div>
 		</form>
@@ -88,6 +88,7 @@ import NoticeService from '../../service/cs/NoticeService';
 import SelectDate from '../../components/SelectDate.vue';
 import SelectGroupDate from '../../components/SelectGroupDate.vue';
 import { useAuthStore } from '../../store/store.auth';
+import gridUtil from '../../utils/util.grid';
 import NoticeDetail from './NoticeDetail.vue';
 
 const auth = useAuthStore();
@@ -103,7 +104,6 @@ const search = reactive({
 // 공지
 const data = reactive({
 	noticeGrid: {} as Grid,
-	required: ['strtDt', 'endDt'],
 	totalCount: 0,
 	list: [],
 	audit: false,
@@ -142,9 +142,6 @@ const add = () => {
 	}
 	data.detailShow = true;
 	// data.noticeGrid.appendRow({}, {at: 0});
-}
-const refresh = () => {
-	location.reload();
 }
 onMounted(() => {
 	data.noticeGrid = new Grid({
