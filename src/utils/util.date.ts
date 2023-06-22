@@ -7,6 +7,7 @@ import dayjs, { ConfigType, ManipulateType } from "dayjs";
 // dayjs.tz.setDefault('Asia/Seoul');
 
 export const DATE_FORMAT = "YYYY-MM-DD HH:mm";
+export const DAY_FORMAT = "YYYY-MM-DD";
 
 const isValid = (date: Date) => {
   return date && dayjs(date).isValid();
