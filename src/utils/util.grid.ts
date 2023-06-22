@@ -91,7 +91,7 @@ const createEditor = (obj: any) => {
 			['code', 'codeblock']
 		],
 		initialEditType: 'markdown', // 'wysiwyg',
-		height: '390px',
+		height: '300px',
 		initialValue: obj.cnts || ' ', // null 시 에러발생 
 	});
 	// edit.editor.removeHook("addImageBlobHook"); // blob:http 임시 url 을 전달을 못한다...;;

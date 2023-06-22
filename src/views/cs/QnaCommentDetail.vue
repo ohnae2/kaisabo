@@ -1,42 +1,15 @@
 <template>
-	<div id="noticeDetail" class="popup">
+	<div id="QnaCommentDetail" class="popup">
 		<div class="popupWrap">
-			<h3>공지사항 등록/수정</h3>
+			<h3>QNA 댓글 등록/수정</h3>
 			<div class="close" @click="emit('set-close')"><span class="icon">&#xe097;</span></div>
 			<form @submit.prevent="save">
 				<table class="popT">
-					<tr><th class="th">업체ID</th><td class="td"><input type="text" v-model="props.data.cmpId" minlength="5" maxlength="50" /></td></tr>
-					<tr><th class="th required">제목</th><td class="td"><input type="text" v-model="props.data.tit" minlength="5" maxlength="100" /></td></tr>
-					<tr><th class="th">사용여부</th><td class="td">
-						<CommonCode :cd="'YN_CD'" :model="props.data.useYn" @set-data="(val) => { props.data.useYn = val; }" />
-					</td></tr>
-					<tr><th class="th">시작/종료일</th><td class="td">
-						<SelectDate 
-							:name="['strtDt']"
-							:format="dateUtil.DATE_FORMAT"
-							:date="[props.data.strtDt]"
-							:isAll="false"
-							:timer="true"
-							@set-start-date="(o) => {
-								props.data.strtDt = o.date;
-							}"
-						/>
-						~
-						<SelectDate 
-							:name="['endDt']"
-							:format="dateUtil.DATE_FORMAT"
-							:date="[props.data.endDt]"
-							:isAll="false"
-							:timer="true"
-							@set-start-date="(o) => {
-								props.data.endDt = o.date;
-							}"
-						/>
-					</td></tr>
-					<tr><th class="th">파일</th><td class="td">
-						<!-- 보이는 이미지와 저장이미지 (저장이미지만 리턴받음) -->
+					<tr><th class="th">QNA 번호</th><td class="td"><input type="number" v-model="props.data.qnaNo" /></td></tr>
+					<tr><th class="th">업체</th><td class="td"><input type="text" v-model="props.data.cmpId" minlength="5" maxlength="50" /></td></tr>
+					<tr><th class="th">파일번호</th><td class="td">
 						<FileListUploader
-							:name="'notice'"
+							:name="'QnaComment'"
 							:fileList="props.data.fileList"
 							:addFileList="data.addFileList"
 							@set-file-list="(o:any) => {
@@ -48,8 +21,10 @@
 						/>
 					</td></tr>
 					<tr><td colspan="2" class="td">
-						<div id="noticeEditor"></div>
+						<div id="QnaCommentEditor"></div>
 					</td></tr>
+					<tr><th class="th required">회원 명</th><td class="td"><input type="text" v-model="props.data.mbrNm" maxlength="100" required /></td></tr>
+					<tr><th class="th required">연동참조</th><td class="td"><input type="text" v-model="props.data.linkRef" maxlength="10" required /></td></tr>
 				</table>
 				<div class="btnWrap">
 					<button type="submit">저장</button>
@@ -61,7 +36,7 @@
 </template>
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue';
-import NoticeService from '../../service/cs/NoticeService';
+import QnaCommentService from '../../service/cs/QnaCommentService';
 import FtpService from '../../service/common/FtpService';
 import SelectDate from '../../components/SelectDate.vue';
 import CommonCode from '../../components/CommonCode.vue';
@@ -70,7 +45,7 @@ import dateUtil from '../../utils/util.date';
 import gridUtil from '../../utils/util.grid';
 import Editor from '@toast-ui/editor';
 const emit = defineEmits(['set-close']);
-const props = defineProps({ // data: { type: Object as PropType<NoticeDetail>, required: true },
+const props = defineProps({ // data: { type: Object as PropType<QnaCommentDetail>, required: true },
 	data: { type: Object as any, required: true },
 });
 if(!props.data.strtDt) {
@@ -90,10 +65,10 @@ const edit = reactive({
 	editorOption: {}
 });
 const getDetail = () => {
-	if(props.data.notiNo) {
-		NoticeService.getNotice({ notiNo: props.data.notiNo}).then(
+	if(props.data.qnaCmmtNo) {
+		QnaCommentService.getQnaComment({ qnaCmmtNo: props.data.qnaCmmtNo}).then(
 			(res) => {
-				props.data.fileNo = res.data.fileNo;
+				props.data.qnaCmmtNo = res.data.qnaCmmtNo;
 				props.data.cnts = res.data.cnts;
 				props.data.fileList = res.data.fileList;
 				drawDetail();
@@ -107,10 +82,10 @@ const getDetail = () => {
 	}
 }
 const drawDetail = () => {
-	edit.editor = gridUtil.createEditor({name: '#noticeEditor', cnts: props.data.cnts});
+	edit.editor = gridUtil.createEditor({name: '#QnaCommentEditor', cnts: props.data.cnts});
 }
 const save = () => { // 파일업로드 후 정보저장
-	let fileData = gridUtil.makeFileData({name:'notice', props: props, data: data});
+	let fileData = gridUtil.makeFileData({name:'QnaComment', props: props, data: data});
 	if (fileData.addCount > 0 || fileData.delCount > 0) {
 		FtpService.uploadList(fileData.form).then(
 			(res) => {
@@ -132,15 +107,18 @@ const save = () => { // 파일업로드 후 정보저장
 }
 const saveInfo = () => { // 정보저장
 	let formData = new FormData();
-	formData.append('notiNo', props.data.notiNo + '');
-	formData.append('cmpId', props.data.cmpId);
-	formData.append('tit', props.data.tit);
-	formData.append('fileNo', props.data.fileNo + '');
-	formData.append('useYn', props.data.useYn);
-	formData.append('strtDt', props.data.strtDt);
-	formData.append('endDt', props.data.endDt);
+	formData.append('qnaCmmtNo', props.data.qnaCmmtNo);
+	formData.append('qnaNo', props.data.qnaNo);
+	formData.append('cmpId', props.data.cmpId + '');
+	formData.append('fileNo', props.data.fileNo);
+	formData.append('mbrNm', props.data.mbrNm + '');
 	formData.append('cnts', edit.editor.getMarkdown());
-	((!props.data.notiNo) ? NoticeService.insertNotice : NoticeService.updateNotice)(formData).then(
+	formData.append('linkRef', props.data.linkRef + '');
+	formData.append('modId', props.data.modId + '');
+	formData.append('modDt', props.data.modDt + '');
+	formData.append('regId', props.data.regId + '');
+	formData.append('regDt', props.data.regDt + '');
+	((!props.data.qnaCmmtNo) ? QnaCommentService.insertQnaComment : QnaCommentService.updateQnaComment)(formData).then(
 		(res) => {
 			if(res.success) {
 				location.reload();

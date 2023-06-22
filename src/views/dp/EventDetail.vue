@@ -1,15 +1,28 @@
 <template>
-	<div id="noticeDetail" class="popup">
+	<div id="EventDetail" class="popup">
 		<div class="popupWrap">
-			<h3>공지사항 등록/수정</h3>
+			<h3>이벤트 등록/수정</h3>
 			<div class="close" @click="emit('set-close')"><span class="icon">&#xe097;</span></div>
 			<form @submit.prevent="save">
 				<table class="popT">
-					<tr><th class="th">업체ID</th><td class="td"><input type="text" v-model="props.data.cmpId" minlength="5" maxlength="50" /></td></tr>
-					<tr><th class="th required">제목</th><td class="td"><input type="text" v-model="props.data.tit" minlength="5" maxlength="100" /></td></tr>
-					<tr><th class="th">사용여부</th><td class="td">
-						<CommonCode :cd="'YN_CD'" :model="props.data.useYn" @set-data="(val) => { props.data.useYn = val; }" />
+					<tr><th class="th">제목</th><td class="td"><input type="text" v-model="props.data.tit" maxlength="200" /></td></tr>
+					<tr><th class="th">파일번호</th><td class="td">
+						<FileListUploader
+							:name="'Event'"
+							:fileList="props.data.fileList"
+							:addFileList="data.addFileList"
+							@set-file-list="(o:any) => {
+								props.data.fileList = o;
+							}"
+							@set-add-file-list="(o:any) => {
+								data.addFileList = o;
+							}"
+						/>
 					</td></tr>
+					<tr><td colspan="2" class="td">
+						<div id="EventEditor"></div>
+					</td></tr>
+					<tr><th class="th required">연동참조</th><td class="td"><input type="text" v-model="props.data.linkRef" maxlength="10" required /></td></tr>
 					<tr><th class="th">시작/종료일</th><td class="td">
 						<SelectDate 
 							:name="['strtDt']"
@@ -33,23 +46,6 @@
 							}"
 						/>
 					</td></tr>
-					<tr><th class="th">파일</th><td class="td">
-						<!-- 보이는 이미지와 저장이미지 (저장이미지만 리턴받음) -->
-						<FileListUploader
-							:name="'notice'"
-							:fileList="props.data.fileList"
-							:addFileList="data.addFileList"
-							@set-file-list="(o:any) => {
-								props.data.fileList = o;
-							}"
-							@set-add-file-list="(o:any) => {
-								data.addFileList = o;
-							}"
-						/>
-					</td></tr>
-					<tr><td colspan="2" class="td">
-						<div id="noticeEditor"></div>
-					</td></tr>
 				</table>
 				<div class="btnWrap">
 					<button type="submit">저장</button>
@@ -61,7 +57,7 @@
 </template>
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue';
-import NoticeService from '../../service/cs/NoticeService';
+import EventService from '../../service/dp/EventService';
 import FtpService from '../../service/common/FtpService';
 import SelectDate from '../../components/SelectDate.vue';
 import CommonCode from '../../components/CommonCode.vue';
@@ -70,7 +66,7 @@ import dateUtil from '../../utils/util.date';
 import gridUtil from '../../utils/util.grid';
 import Editor from '@toast-ui/editor';
 const emit = defineEmits(['set-close']);
-const props = defineProps({ // data: { type: Object as PropType<NoticeDetail>, required: true },
+const props = defineProps({ // data: { type: Object as PropType<EventDetail>, required: true },
 	data: { type: Object as any, required: true },
 });
 if(!props.data.strtDt) {
@@ -90,10 +86,10 @@ const edit = reactive({
 	editorOption: {}
 });
 const getDetail = () => {
-	if(props.data.notiNo) {
-		NoticeService.getNotice({ notiNo: props.data.notiNo}).then(
+	if(props.data.evtNo) {
+		EventService.getEvent({ evtNo: props.data.evtNo}).then(
 			(res) => {
-				props.data.fileNo = res.data.fileNo;
+				props.data.evtNo = res.data.evtNo;
 				props.data.cnts = res.data.cnts;
 				props.data.fileList = res.data.fileList;
 				drawDetail();
@@ -107,10 +103,10 @@ const getDetail = () => {
 	}
 }
 const drawDetail = () => {
-	edit.editor = gridUtil.createEditor({name: '#noticeEditor', cnts: props.data.cnts});
+	edit.editor = gridUtil.createEditor({name: '#EventEditor', cnts: props.data.cnts});
 }
 const save = () => { // 파일업로드 후 정보저장
-	let fileData = gridUtil.makeFileData({name:'notice', props: props, data: data});
+	let fileData = gridUtil.makeFileData({name:'Event', props: props, data: data});
 	if (fileData.addCount > 0 || fileData.delCount > 0) {
 		FtpService.uploadList(fileData.form).then(
 			(res) => {
@@ -132,15 +128,18 @@ const save = () => { // 파일업로드 후 정보저장
 }
 const saveInfo = () => { // 정보저장
 	let formData = new FormData();
-	formData.append('notiNo', props.data.notiNo + '');
-	formData.append('cmpId', props.data.cmpId);
-	formData.append('tit', props.data.tit);
-	formData.append('fileNo', props.data.fileNo + '');
-	formData.append('useYn', props.data.useYn);
-	formData.append('strtDt', props.data.strtDt);
-	formData.append('endDt', props.data.endDt);
+	formData.append('evtNo', props.data.evtNo);
+	formData.append('tit', props.data.tit + '');
 	formData.append('cnts', edit.editor.getMarkdown());
-	((!props.data.notiNo) ? NoticeService.insertNotice : NoticeService.updateNotice)(formData).then(
+	formData.append('fileNo', props.data.fileNo);
+	formData.append('strtDt', props.data.strtDt + '');
+	formData.append('endDt', props.data.endDt + '');
+	formData.append('linkRef', props.data.linkRef + '');
+	formData.append('modId', props.data.modId + '');
+	formData.append('modDt', props.data.modDt + '');
+	formData.append('regId', props.data.regId + '');
+	formData.append('regDt', props.data.regDt + '');
+	((!props.data.evtNo) ? EventService.insertEvent : EventService.updateEvent)(formData).then(
 		(res) => {
 			if(res.success) {
 				location.reload();

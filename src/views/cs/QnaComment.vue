@@ -60,9 +60,9 @@
 		</fieldset>
 		<div class="btnWrap">
 			<span class="crud">
-				<button type="button" class="button add" @click="gridUtil.add(data.qnaCommentGrid, 0)"><span class="icon">&#xe813;</span>추가</button>
-				<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
-				<button type="button" class="button del" @click="gridUtil.del(data.qnaCommentGrid)"><span class="icon">&#xe815;</span>삭제</button>
+				<button type="button" class="button add" @click="add"><span class="icon">&#xe813;</span>등록</button>
+				<!--<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
+				<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>-->
 			</span>
 			<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
 			<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
@@ -71,6 +71,11 @@
 		</div>
 	</form>
 	<div id="qnaCommentGrid"></div>
+	<QnaCommentDetail v-if="data.detailShow" :data="data.detail"
+		@set-close="(o) => {
+			data.detailShow = false;
+		}"
+	/>
 </template>
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue';
@@ -81,6 +86,7 @@ import SelectCompany from '../../components/SelectCompany.vue';
 import SelectGroupDate from '../../components/SelectGroupDate.vue';
 import { useAuthStore } from '../../store/store.auth';
 import gridUtil from '../../utils/util.grid';
+import QnaCommentDetail from './QnaCommentDetail.vue';
 
 const auth = useAuthStore();
 const search = reactive({
@@ -99,6 +105,20 @@ const data = reactive({
 	totalCount: 0,
 	list: [],
 	audit: false,
+	detailShow: false,
+	detail: {
+		qnaCmmtNo: 0,
+		qnaNo: 0,
+		cmpId: '',
+		fileNo: 0,
+		mbrNm: '',
+		cnts: '',
+		linkRef: '',
+		modId: '',
+		modDt: '',
+		regId: '',
+		regDt: '',
+	},
 });
 const getList = () => {
 	QnaCommentService.getQnaCommentList(search).then(
@@ -112,18 +132,21 @@ const getList = () => {
 		},
 	);
 }
-const save = () => {
-	let saveList = gridUtil.save(data.qnaCommentGrid, data.required);
-	if(saveList) {
-		QnaCommentService.setQnaCommentList(saveList).then(
-			(res) => {
-				location.reload();
-			},
-			(err) => {
-				console.log(err);
-			},
-		);
+const add = () => {
+	data.detail = {
+		qnaCmmtNo: 0,
+		qnaNo: 0,
+		cmpId: '',
+		fileNo: 0,
+		mbrNm: '',
+		cnts: '',
+		linkRef: '',
+		modId: '',
+		modDt: '',
+		regId: '',
+		regDt: '',
 	}
+	data.detailShow = true;
 }
 onMounted(() => {
 	data.qnaCommentGrid = new Grid({
@@ -155,9 +178,10 @@ onMounted(() => {
 			height: 40,
 		},
 	});
-	data.qnaCommentGrid.on('click', (e:any) => {
-		if( e.columnName === 'cd') {
-			console.log('click')
+	data.qnaCommentGrid.on('dblclick', (e:any) => {
+		if( e.columnName === 'tit' && data.list[e.rowKey]) {
+			data.detail = data.list[e.rowKey];
+			data.detailShow = true;
 		}
 	});
 	getList();
