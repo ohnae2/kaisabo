@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.paymentGrid = new Grid({
 		el: document.getElementById('paymentGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '결제번호', name: 'payNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 결제번호
 			{header: '주문번호', name: 'ordNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 주문번호

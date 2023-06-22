@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.couponHistoryGrid = new Grid({
 		el: document.getElementById('couponHistoryGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '쿠폰이력번호', name: 'cpnHistNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 쿠폰이력번호
 			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 회원ID

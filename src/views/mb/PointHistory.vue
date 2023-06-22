@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.pointHistoryGrid = new Grid({
 		el: document.getElementById('pointHistoryGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '포인트이력번호', name: 'pntHistNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 포인트이력번호
 			{header: '회원ID', name: 'mbrId', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 회원ID

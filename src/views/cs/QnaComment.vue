@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.qnaCommentGrid = new Grid({
 		el: document.getElementById('qnaCommentGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: 'QNA 댓글 번호', name: 'qnaCmmtNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // QNA 댓글 번호
 			{header: 'QNA 번호', name: 'qnaNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // QNA 번호

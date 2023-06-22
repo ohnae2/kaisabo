@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.couponGrid = new Grid({
 		el: document.getElementById('couponGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '쿠폰번호', name: 'cpnNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 쿠폰번호
 			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID

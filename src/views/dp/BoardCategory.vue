@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.boardCategoryGrid = new Grid({
 		el: document.getElementById('boardCategoryGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '게시판분류번호', name: 'brdCatNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 게시판분류번호
 			{header: '상위분류번호', name: 'hgrkCatNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 상위분류번호

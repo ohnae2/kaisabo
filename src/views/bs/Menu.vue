@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.menuGrid = new Grid({
 		el: document.getElementById('menuGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '메뉴번호', name: 'menuNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 메뉴번호
 			{header: '상위메뉴번호', name: 'hgrkMenuNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 상위메뉴번호

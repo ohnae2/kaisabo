@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.peakseasonGrid = new Grid({
 		el: document.getElementById('peakseasonGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '성수기번호', name: 'pksnNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 성수기번호
 			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID

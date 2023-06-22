@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.apiHistoryGrid = new Grid({
 		el: document.getElementById('apiHistoryGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: 'API번호', name: 'apiNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // API번호
 			{header: 'API명', name: 'apiNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // API명

@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.eventGrid = new Grid({
 		el: document.getElementById('eventGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '이벤트번호', name: 'evtNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 이벤트번호
 			{header: '제목', name: 'tit', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 제목

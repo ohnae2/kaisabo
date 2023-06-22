@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.paymentCancelGrid = new Grid({
 		el: document.getElementById('paymentCancelGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '결제취소번호', name: 'payCnclNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 결제취소번호
 			{header: '상품번호', name: 'prodNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 상품번호

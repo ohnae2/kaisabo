@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.holidayGrid = new Grid({
 		el: document.getElementById('holidayGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '휴일', name: 'hld', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, // 휴일
 				editor: {

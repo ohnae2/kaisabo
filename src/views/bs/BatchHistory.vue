@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.batchHistoryGrid = new Grid({
 		el: document.getElementById('batchHistoryGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '배치번호', name: 'btchNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 배치번호
 			{header: '배치명', name: 'btchNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 배치명

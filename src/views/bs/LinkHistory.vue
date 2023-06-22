@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.linkHistoryGrid = new Grid({
 		el: document.getElementById('linkHistoryGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '연동번호', name: 'linkNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 연동번호
 			{header: '연동명', name: 'linkNm', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동명

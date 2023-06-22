@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.displayGrid = new Grid({
 		el: document.getElementById('displayGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '전시번호', name: 'dispNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 전시번호
 			{header: '업체구분코드', name: 'cmpDivCd', width: 120, align: 'left', sortable: true, disabled: false, validation: { dataType: 'string' , required: false }, 

@@ -128,7 +128,7 @@ const save = () => {
 onMounted(() => {
 	data.fileDetailGrid = new Grid({
 		el: document.getElementById('fileDetailGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '파일상세번호', name: 'fileDtlNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 파일상세번호
 			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 파일번호
