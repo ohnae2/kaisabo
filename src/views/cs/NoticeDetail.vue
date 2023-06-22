@@ -60,7 +60,6 @@
 		</div>
 	</div>
 </template>
-
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue';
 import NoticeService from '../../service/cs/NoticeService';
@@ -71,7 +70,6 @@ import FileListUploader from '../../components/FileListUploader.vue';
 import dateUtil from '../../utils/util.date';
 import gridUtil from '../../utils/util.grid';
 import Editor from '@toast-ui/editor';
-
 const emit = defineEmits(['set-close']);
 const props = defineProps({ // data: { type: Object as PropType<NoticeDetail>, required: true },
 	data: { type: Object as any, required: true },

@@ -1,88 +1,84 @@
 <template>
-	<div id="notice">
-		<form class="search" @submit.prevent="getList" @keyup.enter="getList">
-			<fieldset>
-				<legend>검색</legend>
-				<table>
-					<colgroup>
-						<col width="80" />
-						<col width="30%" />
-						<col width="80" />
-						<col width="*" />
-					</colgroup>
-					<tbody>
-						<tr>
-							<th>검색조건</th>
-							<td colspan="3"><input type="text" v-model="search.keyword" /></td>
-						</tr>
-						<tr v-if="auth.userInfo.cmpId == 'kaisa'">
-							<th>업체ID</th>
-							<td colspan="3"><SelectCompany :cmpId="search.cmpId" @set-company="(o: any) => { search.cmpId = o.cmpId; }" /></td>
-						</tr>
-					</tbody>
-					<tbody class="audit" v-show="data.audit">
-						<tr>
-							<th>수정기간</th>
-							<td colspan="3">
-								<SelectGroupDate 
-									:name="['startModDt', 'endModDt']"
-									:format="'YYYY-MM-DD'"
-									:date="[search.startModDt, search.endModDt]"
-									@set-start-date="(o) => {
-										search.startModDt = o.date;
-									}"
-									@set-end-date="(o) => {
-										search.endModDt = o.date;
-									}"
-								/>
-							</td>
-						</tr>
-						<tr>
-							<th>등록일</th>
-							<td colspan="3">
-								<SelectDate 
-									:name="['regDt']"
-									:format="'YYYY-MM-DD'"
-									:date="[search.regDt]"
-									@set-start-date="(o) => {
-										search.regDt = o.date;
-									}"
-								/>
-							</td>
-						</tr>
-						<tr>
-							<th>수정ID</th>
-							<td><input type="text" v-model="search.modId" /></td>
-							<th>등록ID</th>
-							<td><input type="text" v-model="search.regId" /></td>
-						</tr>
-					</tbody>
-				</table>
-			</fieldset>
-			<div class="btnWrap">
-				<span class="crud">
-					<button type="button" class="button add" @click="add"><span class="icon">&#xe813;</span>등록</button>
-					<!--<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
-					<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>-->
-				</span>
-				<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
-				<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
-				<button type="reset" @click="gridUtil.reload()"><span class="icon">&#x22;</span></button>
-				<div class="totalCount">총 {{ data.totalCount }}건</div>
-			</div>
-		</form>
-		<div id="noticeGrid"></div>
-
-	</div>
+	<form class="search" @submit.prevent="getList" @keyup.enter="getList">
+		<fieldset>
+			<legend>검색</legend>
+			<table>
+				<colgroup>
+					<col width="80" />
+					<col width="30%" />
+					<col width="80" />
+					<col width="*" />
+				</colgroup>
+				<tbody>
+					<tr>
+						<th>검색조건</th>
+						<td colspan="3"><input type="text" v-model="search.keyword" /></td>
+					</tr>
+					<tr v-if="auth.userInfo.cmpId == 'kaisa'">
+						<th>업체ID</th>
+						<td colspan="3"><SelectCompany :cmpId="search.cmpId" @set-company="(o: any) => { search.cmpId = o.cmpId; }" /></td>
+					</tr>
+				</tbody>
+				<tbody class="audit" v-show="data.audit">
+					<tr>
+						<th>수정기간</th>
+						<td colspan="3">
+							<SelectGroupDate 
+								:name="['startModDt', 'endModDt']"
+								:format="'YYYY-MM-DD'"
+								:date="[search.startModDt, search.endModDt]"
+								@set-start-date="(o) => {
+									search.startModDt = o.date;
+								}"
+								@set-end-date="(o) => {
+									search.endModDt = o.date;
+								}"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th>등록일</th>
+						<td colspan="3">
+							<SelectDate 
+								:name="['regDt']"
+								:format="'YYYY-MM-DD'"
+								:date="[search.regDt]"
+								@set-start-date="(o) => {
+									search.regDt = o.date;
+								}"
+							/>
+						</td>
+					</tr>
+					<tr>
+						<th>수정ID</th>
+						<td><input type="text" v-model="search.modId" /></td>
+						<th>등록ID</th>
+						<td><input type="text" v-model="search.regId" /></td>
+					</tr>
+				</tbody>
+			</table>
+		</fieldset>
+		<div class="btnWrap">
+			<span class="crud">
+				<button type="button" class="button add" @click="add"><span class="icon">&#xe813;</span>등록</button>
+				<!--<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
+				<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>-->
+			</span>
+			<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
+			<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
+			<button type="reset" @click="gridUtil.reload()"><span class="icon">&#x22;</span></button>
+			<div class="totalCount">총 {{ data.totalCount }}건</div>
+		</div>
+	</form>
+	<div id="noticeGrid"></div>
 	<NoticeDetail v-if="data.detailShow" :data="data.detail"
 		@set-close="(o) => {
 			data.detailShow = false;
 		}"
 	/>
-
 </template>
 <script setup lang="ts">
-import { onMounted, ref, reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import Grid from 'tui-grid';
 import NoticeService from '../../service/cs/NoticeService';
 import SelectDate from '../../components/SelectDate.vue';
@@ -147,7 +143,7 @@ const add = () => {
 onMounted(() => {
 	data.noticeGrid = new Grid({
 		el: document.getElementById('noticeGrid') as HTMLElement,
-		//rowHeaders: ['checkbox'],
+		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '공지 번호', name: 'notiNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 공지 번호
 			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: true, editor: 'text'}, // 업체ID
@@ -209,5 +205,4 @@ onMounted(() => {
 });
 </script>
 <style scoped>
-#notice {width: 100%;}
 </style>
