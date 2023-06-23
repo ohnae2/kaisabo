@@ -5,8 +5,8 @@
 			<div class="close" @click="emit('set-close')"><span class="icon">&#xe097;</span></div>
 			<form @submit.prevent="save">
 				<table class="popT">
-					<tr><th class="th">QNA 번호</th><td class="td"><input type="number" v-model="props.data.qnaNo" /></td></tr>
-					<tr><th class="th">업체</th><td class="td"><input type="text" v-model="props.data.cmpId" minlength="5" maxlength="50" /></td></tr>
+					<tr><th class="th required">QNA 번호</th><td class="td"><input type="number" v-model="props.data.qnaNo" required /></td></tr>
+					<tr v-if="auth.userInfo.cmpId == 'kaisa'"><th class="th required">업체</th><td class="td"><SelectCompany :cmpId="props.data.cmpId" @set-company="(o: any) => { props.data.cmpId = o.cmpId; }" /></td></tr>
 					<tr><th class="th">파일번호</th><td class="td">
 						<FileListUploader
 							:name="'QnaComment'"
@@ -21,10 +21,9 @@
 						/>
 					</td></tr>
 					<tr><td colspan="2" class="td">
-						<div id="QnaCommentEditor"></div>
+						<div id="qnaCommentEditor"></div>
 					</td></tr>
-					<tr><th class="th required">회원 명</th><td class="td"><input type="text" v-model="props.data.mbrNm" maxlength="100" required /></td></tr>
-					<tr><th class="th required">연동참조</th><td class="td"><input type="text" v-model="props.data.linkRef" maxlength="10" required /></td></tr>
+					<tr><th class="th">회원 명</th><td class="td"><input type="text" v-model="props.data.mbrNm" maxlength="100" /></td></tr>
 				</table>
 				<div class="btnWrap">
 					<button type="submit">저장</button>
@@ -44,6 +43,10 @@ import FileListUploader from '../../components/FileListUploader.vue';
 import dateUtil from '../../utils/util.date';
 import gridUtil from '../../utils/util.grid';
 import Editor from '@toast-ui/editor';
+import SelectCompany from '../../components/SelectCompany.vue';
+
+import { useAuthStore } from '../../store/store.auth';
+const auth = useAuthStore();
 const emit = defineEmits(['set-close']);
 const props = defineProps({ // data: { type: Object as PropType<QnaCommentDetail>, required: true },
 	data: { type: Object as any, required: true },
@@ -82,10 +85,10 @@ const getDetail = () => {
 	}
 }
 const drawDetail = () => {
-	edit.editor = gridUtil.createEditor({name: '#QnaCommentEditor', cnts: props.data.cnts});
+	edit.editor = gridUtil.createEditor({name: '#qnaCommentEditor', cnts: props.data.cnts});
 }
 const save = () => { // 파일업로드 후 정보저장
-	let fileData = gridUtil.makeFileData({name:'QnaComment', props: props, data: data});
+	let fileData = gridUtil.makeFileData({name:'qnaComment', props: props, data: data});
 	if (fileData.addCount > 0 || fileData.delCount > 0) {
 		FtpService.uploadList(fileData.form).then(
 			(res) => {

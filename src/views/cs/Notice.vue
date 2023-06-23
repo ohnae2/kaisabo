@@ -84,9 +84,9 @@ import NoticeService from '../../service/cs/NoticeService';
 import SelectDate from '../../components/SelectDate.vue';
 import SelectCompany from '../../components/SelectCompany.vue';
 import SelectGroupDate from '../../components/SelectGroupDate.vue';
-import { useAuthStore } from '../../store/store.auth';
 import gridUtil from '../../utils/util.grid';
 import NoticeDetail from './NoticeDetail.vue';
+import { useAuthStore } from '../../store/store.auth';
 
 const auth = useAuthStore();
 const search = reactive({
@@ -147,8 +147,7 @@ onMounted(() => {
 		columns: [
 			{header: '공지 번호', name: 'notiNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 공지 번호
 			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: true, editor: 'text'}, // 업체ID
-			{header: '제목', name: 'tit', className:'underline pointer', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 제목
-			{header: '내용', name: 'cnts', hidden:true, sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 내용
+			{header: '제목', name: 'tit', sortable: true, width: 100, align: 'left', disabled: true, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 제목 // , className:'underline pointer'
 			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: true, hidden:true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호
 			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: true, hidden:true, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 우선순위
 			{header: '사용 여부', name: 'useYn', width: 120, align: 'left', sortable: true, defaultValue: 'Y', disabled: true, validation: { dataType: 'string' , required: true }, 
@@ -196,7 +195,7 @@ onMounted(() => {
 		},
 	});
 	data.noticeGrid.on('dblclick', (e:any) => {
-		if( e.columnName === 'tit' && data.list[e.rowKey]) {
+		if( e.columnName && data.list[e.rowKey]) {
 			data.detail = data.list[e.rowKey];
 			data.detailShow = true;
 		}

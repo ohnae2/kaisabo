@@ -5,7 +5,7 @@
 			<div class="close" @click="emit('set-close')"><span class="icon">&#xe097;</span></div>
 			<form @submit.prevent="save">
 				<table class="popT">
-					<tr><th class="th">제목</th><td class="td"><input type="text" v-model="props.data.tit" maxlength="200" /></td></tr>
+					<tr><th class="th required">제목</th><td class="td"><input type="text" v-model="props.data.tit" maxlength="200" required /></td></tr>
 					<tr><th class="th">파일번호</th><td class="td">
 						<FileListUploader
 							:name="'Event'"
@@ -20,10 +20,9 @@
 						/>
 					</td></tr>
 					<tr><td colspan="2" class="td">
-						<div id="EventEditor"></div>
+						<div id="eventEditor"></div>
 					</td></tr>
-					<tr><th class="th required">연동참조</th><td class="td"><input type="text" v-model="props.data.linkRef" maxlength="10" required /></td></tr>
-					<tr><th class="th">시작/종료일</th><td class="td">
+					<tr><th class="th required">시작/종료일</th><td class="td">
 						<SelectDate 
 							:name="['strtDt']"
 							:format="dateUtil.DATE_FORMAT"
@@ -65,6 +64,10 @@ import FileListUploader from '../../components/FileListUploader.vue';
 import dateUtil from '../../utils/util.date';
 import gridUtil from '../../utils/util.grid';
 import Editor from '@toast-ui/editor';
+import SelectCompany from '../../components/SelectCompany.vue';
+
+import { useAuthStore } from '../../store/store.auth';
+const auth = useAuthStore();
 const emit = defineEmits(['set-close']);
 const props = defineProps({ // data: { type: Object as PropType<EventDetail>, required: true },
 	data: { type: Object as any, required: true },
@@ -103,10 +106,10 @@ const getDetail = () => {
 	}
 }
 const drawDetail = () => {
-	edit.editor = gridUtil.createEditor({name: '#EventEditor', cnts: props.data.cnts});
+	edit.editor = gridUtil.createEditor({name: '#eventEditor', cnts: props.data.cnts});
 }
 const save = () => { // 파일업로드 후 정보저장
-	let fileData = gridUtil.makeFileData({name:'Event', props: props, data: data});
+	let fileData = gridUtil.makeFileData({name:'event', props: props, data: data});
 	if (fileData.addCount > 0 || fileData.delCount > 0) {
 		FtpService.uploadList(fileData.form).then(
 			(res) => {

@@ -155,7 +155,6 @@ onMounted(() => {
 		columns: [
 			{header: '이벤트번호', name: 'evtNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 이벤트번호
 			{header: '제목', name: 'tit', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 제목
-			{header: '내용', name: 'cnts', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, editor: 'text'}, // 내용
 			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호
 			{header: '시작일시', name: 'strtDt', sortable: true, width: 120, align: 'left', disabled: false, validation: { dataType: 'string' , required: false }, // 시작일시
 				editor: {
@@ -193,7 +192,7 @@ onMounted(() => {
 		},
 	});
 	data.eventGrid.on('dblclick', (e:any) => {
-		if( e.columnName === 'tit' && data.list[e.rowKey]) {
+		if( e.columnName && data.list[e.rowKey]) {
 			data.detail = data.list[e.rowKey];
 			data.detailShow = true;
 		}

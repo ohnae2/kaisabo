@@ -160,9 +160,8 @@ onMounted(() => {
 		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '팝업번호', name: 'popNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 팝업번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', hidden: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
 			{header: '제목', name: 'tit', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 제목
-			{header: '내용', name: 'cnts', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 내용
 			{header: '파일번호', name: 'fileNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 파일번호
 			{header: '우선순위', name: 'prir', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: true }, editor: 'text'}, // 우선순위
 			{header: '사용 여부', name: 'useYn', width: 120, align: 'left', sortable: true, defaultValue: 'Y', disabled: false, validation: { dataType: 'string' , required: true }, 
@@ -210,7 +209,7 @@ onMounted(() => {
 		},
 	});
 	data.popupGrid.on('dblclick', (e:any) => {
-		if( e.columnName === 'tit' && data.list[e.rowKey]) {
+		if( e.columnName && data.list[e.rowKey]) {
 			data.detail = data.list[e.rowKey];
 			data.detailShow = true;
 		}

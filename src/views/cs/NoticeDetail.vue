@@ -5,7 +5,12 @@
 			<div class="close" @click="emit('set-close')"><span class="icon">&#xe097;</span></div>
 			<form @submit.prevent="save">
 				<table class="popT">
-					<tr><th class="th">업체ID</th><td class="td"><input type="text" v-model="props.data.cmpId" minlength="5" maxlength="50" /></td></tr>
+					<tr v-if="auth.userInfo.cmpId == 'kaisa'">
+						<th class="th">업체ID</th>
+						<td class="td">
+							<SelectCompany :cmpId="props.data.cmpId" @set-company="(o: any) => { props.data.cmpId = o.cmpId; }" />
+						</td>
+					</tr>
 					<tr><th class="th required">제목</th><td class="td"><input type="text" v-model="props.data.tit" minlength="5" maxlength="100" /></td></tr>
 					<tr><th class="th">사용여부</th><td class="td">
 						<CommonCode :cd="'YN_CD'" :model="props.data.useYn" @set-data="(val) => { props.data.useYn = val; }" />
@@ -69,6 +74,11 @@ import FileListUploader from '../../components/FileListUploader.vue';
 import dateUtil from '../../utils/util.date';
 import gridUtil from '../../utils/util.grid';
 import Editor from '@toast-ui/editor';
+import { useAuthStore } from '../../store/store.auth';
+import SelectCompany from '../../components/SelectCompany.vue';
+
+const auth = useAuthStore();
+
 const emit = defineEmits(['set-close']);
 const props = defineProps({ // data: { type: Object as PropType<NoticeDetail>, required: true },
 	data: { type: Object as any, required: true },

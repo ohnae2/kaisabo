@@ -14,7 +14,6 @@
 <script setup lang="ts">
 import { onMounted, ref, reactive, popScopeId } from 'vue';
 import { useAuthStore } from '../store/store.auth';
-import PopupService from '@src/service/cs/PopupService';
 
 const auth = useAuthStore();
 const emit = defineEmits(['set-company']);
@@ -58,7 +57,7 @@ const focusOut = () => {
   emit('set-company', data.cmpId);
   setTimeout(()=>{
     data.active = false; // 바로 감추면 클릭이 안됨 
-  },300);
+  },100);
 }
 const clickCompany = (o: any) => {
   let isSelected = false;
@@ -89,7 +88,7 @@ const clickCompany = (o: any) => {
   data.cmpId = o.cmpId;
   data.cmpNm = o.cmpNm;
   data.active = false;
-  emit('set-company', data.cmpId);
+  emit('set-company', {cmpId: data.cmpId});
 }
 onMounted(() => {
 });

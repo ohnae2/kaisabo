@@ -5,15 +5,15 @@
 			<div class="close" @click="emit('set-close')"><span class="icon">&#xe097;</span></div>
 			<form @submit.prevent="save">
 				<table class="popT">
-					<tr><th class="th">업체</th><td class="td"><input type="text" v-model="props.data.cmpId" minlength="5" maxlength="50" /></td></tr>
-					<tr><th class="th">상품명</th><td class="td"><input type="text" v-model="props.data.prodNm" maxlength="100" /></td></tr>
-					<tr><th class="th required">인원수</th><td class="td"><input type="number" v-model="props.data.psnelCnt" required /></td></tr>
-					<tr><th class="th required">최대인원수</th><td class="td"><input type="number" v-model="props.data.maxPsnelCnt" required /></td></tr>
-					<tr><th class="th required">평수</th><td class="td"><input type="number" v-model="props.data.m2" required /></td></tr>
-					<tr><th class="th">애완동물가능여부</th><td class="td">
+					<tr v-if="auth.userInfo.cmpId == 'kaisa'"><th class="th required">업체</th><td class="td"><SelectCompany :cmpId="props.data.cmpId" @set-company="(o: any) => { props.data.cmpId = o.cmpId; }" /></td></tr>
+					<tr><th class="th required">상품명</th><td class="td"><input type="text" v-model="props.data.prodNm" maxlength="100" required /></td></tr>
+					<tr><th class="th">인원수</th><td class="td"><input type="number" v-model="props.data.psnelCnt" /></td></tr>
+					<tr><th class="th">최대인원수</th><td class="td"><input type="number" v-model="props.data.maxPsnelCnt" /></td></tr>
+					<tr><th class="th">평수</th><td class="td"><input type="number" v-model="props.data.m2" /></td></tr>
+					<tr><th class="th  required">애완동물가능여부</th><td class="td">
 						<CommonCode :cd="'YN_CD'" :model="props.data.petPsbYn" @set-data="(val) => { props.data.petPsbYn = val; }" />
 					</td></tr>
-					<tr><th class="th">우선순위</th><td class="td"><input type="number" v-model="props.data.prir" /></td></tr>
+					<tr><th class="th required">우선순위</th><td class="td"><input type="number" v-model="props.data.prir" required /></td></tr>
 					<tr><th class="th">파일번호</th><td class="td">
 						<FileListUploader
 							:name="'Product'"
@@ -28,17 +28,16 @@
 						/>
 					</td></tr>
 					<tr><td colspan="2" class="td">
-						<div id="ProductEditor"></div>
+						<div id="productEditor"></div>
 					</td></tr>
-					<tr><th class="th">사용여부</th><td class="td">
+					<tr><th class="th ">사용여부</th><td class="td">
 						<CommonCode :cd="'YN_CD'" :model="props.data.useYn" @set-data="(val) => { props.data.useYn = val; }" />
 					</td></tr>
-					<tr><th class="th">전시여부</th><td class="td">
+					<tr><th class="th ">전시여부</th><td class="td">
 						<CommonCode :cd="'YN_CD'" :model="props.data.dispYn" @set-data="(val) => { props.data.dispYn = val; }" />
 					</td></tr>
-					<tr><th class="th required">비고</th><td class="td"><input type="text" v-model="props.data.note" maxlength="200" required /></td></tr>
-					<tr><th class="th required">연동참조2</th><td class="td"><input type="text" v-model="props.data.linkRef2" maxlength="10" required /></td></tr>
-					<tr><th class="th required">연동참조</th><td class="td"><input type="text" v-model="props.data.linkRef" maxlength="10" required /></td></tr>
+					<tr><th class="th">비고</th><td class="td"><input type="text" v-model="props.data.note" maxlength="200" /></td></tr>
+					<tr><th class="th">연동참조2</th><td class="td"><input type="text" v-model="props.data.linkRef2" maxlength="10" /></td></tr>
 				</table>
 				<div class="btnWrap">
 					<button type="submit">저장</button>
@@ -58,6 +57,10 @@ import FileListUploader from '../../components/FileListUploader.vue';
 import dateUtil from '../../utils/util.date';
 import gridUtil from '../../utils/util.grid';
 import Editor from '@toast-ui/editor';
+import SelectCompany from '../../components/SelectCompany.vue';
+
+import { useAuthStore } from '../../store/store.auth';
+const auth = useAuthStore();
 const emit = defineEmits(['set-close']);
 const props = defineProps({ // data: { type: Object as PropType<ProductDetail>, required: true },
 	data: { type: Object as any, required: true },
@@ -96,10 +99,10 @@ const getDetail = () => {
 	}
 }
 const drawDetail = () => {
-	edit.editor = gridUtil.createEditor({name: '#ProductEditor', cnts: props.data.cnts});
+	edit.editor = gridUtil.createEditor({name: '#productEditor', cnts: props.data.cnts});
 }
 const save = () => { // 파일업로드 후 정보저장
-	let fileData = gridUtil.makeFileData({name:'Product', props: props, data: data});
+	let fileData = gridUtil.makeFileData({name:'product', props: props, data: data});
 	if (fileData.addCount > 0 || fileData.delCount > 0) {
 		FtpService.uploadList(fileData.form).then(
 			(res) => {
