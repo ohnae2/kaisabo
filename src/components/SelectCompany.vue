@@ -98,12 +98,12 @@ onMounted(() => {
 <style scoped>
 .selectCompanyWrap {line-height:40px;}
 input.cmpId {width:85px; margin-bottom:0;}
-input.cmpId {width:206px; background-color:#ffefe2; margin-bottom:0;}
+input.cmpId {width:206px; background-color:#ffeded; margin-bottom:0;}
 select.csList, 
 select.chgrList {margin-bottom:0;} 
 div.layerCompany {white-space:nowrap; display:inline-block; position:relative; z-index:100;}
 div.layerCompany ul {min-width:206px; position:absolute; left:-209px; top:10px; overflow:auto; background:#fff; border:0.5px solid #000; box-shadow:3px 3px 3px rgba(0,0,0,0.1);}
 div.layerCompany ul li {display:block; cursor: pointer; height:35px; padding:0 10px; line-height:35px; border-bottom:0.5px solid #ddd;}
-div.layerCompany ul li.on {background:#000; color:#daff83;}
+div.layerCompany ul li.on {background:#000; color:#83cdff;}
 div.layerCompany ul li:hover {background:#666; color:#fff;}
 </style>
