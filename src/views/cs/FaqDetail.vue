@@ -5,7 +5,7 @@
 			<div class="close" @click="emit('set-close')"><span class="icon">&#xe097;</span></div>
 			<form @submit.prevent="save">
 				<table class="popT">
-					<tr v-if="auth.userInfo.cmpId == 'kaisa'"><th class="th required">업체</th><td class="td"><SelectCompany :cmpId="props.data.cmpId" @set-company="(o: any) => { props.data.cmpId = o.cmpId; }" /></td></tr>
+					<tr v-if="auth.userInfo.cmpId == 'kaisa'"><th class="th required">업체</th><td class="td"><SelectCompany :cmpId="props.data.cmpId" :required="true" @set-company="(o: any) => { props.data.cmpId = o.cmpId; }" /></td></tr>
 					<tr><th class="th">제목</th><td class="td"><input type="text" v-model="props.data.tit" maxlength="200" /></td></tr>
 					<tr><th class="th">파일번호</th><td class="td">
 						<FileListUploader

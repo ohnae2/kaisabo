@@ -1,7 +1,7 @@
 <template>
   <span class="selectCompanyWrap">
     <!-- 사업자 자동완성 : @input 은 v-model 을 사용할경우 한글은 한템포가 느리기때문에 e.target.value 를 사용 -->
-    <input type="text" class="cmpId" placeholder="업체ID를 입력하세요" v-model="data.cmpId" @input="inputCompany" @focusout="focusOut" @keydown="clickCompany($event)" />
+    <input type="text" class="cmpId" placeholder="업체ID를 입력하세요" v-bind:required="required" v-model="data.cmpId" @input="inputCompany" @focusout="focusOut" @keydown="clickCompany($event)" />
     <div class="layerCompany" v-show="data.active && data.companyList.length > 0">
       <ul>
         <li v-for="(o, idx) in data.searchList" :key="idx" v-bind:class="[data.idx == idx ? 'on' : '']" @click="clickCompany(o)">
@@ -20,6 +20,7 @@ const emit = defineEmits(['set-company']);
 
 const props = defineProps({
   cmpId: { type: String, required: false },
+  required: { type: Boolean, required: false },
 });
 
 // reactive 는 수정가능한...ref 는 수정불가한... 

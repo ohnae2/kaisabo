@@ -5,7 +5,7 @@
 			<div class="close" @click="emit('set-close')"><span class="icon">&#xe097;</span></div>
 			<form @submit.prevent="save">
 				<table class="popT">
-					<tr v-if="auth.userInfo.cmpId == 'kaisa'"><th class="th required">업체</th><td class="td"><SelectCompany :cmpId="props.data.cmpId" @set-company="(o: any) => { props.data.cmpId = o.cmpId; }" /></td></tr>
+					<tr v-if="auth.userInfo.cmpId == 'kaisa'"><th class="th required">업체</th><td class="td"><SelectCompany :cmpId="props.data.cmpId" :required="true" @set-company="(o: any) => { props.data.cmpId = o.cmpId; }" /></td></tr>
 					<tr><th class="th">회원ID</th><td class="td"><input type="text" v-model="props.data.mbrId" maxlength="100" /></td></tr>
 					<tr><th class="th">회원 명</th><td class="td"><input type="text" v-model="props.data.mbrNm" maxlength="100" /></td></tr>
 					<tr><th class="th">회원 전화번호</th><td class="td"><input type="text" v-model="props.data.mbrTelNo" maxlength="60" /></td></tr>
