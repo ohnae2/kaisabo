@@ -4,7 +4,7 @@
     <div class="btnMenu" @click="setting.toggleMenu()"><ul><li></li><li></li><li></li></ul></div>
     <ul class="userInfo">
       <li class="name">
-        <b><span class="icon user">&#xe809;</span> {{ auth.userInfo.nm }}</b>
+        <b><span class="icon user">&#xe809;</span> {{ auth.userInfo.id }} {{ auth.userInfo.nm }}님</b>
       </li>
       <li class="btn">
         <u v-on:click="auth.logout()" style="cursor:pointer;">로그아웃</u>
