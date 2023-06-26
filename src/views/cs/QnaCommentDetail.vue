@@ -118,7 +118,7 @@ const saveInfo = () => { // 정보저장
 	formData.append('modDt', props.data.modDt + '');
 	formData.append('regId', props.data.regId + '');
 	formData.append('regDt', props.data.regDt + '');
-	((!props.data.qnaCmmtNo) ? QnaCommentService.insertQnaComment : QnaCommentService.updateQnaComment)(formData).then(
+	((props.data.mode === 'insert') ? QnaCommentService.insertQnaComment : QnaCommentService.updateQnaComment)(formData).then(
 		(res) => {
 			if(res.success) {
 				location.reload();

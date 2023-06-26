@@ -149,7 +149,7 @@ const saveInfo = () => { // 정보저장
 	formData.append('modDt', props.data.modDt + '');
 	formData.append('regId', props.data.regId + '');
 	formData.append('regDt', props.data.regDt + '');
-	((!props.data.popNo && !props.data.cmpId) ? PopupService.insertPopup : PopupService.updatePopup)(formData).then(
+	((props.data.mode === 'insert') ? PopupService.insertPopup : PopupService.updatePopup)(formData).then(
 		(res) => {
 			if(res.success) {
 				location.reload();

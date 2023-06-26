@@ -113,6 +113,7 @@ const data = reactive({
 		useYn: '',
 		strtDt: '',
 		endDt: '',
+		mode: '',
 	},
 });
 const getList = () => {
@@ -136,6 +137,7 @@ const add = () => {
 		useYn: '',
 		strtDt: '',
 		endDt: '',
+		mode: 'insert',
 	}
 	data.detailShow = true;
 	// data.noticeGrid.appendRow({}, {at: 0});

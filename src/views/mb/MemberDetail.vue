@@ -186,7 +186,7 @@ const saveInfo = () => { // 정보저장
 	formData.append('modDt', props.data.modDt + '');
 	formData.append('regId', props.data.regId + '');
 	formData.append('regDt', props.data.regDt + '');
-	((!props.data.mbrId && !props.data.cmpId) ? MemberService.insertMember : MemberService.updateMember)(formData).then(
+	((props.data.mode === 'insert') ? MemberService.insertMember : MemberService.updateMember)(formData).then(
 		(res) => {
 			if(res.success) {
 				location.reload();

@@ -150,7 +150,7 @@ const saveInfo = () => { // 정보저장
 	formData.append('strtDt', props.data.strtDt);
 	formData.append('endDt', props.data.endDt);
 	formData.append('cnts', edit.editor.getMarkdown());
-	((!props.data.notiNo) ? NoticeService.insertNotice : NoticeService.updateNotice)(formData).then(
+	((props.data.mode === 'insert') ? NoticeService.insertNotice : NoticeService.updateNotice)(formData).then(
 		(res) => {
 			if(res.success) {
 				location.reload();

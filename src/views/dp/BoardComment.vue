@@ -116,6 +116,7 @@ const data = reactive({
 		modDt: '',
 		regId: '',
 		regDt: '',
+		mode: '',
 	},
 });
 const getList = () => {
@@ -141,6 +142,7 @@ const add = () => {
 		modDt: '',
 		regId: '',
 		regDt: '',
+		mode: 'insert',
 	}
 	data.detailShow = true;
 }
