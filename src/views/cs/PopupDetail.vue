@@ -21,9 +21,6 @@
 							}"
 						/>
 					</td></tr>
-					<tr><td colspan="2" class="td">
-						<div id="popupEditor"></div>
-					</td></tr>
 					<tr><th class="th">우선순위</th><td class="td"><input type="number" v-model="props.data.prir" /></td></tr>
 					<tr><th class="th ">사용 여부</th><td class="td">
 						<CommonCode :cd="'YN_CD'" :model="props.data.useYn" @set-data="(val) => { props.data.useYn = val; }" />

@@ -21,9 +21,6 @@
 							}"
 						/>
 					</td></tr>
-					<tr><td colspan="2" class="td">
-						<div id="boardEditor"></div>
-					</td></tr>
 				</table>
 				<div class="btnWrap">
 					<button type="submit">저장</button>

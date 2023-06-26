@@ -60,9 +60,9 @@
 		</fieldset>
 		<div class="btnWrap">
 			<span class="crud">
-				<button type="button" class="button add" @click="gridUtil.add(data.boardCommentGrid, 0)"><span class="icon">&#xe813;</span>추가</button>
-				<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
-				<button type="button" class="button del" @click="gridUtil.del(data.boardCommentGrid)"><span class="icon">&#xe815;</span>삭제</button>
+				<button type="button" class="button add" @click="add"><span class="icon">&#xe813;</span>등록</button>
+				<!--<button type="button" class="button save" @click="save"><span class="icon">&#xe814;</span>저장</button>
+				<button type="button" class="button del" @click="del"><span class="icon">&#xe815;</span>삭제</button>-->
 			</span>
 			<button type="button" class="audit" @click="data.audit = !data.audit">상세조회</button>
 			<button type="submit" class="button3"><span class="icon">&#xe096;</span></button>
@@ -71,6 +71,11 @@
 		</div>
 	</form>
 	<div id="boardCommentGrid"></div>
+	<BoardCommentDetail v-if="data.detailShow" :data="data.detail"
+		@set-close="(o) => {
+			data.detailShow = false;
+		}"
+	/>
 </template>
 <script setup lang="ts">
 import { onMounted, reactive } from 'vue';
@@ -81,6 +86,7 @@ import SelectCompany from '../../components/SelectCompany.vue';
 import SelectGroupDate from '../../components/SelectGroupDate.vue';
 import { useAuthStore } from '../../store/store.auth';
 import gridUtil from '../../utils/util.grid';
+import BoardCommentDetail from './BoardCommentDetail.vue';
 
 const auth = useAuthStore();
 const search = reactive({
@@ -99,6 +105,18 @@ const data = reactive({
 	totalCount: 0,
 	list: [],
 	audit: false,
+	detailShow: false,
+	detail: {
+		brdCmmtNo: 0,
+		brdNo: 0,
+		cmpId: '',
+		cnts: '',
+		linkRef: '',
+		modId: '',
+		modDt: '',
+		regId: '',
+		regDt: '',
+	},
 });
 const getList = () => {
 	BoardCommentService.getBoardCommentList(search).then(
@@ -112,18 +130,19 @@ const getList = () => {
 		},
 	);
 }
-const save = () => {
-	let saveList = gridUtil.save(data.boardCommentGrid, data.required);
-	if(saveList) {
-		BoardCommentService.setBoardCommentList(saveList).then(
-			(res) => {
-				location.reload();
-			},
-			(err) => {
-				console.log(err);
-			},
-		);
+const add = () => {
+	data.detail = {
+		brdCmmtNo: 0,
+		brdNo: 0,
+		cmpId: '',
+		cnts: '',
+		linkRef: '',
+		modId: '',
+		modDt: '',
+		regId: '',
+		regDt: '',
 	}
+	data.detailShow = true;
 }
 onMounted(() => {
 	data.boardCommentGrid = new Grid({
@@ -131,10 +150,9 @@ onMounted(() => {
 		// rowHeaders: ['checkbox'],
 		columns: [
 			{header: '게시판댓글번호', name: 'brdCmmtNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 게시판댓글번호
-			{header: '게시판번호', name: 'brdNo', sortable: true, width: 100, align: 'right', disabled: false, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 게시판번호
-			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
-			{header: '내용', name: 'cnts', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 내용
-			{header: '연동참조', name: 'linkRef', sortable: true, width: 100, align: 'left', disabled: false, validation: { dataType: 'string' , required: true }, editor: 'text'}, // 연동참조
+			{header: '게시판번호', name: 'brdNo', sortable: true, width: 100, align: 'right', disabled: true, validation: { dataType: 'number' , required: false }, editor: 'text'}, // 게시판번호
+			{header: '업체ID', name: 'cmpId', sortable: true, width: 100, align: 'left', disabled: true, hidden: (auth.userInfo.cmpId != 'kaisa'), editor: 'text'}, // 업체ID
+			{header: '연동참조', name: 'linkRef', align: 'left', sortable: true, width: 110, disabled: true, hidden: (auth.userInfo.cmpId != 'kaisa') }, // 연동참조
 			{header: '수정ID', name: 'modId', align: 'left', sortable: true, width: 110, disabled: true }, // 수정ID
 			{header: '수정일시', name: 'modDt', align: 'left', sortable: true, width: 120, disabled: true }, // 수정일시
 			{header: '등록ID', name: 'regId', align: 'left', sortable: true, width: 110, disabled: true }, // 등록ID
@@ -153,9 +171,10 @@ onMounted(() => {
 			height: 40,
 		},
 	});
-	data.boardCommentGrid.on('click', (e:any) => {
-		if( e.columnName === 'cd') {
-			console.log('click')
+	data.boardCommentGrid.on('dblclick', (e:any) => {
+		if( e.columnName && data.list[e.rowKey]) {
+			data.detail = data.list[e.rowKey];
+			data.detailShow = true;
 		}
 	});
 	getList();

@@ -19,9 +19,6 @@
 							}"
 						/>
 					</td></tr>
-					<tr><td colspan="2" class="td">
-						<div id="eventEditor"></div>
-					</td></tr>
 					<tr><th class="th required">시작/종료일</th><td class="td">
 						<SelectDate 
 							:name="['strtDt']"

@@ -27,9 +27,6 @@
 							}"
 						/>
 					</td></tr>
-					<tr><td colspan="2" class="td">
-						<div id="productEditor"></div>
-					</td></tr>
 					<tr><th class="th ">사용여부</th><td class="td">
 						<CommonCode :cd="'YN_CD'" :model="props.data.useYn" @set-data="(val) => { props.data.useYn = val; }" />
 					</td></tr>
