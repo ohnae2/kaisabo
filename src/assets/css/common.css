@@ -42,6 +42,8 @@ th.required:after {content:'*'; display:inline-block; font-size:12px; color:#ff0
 .popup table.popT th.th {width:100px; padding:5px 10px; border:1px solid rgba(0,0,0,0.2); color:#333; background:#f7f9fc;}
 .popup table.popT td.td {padding:5px; border:1px solid rgba(0,0,0,0.2);}
 
+#side ul li span.name u {color:#ff2600;} /* 뒤늦게 v-html 한곳은 style 안먹힐때가... */
+
 @media print {
 	html,
 	body {height:auto;}

@@ -2,20 +2,23 @@ import { defineStore } from 'pinia';
 import { useCookies } from "vue3-cookies";
 
 const { cookies } = useCookies();
-export const useSettingStore = defineStore("setting", {
-  state: () => ({
+
+const settings = cookies.get('settings');
+
+export const useSettingStore = defineStore('setting', {
+  state: () => (settings ? settings : {
     menu: {
       active: false,
     },
-    hash: location.hash.replace("#", ""),
+    hash: location.hash.replace("#", ''),
     tab: {
       idx: -1,
     },
-    favList: JSON.parse(cookies.get("favList") || "[]"),
-  }),
+    favList: [],
+  } as any),
   actions: {
-    toggleMenu() {
-      this.menu.active = !this.menu.active;
+    setState() {
+      cookies.set('settings', JSON.stringify(this) || '{}');
     },
   },
 });

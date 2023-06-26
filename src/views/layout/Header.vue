@@ -1,7 +1,7 @@
 
 <template>
   <div id="header" v-bind:class="{menuOn : setting.menu.active}">
-    <div class="btnMenu" @click="setting.toggleMenu()"><ul><li></li><li></li><li></li></ul></div>
+    <div class="btnMenu" @click="toggleMenu()"><ul><li></li><li></li><li></li></ul></div>
     <ul class="userInfo">
       <li class="name">
         <b><span class="icon user">&#xe809;</span> {{ auth.userInfo.id }} {{ auth.userInfo.nm }}님</b>
@@ -21,8 +21,21 @@
     </div>
   </div>
   <div id="side" v-bind:class="{menuOn : setting.menu.active}">
+    <h1><img :src="logoImgUrl" alt="" /></h1>
+    <div class="search">
+      <input v-model="data.menuSearch" @input="menuSearchInput" />
+    </div>
     <div class="wrap">
-      <div class="menu" v-for="(side, i) in sideMenu" :key="i" v-bind:class="{'on': side.active }" v-show="side.menu.length > 0">
+      <div class="searchList" v-show="data.searchList.length > 0">
+        <ul>
+          <li v-for="(menu, idx) in data.searchList" :key="idx" @click="clickMenu(menu)" v-bind:class="{ active: setting.hash == menu.url }">
+            <span class="icon pre" v-html="menu.iconCd"></span>
+            <span class="name" v-html="menu.menuHtml"></span>
+            <span class="icon fav" v-bind:class="{on : menu.fav}" @click="toggleFav(menu)">&#xe807;</span>
+          </li>
+        </ul>
+      </div>
+      <div class="menu" v-for="(side, i) in sideMenu" :key="i" v-bind:class="{'on': side.active }" v-show="side.menu.length > 0 && data.searchList.length == 0">
         <h2>{{ side.pathNm }}</h2>
         <ul>
           <li v-for="(menu, idx) in side.menu" :key="idx" @click="clickMenu(menu)" v-bind:class="{ active: setting.hash == menu.url }">
@@ -41,8 +54,8 @@ import { reactive, onUpdated } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '../../store/store.auth';
 import { useSettingStore } from '../../store/store.setting';
-
 import { useCookies } from "vue3-cookies";
+import logoImgUrl from '../../assets/img/common/kaisa.png';
 
 const { cookies } = useCookies();
 
@@ -75,11 +88,31 @@ for(let c of sideMenu) {
 }
 const data = reactive({
   path: '',
+  menuSearch: '',
+  searchList: [] as any,
 });
+
+const menuSearchInput  = (e: any) => {
+  let val = e?.target?.value;
+  data.searchList = [];
+  if(val) {
+    for(let c of sideMenu) {
+      for(let m of c.menu) {
+        if(m.menuNm.match(val)) {
+          let str = m.menuNm;
+          str = str.replaceAll(val, '<u>' + val + '</u>');
+          m.menuHtml = str;
+          data.searchList.push(m);
+        }
+      }
+    }
+  }
+}
 
 const toggleFav = (menu:any) => {
   let isExists = false;
   let idx = 0;
+  setting.favList = reactive(setting.favList);
   for(let o of setting.favList) {
     if(o.menuNo == menu.menuNo) {
       setting.favList.splice(idx, 1);
@@ -98,6 +131,10 @@ const toggleFav = (menu:any) => {
       }
     }
   } else {
+    if(setting.favList.length > 9) {
+      alert('10개이상 즐겨찾기 할 수 없습니다.');
+      return;
+    }
     for(let c of sideMenu) {
       for(let m of c.menu) {
         if(m.menuNo == menu.menuNo) {
@@ -113,29 +150,41 @@ const toggleFav = (menu:any) => {
     });
   }
   // 저장
-  cookies.set('favList', JSON.stringify(setting.favList) || '[]');
+  setting.setState();
 }
 
 const closeAll = (menu:any) => {
   if(confirm('즐겨찾기를 지우시겠습니까?')) {
-    cookies.set('favList', JSON.stringify([]) || '[]');
     setting.favList = [];
+    for(let c of sideMenu) {
+      for(let m of c.menu) {
+        m.fav = false;
+      }
+    }
+    setting.setState();
   }
 }
 // h2 @click="clickCategory(side)"
 const clickCategory = (side:any) => {
   side.active = !side.active;
 }
+const toggleMenu = () => {
+  setting.menu.active = !setting.menu.active;
+  setting.setState();
+}
 const clickMenu = (menu:any) => {
   setting.hash = menu.url;
+  setting.setState();
   router.push(menu.url);
 }
 const clickHome = () => {
   setting.hash = '/main';
+  setting.setState();
   router.push('/main');
 }
 const clickFav = (fav:any, idx:number) => {
   setting.hash = fav.url;
+  setting.setState();
   router.push(fav.url);
 }
 </script>
@@ -173,20 +222,21 @@ const clickFav = (fav:any, idx:number) => {
 #header.menuOn .btnMenu ul li:nth-child(3) {transform: rotate(45deg); width:20px; left:-4px; top:16px;}
 
 #side.menuOn {left:0;}
-
 #side {width:220px; box-shadow:0 0 3px 1px rgba(0,0,0,0.5); background:#333; border-right:1px solid #000; height:100%; position:fixed; left:-230px; top:0; z-index:200; white-space:nowrap;}
-#side .wrap {width:100%; padding-bottom:10px; height:100%; border-right:1px solid rgba(255,255,255,0.1); background:#444; overflow:auto;}
+#side h1 {width:100%; text-align:center; overflow:hidden;}
+#side h1 img {width:50%; margin:-10px 0 -20px 0;}
+#side .search {padding:10px;}
+#side .search input {width:100%; background:#999; border:0; color:#000;}
+#side .wrap {width:100%; padding-bottom:10px; height:calc(100% - 135px); border-right:1px solid rgba(255,255,255,0.1); overflow:auto;}
 #side .menu {width:220px; height:40px; overflow:hidden;}
 #side .menu.on {height:auto;}
 #side .menu h2 {padding:0 20px; background:#222; color:#555; height:40px; line-height:40px; }
-#side .menu ul {width:100%;}
-#side .menu ul li {padding:0; color:#bbb; cursor:pointer; height:34px; line-height:34px; position:relative; overflow:hidden; background:rgba(0,0,0,0.3);}
-#side .menu ul li span.pre {position:absolute; font-size:13px; opacity:0.5; left:10px; top:50%; margin-top:-12px;}
-#side .menu ul li span.name {display:block; padding:0 40px; border-bottom:1px solid rgba(255,255,255,0.1); height:33px; line-height:31px;}
-#side .menu ul li span.name:hover {color:#FF9933;}
-#side .menu ul li:last-child span.name {border:0;}
-#side .menu ul li span.fav {position:absolute; right:0; width:35px; top:50%; margin-top:-14px; opacity:0.5;}
-#side .menu ul li span.fav.on {opacity:1; color:rgb(229, 255, 0);}
-#side .menu ul li span.fav:hover {opacity:1; color:rgb(229, 255, 0); text-shadow:0 0 5px rgba(229, 255, 0, 0.8);}
-#side .menu ul li.active {color:#FF9933;}
+#side ul {width:100%;}
+#side ul li {padding:0; color:#bbb; cursor:pointer; height:34px; line-height:34px; position:relative; overflow:hidden; background:rgba(0,0,0,0.3);}
+#side ul li span.pre {position:absolute; font-size:13px; opacity:0.5; left:10px; top:50%; margin-top:-12px;}
+#side ul li span.name {display:block; padding:0 40px; border-bottom:1px solid rgba(255,255,255,0.1); height:33px; line-height:31px;}
+#side ul li:last-child span.name {border:0;}
+#side ul li span.fav {position:absolute; right:0; width:35px; top:50%; margin-top:-14px; opacity:0.5;}
+#side ul li span.fav.on {opacity:1; color:rgb(229, 255, 0);}
+#side ul li.active {color:#FF9933;}
 </style>
