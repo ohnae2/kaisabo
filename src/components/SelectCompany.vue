@@ -28,7 +28,7 @@ const data = reactive({
   active: false,
   idx: 0,
   cmpId: props.cmpId,
-  companyList: (auth.userInfo.cmpId === 'kaisa') ? JSON.parse(sessionStorage.getItem('companyList') || '[]') : [{ cmpId : auth.userInfo.cmpId, cmpNm : auth.userInfo.cmpNm }],
+  companyList: (auth.userInfo.cmpId === 'kaisa') ? JSON.parse(localStorage.getItem('companyList') || '[]') : [{ cmpId : auth.userInfo.cmpId, cmpNm : auth.userInfo.cmpNm }],
   searchList: [],
 }) as any;
 

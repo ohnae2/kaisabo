@@ -7,6 +7,9 @@
 				<table class="popT">
 					<tr><th class="th required">게시판번호</th><td class="td"><input type="number" v-model="props.data.brdNo" required /></td></tr>
 					<tr v-if="auth.userInfo.cmpId == 'kaisa'"><th class="th required">업체</th><td class="td"><SelectCompany :cmpId="props.data.cmpId" :required="true" @set-company="(o: any) => { props.data.cmpId = o.cmpId; }" /></td></tr>
+					<tr><td colspan="2" class="td">
+						<div id="boardCommentEditor"></div>
+					</td></tr>
 				</table>
 				<div class="btnWrap">
 					<button type="submit">저장</button>

@@ -12,6 +12,9 @@
 					<tr><th class="th">회원 이메일</th><td class="td"><input type="text" v-model="props.data.mbrEmail" maxlength="100" /></td></tr>
 					<tr><th class="th">비밀번호</th><td class="td"><input type="text" v-model="props.data.pwd" maxlength="200" /></td></tr>
 					<tr><th class="th">제목</th><td class="td"><input type="text" v-model="props.data.tit" maxlength="200" /></td></tr>
+					<tr><td colspan="2" class="td">
+						<div id="qnaEditor"></div>
+					</td></tr>
 					<tr><th class="th  required">문자여부</th><td class="td">
 						<CommonCode :cd="'YN_CD'" :model="props.data.chrYn" @set-data="(val) => { props.data.chrYn = val; }" />
 					</td></tr>

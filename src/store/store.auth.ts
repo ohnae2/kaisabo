@@ -3,10 +3,10 @@ import { defineStore } from 'pinia';
 export const useAuthStore = defineStore('auth', {
   state : () => ({ 
     active: false,
-    menuList: JSON.parse(sessionStorage.getItem('menuList') || '[]'),
-    companyList: JSON.parse(sessionStorage.getItem('companyList') || '[]'),
-    codeList: JSON.parse(sessionStorage.getItem('codeList') || '{}'),
-    userInfo: JSON.parse(sessionStorage.getItem('userInfo') || '{}'),
+    menuList: JSON.parse(localStorage.getItem('menuList') || '[]'),
+    companyList: JSON.parse(localStorage.getItem('companyList') || '[]'),
+    codeList: JSON.parse(localStorage.getItem('codeList') || '{}'),
+    userInfo: JSON.parse(localStorage.getItem('userInfo') || '{}'),
     count: 0,
   }),
 	actions: {
@@ -19,9 +19,9 @@ export const useAuthStore = defineStore('auth', {
           token: info.token,
           nm: info.nm,
         }
-        sessionStorage.setItem('menuList', JSON.stringify(info.menuList) || '[]');
-        sessionStorage.setItem('companyList', JSON.stringify(info.companyList) || '[]');
-        sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+        localStorage.setItem('menuList', JSON.stringify(info.menuList) || '[]');
+        localStorage.setItem('companyList', JSON.stringify(info.companyList) || '[]');
+        localStorage.setItem('userInfo', JSON.stringify(userInfo));
         this.userInfo = userInfo;
       }
       let groupCodeArr:any = {};
@@ -32,7 +32,7 @@ export const useAuthStore = defineStore('auth', {
         }
         groupCodeArr[o.grpCd] = codeArr;
       }
-      sessionStorage.setItem('codeList', JSON.stringify(groupCodeArr) || '{}');
+      localStorage.setItem('codeList', JSON.stringify(groupCodeArr) || '{}');
 
       this.count = 0;
       
@@ -48,10 +48,10 @@ export const useAuthStore = defineStore('auth', {
       this.count++;
     },
     removeSession() {
-      sessionStorage.removeItem('menuList');
-      sessionStorage.removeItem('companyList');
-      sessionStorage.removeItem('codeList');
-      sessionStorage.removeItem('userInfo');
+      localStorage.removeItem('menuList');
+      localStorage.removeItem('companyList');
+      localStorage.removeItem('codeList');
+      localStorage.removeItem('userInfo');
 			this.active = false;
       this.userInfo = {};
     },

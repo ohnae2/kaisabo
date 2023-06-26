@@ -21,9 +21,9 @@
     </div>
   </div>
   <div id="side" v-bind:class="{menuOn : setting.menu.active}">
-    <h1><img :src="logoImgUrl" alt="" /></h1>
+    <h1 @click="clickHome()"><img :src="logoImgUrl" alt="" /></h1>
     <div class="search">
-      <input v-model="data.menuSearch" @input="menuSearchInput" />
+      <input v-model="data.menuSearch" @input="menuSearchInput" placeholder="메뉴 검색" />
     </div>
     <div class="wrap">
       <div class="searchList" v-show="data.searchList.length > 0">
@@ -70,7 +70,7 @@ let sideMenu = reactive<any[]>([
   {path: 'mb', active: true, pathNm: '회원관리', menu: []},
   {path: 'dp', active: true, pathNm: '전시관리', menu: []},
 ]);
-const sessionMenu = <any[]>(JSON.parse(sessionStorage.getItem('menuList') || '[]'));
+const sessionMenu = <any[]>(JSON.parse(localStorage.getItem('menuList') || '[]'));
 
 for(let c of sideMenu) {
   for(let s of sessionMenu) {
@@ -223,19 +223,18 @@ const clickFav = (fav:any, idx:number) => {
 
 #side.menuOn {left:0;}
 #side {width:220px; box-shadow:0 0 3px 1px rgba(0,0,0,0.5); background:#333; border-right:1px solid #000; height:100%; position:fixed; left:-230px; top:0; z-index:200; white-space:nowrap;}
-#side h1 {width:100%; text-align:center; overflow:hidden;}
+#side h1 {width:100%; text-align:center; overflow:hidden; cursor:pointer;}
 #side h1 img {width:50%; margin:-10px 0 -20px 0;}
 #side .search {padding:10px;}
 #side .search input {width:100%; background:#999; border:0; color:#000;}
 #side .wrap {width:100%; padding-bottom:10px; height:calc(100% - 135px); border-right:1px solid rgba(255,255,255,0.1); overflow:auto;}
 #side .menu {width:220px; height:40px; overflow:hidden;}
 #side .menu.on {height:auto;}
-#side .menu h2 {padding:0 20px; background:#222; color:#555; height:40px; line-height:40px; }
+#side .menu h2 {padding:0 20px; background:#222; color:#555; height:40px; line-height:40px; display:none;}
 #side ul {width:100%;}
 #side ul li {padding:0; color:#bbb; cursor:pointer; height:34px; line-height:34px; position:relative; overflow:hidden; background:rgba(0,0,0,0.3);}
 #side ul li span.pre {position:absolute; font-size:13px; opacity:0.5; left:10px; top:50%; margin-top:-12px;}
 #side ul li span.name {display:block; padding:0 40px; border-bottom:1px solid rgba(255,255,255,0.1); height:33px; line-height:31px;}
-#side ul li:last-child span.name {border:0;}
 #side ul li span.fav {position:absolute; right:0; width:35px; top:50%; margin-top:-14px; opacity:0.5;}
 #side ul li span.fav.on {opacity:1; color:rgb(229, 255, 0);}
 #side ul li.active {color:#FF9933;}

@@ -1,6 +1,6 @@
 import interceptor from './jsonInterceptor';
 
-const userInfo = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
+const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
 
 const jsonHeaders = {
     method: 'post',

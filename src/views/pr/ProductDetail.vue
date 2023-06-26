@@ -13,6 +13,9 @@
 					<tr><th class="th  required">애완동물가능여부</th><td class="td">
 						<CommonCode :cd="'YN_CD'" :model="props.data.petPsbYn" @set-data="(val) => { props.data.petPsbYn = val; }" />
 					</td></tr>
+					<tr><td colspan="2" class="td">
+						<div id="productEditor"></div>
+					</td></tr>
 					<tr><th class="th required">우선순위</th><td class="td"><input type="number" v-model="props.data.prir" required /></td></tr>
 					<tr><th class="th">파일번호</th><td class="td">
 						<FileListUploader

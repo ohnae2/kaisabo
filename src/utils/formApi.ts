@@ -1,6 +1,6 @@
 import interceptor from './formInterceptor';
 
-const userInfo = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
+const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
 
 const formHeaders = {
     method: 'post',

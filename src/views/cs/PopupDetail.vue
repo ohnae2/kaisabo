@@ -8,6 +8,9 @@
 					<tr><th class="th required">팝업번호</th><td class="td"><input type="number" v-model="props.data.popNo" required /></td></tr>
 					<tr v-if="auth.userInfo.cmpId == 'kaisa'"><th class="th required">업체</th><td class="td"><SelectCompany :cmpId="props.data.cmpId" :required="true" @set-company="(o: any) => { props.data.cmpId = o.cmpId; }" /></td></tr>
 					<tr><th class="th">제목</th><td class="td"><input type="text" v-model="props.data.tit" maxlength="200" /></td></tr>
+					<tr><td colspan="2" class="td">
+						<div id="popupEditor"></div>
+					</td></tr>
 					<tr><th class="th">파일번호</th><td class="td">
 						<FileListUploader
 							:name="'Popup'"

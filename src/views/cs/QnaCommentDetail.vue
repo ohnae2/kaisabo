@@ -21,6 +21,9 @@
 						/>
 					</td></tr>
 					<tr><th class="th">회원 명</th><td class="td"><input type="text" v-model="props.data.mbrNm" maxlength="100" /></td></tr>
+					<tr><td colspan="2" class="td">
+						<div id="qnaCommentEditor"></div>
+					</td></tr>
 				</table>
 				<div class="btnWrap">
 					<button type="submit">저장</button>

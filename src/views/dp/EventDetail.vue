@@ -6,6 +6,9 @@
 			<form @submit.prevent="save">
 				<table class="popT">
 					<tr><th class="th required">제목</th><td class="td"><input type="text" v-model="props.data.tit" maxlength="200" required /></td></tr>
+					<tr><td colspan="2" class="td">
+						<div id="eventEditor"></div>
+					</td></tr>
 					<tr><th class="th">파일번호</th><td class="td">
 						<FileListUploader
 							:name="'Event'"

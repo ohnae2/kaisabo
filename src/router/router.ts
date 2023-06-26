@@ -80,9 +80,9 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
     document.title = `kaisa ${to.meta.title}`;
 
-    const userInfo = JSON.parse(sessionStorage.getItem('userInfo') || '{}');
-    const codeList = JSON.parse(sessionStorage.getItem('codeList') || '{}');
-    const menuList = JSON.parse(sessionStorage.getItem('menuList') || '[]');
+    const userInfo = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    const codeList = JSON.parse(localStorage.getItem('codeList') || '{}');
+    const menuList = JSON.parse(localStorage.getItem('menuList') || '[]');
 
     const isUser = (
            userInfo.cmpId
